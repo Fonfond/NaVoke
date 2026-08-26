@@ -183,3 +183,17 @@ SITE_URL = os.getenv('SITE_URL', 'http://127.0.0.1:8000')
 YOOKASSA_SHOP_ID = os.getenv('YOOKASSA_SHOP_ID', '')
 YOOKASSA_SECRET_KEY = os.getenv('YOOKASSA_SECRET_KEY', '')
 YOOKASSA_RETURN_URL = os.getenv('YOOKASSA_RETURN_URL', 'http://127.0.0.1:8000/order-success/')
+
+# Добавьте в конец settings.py:
+
+# CSRF настройки
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-b0761.up.railway.app',
+    'https://*.railway.app',
+]
+
+# CORS настройки
+CORS_ALLOWED_ORIGINS = [
+    'https://web-production-b0761.up.railway.app',
+    'https://*.railway.app',
+]
