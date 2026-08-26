@@ -1,5 +1,5 @@
 # Используем официальный легкий образ Python [citation:4][citation:9]
-FROM python:3.11-slim
+FROM python:3.12-slim-bookworm
 
 # Отключаем запись .pyc файлов и буферизацию вывода (для логов) [citation:2][citation:4]
 ENV PYTHONDONTWRITEBYTECODE=1
