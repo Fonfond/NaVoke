@@ -15,6 +15,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Копируем весь остальной код проекта в контейнер [citation:8]
 COPY . /app/
 
+# ✅ Добавляем права на выполнение для start.sh
+RUN chmod +x /app/start.sh
+
 # Создаем пользователя без прав root для безопасности [citation:2][citation:5]
 RUN adduser --disabled-password --no-create-home appuser
 USER appuser
