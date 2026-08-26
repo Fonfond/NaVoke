@@ -163,7 +163,7 @@
       "is_new": false,
       "created_at": "2026-08-18T11:33:01.914122+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -181,7 +181,7 @@
       "is_new": false,
       "created_at": "2026-08-18T11:31:40.338256+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -199,7 +199,7 @@
       "is_new": false,
       "created_at": "2026-08-18T11:30:19.323337+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -217,7 +217,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:36:05.401362+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -235,7 +235,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:34:58.037898+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -253,7 +253,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:33:36.155115+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -271,7 +271,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:32:13.923459+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -289,7 +289,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:31:08.710563+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -307,7 +307,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:29:41.244014+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -325,7 +325,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:28:33.857219+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -343,7 +343,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:27:05.403548+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -361,7 +361,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:25:32.510280+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -379,7 +379,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:23:57.222149+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -397,7 +397,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:18:06.761634+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -415,7 +415,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:16:44.487896+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -433,7 +433,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:15:05.845222+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -451,7 +451,7 @@
       "is_new": false,
       "created_at": "2026-08-18T08:13:50.372129+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -667,7 +667,7 @@
       "is_new": false,
       "created_at": "2026-08-18T02:43:50.931357+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -685,7 +685,7 @@
       "is_new": false,
       "created_at": "2026-08-18T02:42:31.258924+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -703,7 +703,7 @@
       "is_new": false,
       "created_at": "2026-08-18T02:41:15.779860+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -721,7 +721,7 @@
       "is_new": false,
       "created_at": "2026-08-18T02:39:36.412137+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -811,7 +811,7 @@
       "is_new": false,
       "created_at": "2026-08-17T05:58:20.819293+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -829,7 +829,7 @@
       "is_new": false,
       "created_at": "2026-08-17T05:57:41.204361+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -847,7 +847,7 @@
       "is_new": false,
       "created_at": "2026-08-17T05:56:56.712460+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -865,7 +865,7 @@
       "is_new": false,
       "created_at": "2026-08-17T05:56:08.565482+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -883,7 +883,7 @@
       "is_new": false,
       "created_at": "2026-08-17T05:55:22.600451+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -991,7 +991,7 @@
       "is_new": false,
       "created_at": "2026-08-17T05:50:32.386583+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -1477,7 +1477,7 @@
       "is_new": false,
       "created_at": "2026-08-17T05:01:08.306914+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -1783,7 +1783,7 @@
       "is_new": false,
       "created_at": "2026-08-17T04:33:12.335514+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -2053,7 +2053,7 @@
       "is_new": false,
       "created_at": "2026-08-17T04:12:56.657675+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -2125,7 +2125,7 @@
       "is_new": false,
       "created_at": "2026-08-17T04:09:02.396565+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -2197,7 +2197,7 @@
       "is_new": false,
       "created_at": "2026-08-17T04:05:22.547781+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -2269,7 +2269,7 @@
       "is_new": false,
       "created_at": "2026-08-17T03:21:03.435926+00:00",
       "has_variants": false,
-      "price": "",
+      "price": "0",
       "weight": 0
     }
   },
@@ -3288,7 +3288,7 @@
       "product": 150,
       "name": "200 мл",
       "price": "120.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3300,7 +3300,7 @@
       "product": 152,
       "name": "200 мл",
       "price": "120.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3312,7 +3312,7 @@
       "product": 156,
       "name": "200 мл",
       "price": "120.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3324,7 +3324,7 @@
       "product": 158,
       "name": "200",
       "price": "120.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3336,7 +3336,7 @@
       "product": 154,
       "name": "200 мл",
       "price": "120.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3348,7 +3348,7 @@
       "product": 154,
       "name": "500",
       "price": "250.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3360,7 +3360,7 @@
       "product": 152,
       "name": "500 мл",
       "price": "250.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3372,7 +3372,7 @@
       "product": 150,
       "name": "500",
       "price": "250.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3384,7 +3384,7 @@
       "product": 156,
       "name": "500 мл",
       "price": "250.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3396,7 +3396,7 @@
       "product": 158,
       "name": "500 мл",
       "price": "250.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3408,7 +3408,7 @@
       "product": 142,
       "name": "Острые",
       "price": "350.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3420,7 +3420,7 @@
       "product": 142,
       "name": "Нежные",
       "price": "350.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3432,7 +3432,7 @@
       "product": 72,
       "name": "Сяки-маки с лососем",
       "price": "400.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3444,7 +3444,7 @@
       "product": 77,
       "name": "Мини-маки с лососем",
       "price": "410.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3456,7 +3456,7 @@
       "product": 67,
       "name": "Калифорния с крабом",
       "price": "410.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3468,7 +3468,7 @@
       "product": 94,
       "name": "Темпура с лососем",
       "price": "420.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3480,7 +3480,7 @@
       "product": 72,
       "name": "Сяки-маки с креветкой",
       "price": "420.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3492,7 +3492,7 @@
       "product": 113,
       "name": "Акира с лососем",
       "price": "420.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3504,7 +3504,7 @@
       "product": 77,
       "name": "Мини-маки с креветкой",
       "price": "430.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3516,7 +3516,7 @@
       "product": 94,
       "name": "Темпура с креветкой",
       "price": "440.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3528,7 +3528,7 @@
       "product": 67,
       "name": "Калифорния с креветкой",
       "price": "440.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3540,7 +3540,7 @@
       "product": 113,
       "name": "Акира с креветкой",
       "price": "450.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3552,7 +3552,7 @@
       "product": 94,
       "name": "Темпура с угрем",
       "price": "460.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3564,7 +3564,7 @@
       "product": 183,
       "name": "27 см",
       "price": "470.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3576,7 +3576,7 @@
       "product": 184,
       "name": "27 см",
       "price": "470.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3588,7 +3588,7 @@
       "product": 197,
       "name": "27 см",
       "price": "470.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3600,7 +3600,7 @@
       "product": 190,
       "name": "27 см",
       "price": "470.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3612,7 +3612,7 @@
       "product": 189,
       "name": "27 см",
       "price": "470.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3624,7 +3624,7 @@
       "product": 186,
       "name": "27 см",
       "price": "480.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3636,7 +3636,7 @@
       "product": 187,
       "name": "27 см",
       "price": "480.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3648,7 +3648,7 @@
       "product": 188,
       "name": "27 см",
       "price": "480.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3660,7 +3660,7 @@
       "product": 168,
       "name": "27 см",
       "price": "480.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3672,7 +3672,7 @@
       "product": 167,
       "name": "27 см",
       "price": "480.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3684,7 +3684,7 @@
       "product": 113,
       "name": "Акира с угрем",
       "price": "480.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3696,7 +3696,7 @@
       "product": 199,
       "name": "27 см",
       "price": "490.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3708,7 +3708,7 @@
       "product": 194,
       "name": "27 см",
       "price": "490.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3720,7 +3720,7 @@
       "product": 195,
       "name": "27",
       "price": "500.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3732,7 +3732,7 @@
       "product": 165,
       "name": "27 см",
       "price": "500.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3744,7 +3744,7 @@
       "product": 185,
       "name": "27 см",
       "price": "500.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3756,7 +3756,7 @@
       "product": 191,
       "name": "27 см",
       "price": "500.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3768,7 +3768,7 @@
       "product": 196,
       "name": "27",
       "price": "500.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3780,7 +3780,7 @@
       "product": 193,
       "name": "27 см",
       "price": "520.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3792,7 +3792,7 @@
       "product": 192,
       "name": "27 см",
       "price": "520.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3804,7 +3804,7 @@
       "product": 198,
       "name": "27 см",
       "price": "530.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3816,7 +3816,7 @@
       "product": 63,
       "name": "Цезарь с курицей",
       "price": "550.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 500,
       "is_available": true
     }
@@ -3828,7 +3828,7 @@
       "product": 166,
       "name": "27 см",
       "price": "550.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3840,7 +3840,7 @@
       "product": 197,
       "name": "33 см",
       "price": "640.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3852,7 +3852,7 @@
       "product": 199,
       "name": "33 см",
       "price": "660.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3864,7 +3864,7 @@
       "product": 194,
       "name": "33 см",
       "price": "660.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3876,7 +3876,7 @@
       "product": 184,
       "name": "33 см",
       "price": "660.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3888,7 +3888,7 @@
       "product": 189,
       "name": "33 см",
       "price": "660.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3900,7 +3900,7 @@
       "product": 190,
       "name": "33 см",
       "price": "660.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3912,7 +3912,7 @@
       "product": 183,
       "name": "33 см",
       "price": "660.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3924,7 +3924,7 @@
       "product": 186,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3936,7 +3936,7 @@
       "product": 187,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3948,7 +3948,7 @@
       "product": 188,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3960,7 +3960,7 @@
       "product": 168,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3972,7 +3972,7 @@
       "product": 191,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3984,7 +3984,7 @@
       "product": 167,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -3996,7 +3996,7 @@
       "product": 195,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -4008,7 +4008,7 @@
       "product": 196,
       "name": "33 см",
       "price": "670.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -4020,7 +4020,7 @@
       "product": 165,
       "name": "33 см",
       "price": "680.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -4032,7 +4032,7 @@
       "product": 185,
       "name": "33 см",
       "price": "680.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -4044,7 +4044,7 @@
       "product": 193,
       "name": "33 см",
       "price": "690.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -4056,7 +4056,7 @@
       "product": 63,
       "name": "Цезарь с креветками",
       "price": "700.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 400,
       "is_available": true
     }
@@ -4068,7 +4068,7 @@
       "product": 198,
       "name": "33 см",
       "price": "700.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -4080,7 +4080,7 @@
       "product": 192,
       "name": "33 см",
       "price": "700.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
@@ -4092,7 +4092,7 @@
       "product": 63,
       "name": "Цезарь с лососем",
       "price": "700.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 400,
       "is_available": true
     }
@@ -4104,7 +4104,7 @@
       "product": 166,
       "name": "33 см",
       "price": "720.00",
-      "old_price": "",
+      "old_price": "0",
       "weight": 0,
       "is_available": true
     }
