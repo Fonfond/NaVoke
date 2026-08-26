@@ -1,6 +1,8 @@
 # navoke_backend/settings.py
 import os
 from pathlib import Path
+import json
+import base64
 import firebase_admin
 from firebase_admin import credentials
 import dj_database_url
@@ -19,9 +21,18 @@ except:
     pass
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-# Указываем путь к файлу
-cred = credentials.Certificate(os.path.join(BASE_DIR, 'serviceAccountKey.json')) # Замени путь на реальный
+
+# ✅ ИСПРАВЛЕНО: Загрузка Firebase credentials из переменной окружения
+if os.environ.get('FIREBASE_CREDENTIALS'):
+    # Декодируем base64 строку в JSON
+    firebase_credentials_json = base64.b64decode(os.environ['FIREBASE_CREDENTIALS'])
+    cred = credentials.Certificate(json.loads(firebase_credentials_json))
+else:
+    # Если переменной нет — используем локальный файл
+    cred = credentials.Certificate(os.path.join(BASE_DIR, 'serviceAccountKey.json'))
+
 firebase_admin.initialize_app(cred)
+
 # Безопасность
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
