@@ -2,7 +2,7 @@
 venv/
 .venv/
 env/
-
+navoke_backend/
 # Кэш Python
 __pycache__/
 *.py[cod]

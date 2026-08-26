@@ -92,13 +92,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
 ]
 
-# ✅ ИСПРАВЛЕНО: База данных для Railway/Render
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'navoke_db',
+        'USER': 'postgres',
+        'PASSWORD': '492357816',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 # Redis для кэширования
