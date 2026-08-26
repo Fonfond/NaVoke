@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn navoke_backend.wsgi --log-file -
+web: bash start.sh
