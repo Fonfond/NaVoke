@@ -4110,68 +4110,14 @@
     }
   },
   {
-    "model": "users.user",
-    "pk": 4,
-    "fields": {
-      "username": "testuser",
-      "email": "test@mail.ru",
-      "phone": "+79991234567",
-      "full_name": "Тестовый Пользователь",
-      "role": "client",
-      "is_active": true,
-      "bonus_points": 0
-    }
-  },
-  {
-    "model": "users.user",
-    "pk": 5,
-    "fields": {
-      "username": "Nastya",
-      "email": "anastasia@mail.ru",
-      "phone": "8999636262",
-      "full_name": "Анастасия",
-      "role": "client",
-      "is_active": true,
-      "bonus_points": 0
-    }
-  },
-  {
-    "model": "users.user",
-    "pk": 3,
-    "fields": {
-      "username": "Sergey",
-      "email": "",
-      "phone": "89148303597",
-      "full_name": "Сергей",
-      "role": "client",
-      "is_active": true,
-      "bonus_points": 0
-    }
-  },
-  {
-    "model": "users.user",
-    "pk": 6,
-    "fields": {
-      "username": "Sasha",
-      "email": "sashaVas@mail.ru",
-      "phone": "+79998303597",
-      "full_name": "Саша Василье",
-      "role": "client",
-      "is_active": true,
-      "bonus_points": 0
-    }
-  },
-  {
-    "model": "users.user",
+    "model": "products.lunchmenu",
     "pk": 1,
     "fields": {
-      "username": "admin",
-      "email": "admin@mail.com",
-      "phone": "+7‒908‒599‒04‒01",
-      "full_name": "",
-      "role": "admin",
+      "date": "2026-08-25",
+      "title": "Бизнес-ланч",
+      "items": [],
       "is_active": true,
-      "bonus_points": 0
+      "created_at": "2026-08-25T03:21:28.627217+00:00"
     }
   }
 ]
