@@ -22,7 +22,7 @@ except:
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ✅ ИСПРАВЛЕНО: Загрузка Firebase credentials из переменной окружения
+# ✅ ИСПРАВЛЕНО: Загрузка Firebase credentials
 if os.environ.get('FIREBASE_CREDENTIALS'):
     # Декодируем base64 строку в JSON
     firebase_credentials_json = base64.b64decode(os.environ['FIREBASE_CREDENTIALS'])
