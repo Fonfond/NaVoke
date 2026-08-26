@@ -1,0 +1,4177 @@
+[
+  {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+      "name": "Суши холодные",
+      "slug": "cold_sushi",
+      "image_url": "https://www.shutterstock.com/image-vector/sushi-logo-template-icon-illustration-260nw-2271846933.jpg",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+      "name": "Запеченные суши",
+      "slug": "baked_sushi",
+      "image_url": "https://static.tildacdn.com/tild3637-6231-4332-b433-386538623064/48252036.jpg",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 7,
+    "fields": {
+      "name": "Суши темпурные",
+      "slug": "sushi-tempurnye",
+      "image_url": "https://держиролл.рф/wp-content/uploads/2026/02/Frame-54-460x460.jpg",
+      "sort_order": 3
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 8,
+    "fields": {
+      "name": "Сеты",
+      "slug": "sets",
+      "image_url": "https://thumbs.dreamstime.com/b/sushi-sashimi-set-shrimp-sushi-sushi-roll-caviar-japanese-asian-restaurant-food-cartoon-style-vector-illustration-white-72080976.jpg",
+      "sort_order": 4
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 9,
+    "fields": {
+      "name": "Пицца",
+      "slug": "pizza",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Deus_Pizza.png/1280px-Deus_Pizza.png",
+      "sort_order": 5
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 10,
+    "fields": {
+      "name": "Фастфуд",
+      "slug": "fastfud",
+      "image_url": "https://static.vecteezy.com/system/resources/previews/000/303/076/large_2x/meal-of-fast-food-vector.jpg",
+      "sort_order": 6
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 11,
+    "fields": {
+      "name": "Горячие блюда из курицы",
+      "slug": "goryachie-blyuda-iz-kuricy",
+      "image_url": "https://avatars.mds.yandex.net/i?id=a4402bf7aeb3a6e107694e287dea40f9001211e0-11912249-images-thumbs&n=13",
+      "sort_order": 7
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 12,
+    "fields": {
+      "name": "Горячие блюда из свинины",
+      "slug": "goryachie-blyuda-iz-svininy",
+      "image_url": "https://avatars.mds.yandex.net/i?id=01b6a30507588b8b995f6b5c63679e15_l-5244179-images-thumbs&n=13",
+      "sort_order": 8
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 13,
+    "fields": {
+      "name": "Горячие блюда из говядины",
+      "slug": "goryachie-blyuda-iz-govyadiny",
+      "image_url": "https://avatars.mds.yandex.net/i?id=93e1144c70de1f8d4523367fbe96ec779827296d-13013551-images-thumbs&n=13",
+      "sort_order": 9
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 14,
+    "fields": {
+      "name": "Горячие блюда вегетарианские",
+      "slug": "goryachie-blyuda-vegetarianskie",
+      "image_url": "https://avatars.mds.yandex.net/i?id=bced56afadf3f0583bda80db53d01a46_l-5288011-images-thumbs&n=13",
+      "sort_order": 10
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 15,
+    "fields": {
+      "name": "Гарнир",
+      "slug": "garnir",
+      "image_url": "https://avatars.mds.yandex.net/i?id=79abb49a5787a97df36afec2add3e901_l-3580534-images-thumbs&n=13",
+      "sort_order": 11
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 16,
+    "fields": {
+      "name": "Салаты",
+      "slug": "salaty",
+      "image_url": "https://avatars.mds.yandex.net/i?id=e812b420d8b9988140abfb02d302333c_l-5221954-images-thumbs&n=13",
+      "sort_order": 12
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 17,
+    "fields": {
+      "name": "Нарезки",
+      "slug": "narezki",
+      "image_url": "https://avatars.mds.yandex.net/i?id=8339d1da503cb3ff6096b45807fc4111_l-5243475-images-thumbs&n=13",
+      "sort_order": 13
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 18,
+    "fields": {
+      "name": "Соусы",
+      "slug": "sousy",
+      "image_url": "https://thumbs.dreamstime.com/b/bowl-ketchup-sauce-food-line-icon-vector-bowl-ketchup-sauce-food-sign-isolated-contour-symbol-black-illustration-bowl-ketchup-253860380.jpg",
+      "sort_order": 14
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 19,
+    "fields": {
+      "name": "Молочные коктели",
+      "slug": "molochnye-kokteli",
+      "image_url": "https://cdn-icons-png.flaticon.com/128/7441/7441481.png",
+      "sort_order": 15
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 199,
+    "fields": {
+      "name": "Гавайская",
+      "category": 9,
+      "description": "",
+      "ingredients": "Сливочный соус, моцарелла, куриное филе, ветчина, ананас.",
+      "image": "products/2026/08/18/гавайская.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T11:33:01.914122+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 198,
+    "fields": {
+      "name": "Чизбургер",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, фарш, бекон, маринованный огурец, помидор, моцарелла.",
+      "image": "products/2026/08/18/чизбургер.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T11:31:40.338256+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 197,
+    "fields": {
+      "name": "Пепперони",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, пепперони.",
+      "image": "products/2026/08/18/пепперони.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T11:30:19.323337+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 196,
+    "fields": {
+      "name": "Роял",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, шампиньоны, ветчина, бекон, помидор.",
+      "image": "products/2026/08/18/роял.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:36:05.401362+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 195,
+    "fields": {
+      "name": "Итальяно",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, пепперони, охотничьи колбаски, шампиньоны, маслины, моцарелла.",
+      "image": "products/2026/08/18/итальяно.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:34:58.037898+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 194,
+    "fields": {
+      "name": "Курица и грибы",
+      "category": 9,
+      "description": "",
+      "ingredients": "Сливочный соус, моцарелла, куриное филе, шампиньоны.",
+      "image": "products/2026/08/18/курица_и_грибы.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:33:36.155115+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 193,
+    "fields": {
+      "name": "Американо",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, бекон, пепперони, холопенью.",
+      "image": "products/2026/08/18/американо.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:32:13.923459+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 192,
+    "fields": {
+      "name": "Мясная",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, пепперони, бекон, ветчина, куриное филе, охотничьи колбаски, моцарелла.",
+      "image": "products/2026/08/18/мясная.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:31:08.710563+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 191,
+    "fields": {
+      "name": "Ветчина и грибы",
+      "category": 9,
+      "description": "",
+      "ingredients": "Сливочный соус, моцарелла, ветчина, шампиньоны.",
+      "image": "products/2026/08/18/ветчина_и_грибы.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:29:41.244014+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 190,
+    "fields": {
+      "name": "Цыпленок терияки",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, курица, болгарский перец, ветчина, ананас, соус терияки.",
+      "image": "products/2026/08/18/цыпленок_терияки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:28:33.857219+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 189,
+    "fields": {
+      "name": "Цыпленок барбекю",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, курица, болгарский перец, бекон, красный лук, соус барбекю.",
+      "image": "products/2026/08/18/цыпленок_барбекю.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:27:05.403548+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 188,
+    "fields": {
+      "name": "4 мяса",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, ветчина, пепперони, охотничьи колбаски, бекон.",
+      "image": "products/2026/08/18/4_мяса.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:25:32.510280+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 187,
+    "fields": {
+      "name": "Деревенская",
+      "category": 9,
+      "description": "",
+      "ingredients": "Фирменный соус, моцарелла, свинина, бекон, помидор, картошка фри, горчичный соус.",
+      "image": "products/2026/08/18/деревенская.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:23:57.222149+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 186,
+    "fields": {
+      "name": "Мясная барбекю",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, свинина, ветчина, курица, красный лук, соус барбекю.",
+      "image": "products/2026/08/18/мясная_барбекю.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:18:06.761634+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 185,
+    "fields": {
+      "name": "4 сезона",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатны соус, пепперони, курица, помидор, чесночный соус, сливочный соус, ветчина, грибы, бекон, грибной соус.",
+      "image": "products/2026/08/18/4_сезона.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:16:44.487896+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 184,
+    "fields": {
+      "name": "Жульен",
+      "category": 9,
+      "description": "",
+      "ingredients": "Фирменный соус, моцарелла, курица, шампиньоны.",
+      "image": "products/2026/08/18/жульен.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:15:05.845222+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 183,
+    "fields": {
+      "name": "Мексикано",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, курица, маслины, шампиньоны, халапенью, соус ширача.",
+      "image": "products/2026/08/18/мексикано.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:13:50.372129+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 182,
+    "fields": {
+      "name": "Терияки",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/терияки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:12:44.588515+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 181,
+    "fields": {
+      "name": "Спайси",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/спайси.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:12:22.502835+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 180,
+    "fields": {
+      "name": "Кисло-сладкий",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/кисло-сладкий.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:12:02.808230+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 179,
+    "fields": {
+      "name": "Грибной",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/грибной.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:11:38.645512+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 178,
+    "fields": {
+      "name": "Унаги",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/унаги.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:11:16.388340+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 177,
+    "fields": {
+      "name": "Чесночный",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/чесночный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:10:55.256129+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 176,
+    "fields": {
+      "name": "Сырный",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/сырный_соус.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:10:30.895406+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 175,
+    "fields": {
+      "name": "Кетчуп",
+      "category": 18,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/кетчуп.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:10:07.522222+00:00",
+      "has_variants": false,
+      "price": "50.00",
+      "weight": 50
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 174,
+    "fields": {
+      "name": "Клешни краба в панировке",
+      "category": 10,
+      "description": "",
+      "ingredients": "8 шт",
+      "image": "products/2026/08/18/клешни_краба_в_панировке.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T08:09:17.869802+00:00",
+      "has_variants": false,
+      "price": "390.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 173,
+    "fields": {
+      "name": "Тоторо",
+      "category": 2,
+      "description": "",
+      "ingredients": "Сыр, огурец, креветка, сырная шапочка, унаги, масага.",
+      "image": "products/2026/08/18/тоторо.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T06:06:00.492149+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 172,
+    "fields": {
+      "name": "Луковые кольца",
+      "category": 10,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/18/луковые_кольца_7j2hvdJ.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T04:20:11.566963+00:00",
+      "has_variants": false,
+      "price": "200.00",
+      "weight": 150
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 168,
+    "fields": {
+      "name": "Охотничья",
+      "category": 9,
+      "description": "",
+      "ingredients": "Томатный соус, моцарелла, охотничьи колбаски, шампиньоны, маринованные огурцы.",
+      "image": "products/2026/08/18/охотничья.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T02:43:50.931357+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 167,
+    "fields": {
+      "name": "Франческо",
+      "category": 9,
+      "description": "",
+      "ingredients": "Сливочный соус, моцарелла, бекон, шампиньоны.",
+      "image": "products/2026/08/18/франческо.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T02:42:31.258924+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 166,
+    "fields": {
+      "name": "Дуо ди маре",
+      "category": 9,
+      "description": "",
+      "ingredients": "Фирменный соус, моцарелла, краб, лосось, креветки, помидор.",
+      "image": "products/2026/08/18/дуо_ди_маре.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T02:41:15.779860+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 165,
+    "fields": {
+      "name": "Карбонара",
+      "category": 9,
+      "description": "",
+      "ingredients": "Фирменный соус, моцарелла, бекон, яйцо, лук криспи.",
+      "image": "products/2026/08/18/карбонара.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-18T02:39:36.412137+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 163,
+    "fields": {
+      "name": "Картофельные треугольники",
+      "category": 10,
+      "description": "",
+      "ingredients": "5 шт",
+      "image": "products/2026/08/17/картофельные_треугольники.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T06:01:00.097184+00:00",
+      "has_variants": false,
+      "price": "180.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 162,
+    "fields": {
+      "name": "Картофельные шарики",
+      "category": 10,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/17/картофельные_шарики.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T06:00:29.844143+00:00",
+      "has_variants": false,
+      "price": "190.00",
+      "weight": 150
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 161,
+    "fields": {
+      "name": "Картофельные улыбки",
+      "category": 10,
+      "description": "",
+      "ingredients": "10 шт",
+      "image": "products/2026/08/17/картофельные_улыбки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T06:00:02.662179+00:00",
+      "has_variants": false,
+      "price": "190.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 160,
+    "fields": {
+      "name": "Сырные шарики",
+      "category": 10,
+      "description": "",
+      "ingredients": "10 шт",
+      "image": "products/2026/08/17/сырные_шарики.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:59:31.127282+00:00",
+      "has_variants": false,
+      "price": "280.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 158,
+    "fields": {
+      "name": "Вишневый",
+      "category": 19,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/17/вишневый.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:58:20.819293+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 156,
+    "fields": {
+      "name": "Малиновый",
+      "category": 19,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/17/малиновый.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:57:41.204361+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 154,
+    "fields": {
+      "name": "Шоколадный",
+      "category": 19,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/17/шоколадный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:56:56.712460+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 152,
+    "fields": {
+      "name": "Клубничный",
+      "category": 19,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/17/клубничный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:56:08.565482+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 150,
+    "fields": {
+      "name": "Бананновый",
+      "category": 19,
+      "description": "",
+      "ingredients": "",
+      "image": "products/2026/08/17/банановый.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:55:22.600451+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 148,
+    "fields": {
+      "name": "Креветки темпура",
+      "category": 10,
+      "description": "",
+      "ingredients": "8 шт.",
+      "image": "products/2026/08/17/креветки_темпура.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:54:00.265784+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 147,
+    "fields": {
+      "name": "Стрипсы куриные",
+      "category": 10,
+      "description": "",
+      "ingredients": "6 шт",
+      "image": "products/2026/08/17/стрипсы_куриные.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:53:31.490979+00:00",
+      "has_variants": false,
+      "price": "250.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 146,
+    "fields": {
+      "name": "Сырные палочки",
+      "category": 10,
+      "description": "",
+      "ingredients": "10 шт",
+      "image": "products/2026/08/17/сырные_палочки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:53:03.572740+00:00",
+      "has_variants": false,
+      "price": "280.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 145,
+    "fields": {
+      "name": "Наггетсы куриные",
+      "category": 10,
+      "description": "",
+      "ingredients": "10 шт куриных наггетсов.",
+      "image": "products/2026/08/17/наггетсы_куриные.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:52:31.689385+00:00",
+      "has_variants": false,
+      "price": "260.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 144,
+    "fields": {
+      "name": "Картофельные крокеты",
+      "category": 10,
+      "description": "",
+      "ingredients": "картофель",
+      "image": "products/2026/08/17/картофельные_крокеты.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:51:49.883195+00:00",
+      "has_variants": false,
+      "price": "180.00",
+      "weight": 150
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 142,
+    "fields": {
+      "name": "Куриные крылышки",
+      "category": 10,
+      "description": "",
+      "ingredients": "6 штук куриных крылышек",
+      "image": "products/2026/08/17/куриные_крылышки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:50:32.386583+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 141,
+    "fields": {
+      "name": "Премиум",
+      "category": 8,
+      "description": "48 шт",
+      "ingredients": "Экибана, Фудзи, Такеши, Сальмон, Изуми, Сенсей.",
+      "image": "products/2026/08/17/сет_премиум.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:31:54.724202+00:00",
+      "has_variants": false,
+      "price": "2660.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 140,
+    "fields": {
+      "name": "Эксклюзив",
+      "category": 8,
+      "description": "32 шт",
+      "ingredients": "Кемури, Киото, Осака, Аризона, Агиро. 32 шт",
+      "image": "products/2026/08/17/сет_эксклюзив.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:30:57.640991+00:00",
+      "has_variants": false,
+      "price": "1980.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 139,
+    "fields": {
+      "name": "Трио",
+      "category": 8,
+      "description": "18 шт",
+      "ingredients": "Рио, Хокку, Якудза.",
+      "image": "products/2026/08/17/сет_трио.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:30:04.851115+00:00",
+      "has_variants": false,
+      "price": "1180.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 138,
+    "fields": {
+      "name": "На компанию",
+      "category": 8,
+      "description": "52 шт",
+      "ingredients": "Нагая, Касуми, Хотто, Нагима, Ойси, Ясай, Банзай. 52 шт",
+      "image": "products/2026/08/17/сет_на_компанию.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:29:17.016352+00:00",
+      "has_variants": false,
+      "price": "2380.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 137,
+    "fields": {
+      "name": "Биг-сет",
+      "category": 8,
+      "description": "72 шт",
+      "ingredients": "Шинсей, Тиаки, Кабуки, Флорида, Инури, Фудзико, Судзуки, Оригами, Мариоки.",
+      "image": "products/2026/08/17/сет_биг.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:27:50.349054+00:00",
+      "has_variants": false,
+      "price": "3950.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 136,
+    "fields": {
+      "name": "Горячий",
+      "category": 8,
+      "description": "24 шт",
+      "ingredients": "Эби катана, Аросо, Харуки.",
+      "image": "products/2026/08/17/сет_горячий.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:26:17.204717+00:00",
+      "has_variants": false,
+      "price": "1330.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 135,
+    "fields": {
+      "name": "Мини",
+      "category": 8,
+      "description": "16 шт",
+      "ingredients": "Острый бекон, Асимури.",
+      "image": "products/2026/08/17/сет_мини.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:25:40.726944+00:00",
+      "has_variants": false,
+      "price": "870.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 134,
+    "fields": {
+      "name": "На двоих",
+      "category": 8,
+      "description": "24 шт",
+      "ingredients": "Калифорния с лососем, Тай-тай, Данго.",
+      "image": "products/2026/08/17/сет_на_двоих.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:24:59.581454+00:00",
+      "has_variants": false,
+      "price": "1310.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 133,
+    "fields": {
+      "name": "Холодный",
+      "category": 8,
+      "description": "24 шт",
+      "ingredients": "Майами, Эби-маки, Сан-ремо.",
+      "image": "products/2026/08/17/сет_холодный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:24:11.178561+00:00",
+      "has_variants": false,
+      "price": "1350.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 132,
+    "fields": {
+      "name": "Супер микс",
+      "category": 8,
+      "description": "40 шт",
+      "ingredients": "Колорадо ( Креветка, сыр, томаго, огурец, сливочный замес), Мексика ( Темпурная креветка, курица, масага, сыр, спайси), Дары моря ( Лосось, креветка, краб, угорь, сыр, майонез, масага), Яки Калифорния ( Краб, томаго, сыр, соус яки), Кани темпура ( Краб, сыр).",
+      "image": "products/2026/08/17/сет_супер_микс.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:23:21.510795+00:00",
+      "has_variants": false,
+      "price": "2200.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 131,
+    "fields": {
+      "name": "Темпурный",
+      "category": 8,
+      "description": "24 шт",
+      "ingredients": "Нишики ( Лосось, огурец, спайси), Тори темпура ( Курица, сыр, спайси), Хосомаки ( Лосось, угорь, сыр, огурец, масага, майонез).",
+      "image": "products/2026/08/17/сет_темпурный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:20:32.004453+00:00",
+      "has_variants": false,
+      "price": "1460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 130,
+    "fields": {
+      "name": "Семейный",
+      "category": 8,
+      "description": "32 шт",
+      "ingredients": "Динамит ( Темпурная креветка, масага, сыр, спайси соус), Сакура ( Лосось, сыр, огурец, яки соус), Фила запеченная ( Сыр, лосось, огурец, майонез), Краш ( Креветка, сыр, масага, огурец, сливочный замес).",
+      "image": "products/2026/08/17/сет_семейный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:18:36.996330+00:00",
+      "has_variants": false,
+      "price": "1950.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 129,
+    "fields": {
+      "name": "Запеченный",
+      "category": 8,
+      "description": "24 шт",
+      "ingredients": "Рудди ( Сыр, огурец, угорь, масага, сливочный замес), Ниагара ( Лосось, краб, сыр, кунжут, унаги), Клинок самурая ( Темпурная креветка, масага, кунжут, гребешок, яки соус)",
+      "image": "products/2026/08/17/сет_запеченый.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:16:00.472620+00:00",
+      "has_variants": false,
+      "price": "1490.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 128,
+    "fields": {
+      "name": "Океан вкуса",
+      "category": 8,
+      "description": "40 шт",
+      "ingredients": "Малибу, Дзен, Тоторо, Хот ролл, Сумо.",
+      "image": "products/2026/08/17/сет_океан_вкуса.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:13:34.263088+00:00",
+      "has_variants": false,
+      "price": "2170.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 127,
+    "fields": {
+      "name": "Острый",
+      "category": 8,
+      "description": "24 шт",
+      "ingredients": "Эби спайс, Якитория, Мураками.",
+      "image": "products/2026/08/17/сет_острый.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:12:41.154416+00:00",
+      "has_variants": false,
+      "price": "1310.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 126,
+    "fields": {
+      "name": "Популярный",
+      "category": 8,
+      "description": "40 шт",
+      "ingredients": "Рок-н-ролл, Токио, Рубин, Акира с креветкой, Тори-чикен",
+      "image": "products/2026/08/17/сет_популярный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:11:42.475991+00:00",
+      "has_variants": false,
+      "price": "2210.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 125,
+    "fields": {
+      "name": "Аросо",
+      "category": 2,
+      "description": "",
+      "ingredients": "Сыр, снежный краб, томаго, угорь, курица, сливочный соус.",
+      "image": "products/2026/08/17/аросо.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:10:17.194039+00:00",
+      "has_variants": false,
+      "price": "440.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 124,
+    "fields": {
+      "name": "Мариоки",
+      "category": 2,
+      "description": "",
+      "ingredients": "Масага, кунжут, сыр, снежный краб, лосось, сливочный соус, унаги.",
+      "image": "products/2026/08/17/мариоки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:09:33.089192+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 123,
+    "fields": {
+      "name": "Флорида",
+      "category": 2,
+      "description": "",
+      "ingredients": "Масага, сыр, снежный краб, огурец, лосось, сырная шапочка.",
+      "image": "products/2026/08/17/флорида.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:08:42.631306+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 122,
+    "fields": {
+      "name": "Мураками",
+      "category": 2,
+      "description": "",
+      "ingredients": "Кунжут, сыр, креветка, лосось, унаги, сырная шапочка.",
+      "image": "products/2026/08/17/мураками.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:07:55.671407+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 121,
+    "fields": {
+      "name": "Харуки",
+      "category": 2,
+      "description": "",
+      "ingredients": "Сыр, креветка, спайси, унаги, кунжут.",
+      "image": "products/2026/08/17/харуки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:07:08.313958+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 120,
+    "fields": {
+      "name": "Данго",
+      "category": 2,
+      "description": "",
+      "ingredients": "Масага, кунжут, сыр, краб, креветка, яки, унаги.",
+      "image": "products/2026/08/17/данго.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:06:28.358527+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 119,
+    "fields": {
+      "name": "Рок-н-ролл",
+      "category": 2,
+      "description": "",
+      "ingredients": "Краб, сыр, масага, соус яки.",
+      "image": "products/2026/08/17/рок-н-ролл.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:05:32.516983+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 118,
+    "fields": {
+      "name": "Санго",
+      "category": 2,
+      "description": "",
+      "ingredients": "Сыр, огурец, угорь, лосось, соус яки.",
+      "image": "products/2026/08/17/санго.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:04:51.013540+00:00",
+      "has_variants": false,
+      "price": "480.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 117,
+    "fields": {
+      "name": "Рубин",
+      "category": 2,
+      "description": "",
+      "ingredients": "Лосось, сыр, масага, сырно-крабовая шапочка.",
+      "image": "products/2026/08/17/рубин.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:04:06.459068+00:00",
+      "has_variants": false,
+      "price": "440.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 116,
+    "fields": {
+      "name": "Токио",
+      "category": 2,
+      "description": "",
+      "ingredients": "Темпурная креветка, сыр, сырно-крабовая шапочка.",
+      "image": "products/2026/08/17/токио.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:03:25.432124+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 113,
+    "fields": {
+      "name": "Акира",
+      "category": 2,
+      "description": "",
+      "ingredients": "Лосось\\креветка\\угорь, краб, сыр, соус яки, унаги, кунжут.",
+      "image": "products/2026/08/17/акира.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T05:01:08.306914+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 112,
+    "fields": {
+      "name": "Майами",
+      "category": 1,
+      "description": "",
+      "ingredients": "Масага, кунжут, сыр, огурец, лосось.",
+      "image": "products/2026/08/17/майами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:46:17.055858+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 111,
+    "fields": {
+      "name": "Оригами",
+      "category": 1,
+      "description": "",
+      "ingredients": "Масага, огурец, лосось, сыр, креветка.",
+      "image": "products/2026/08/17/оригами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:45:36.245086+00:00",
+      "has_variants": false,
+      "price": "450.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 110,
+    "fields": {
+      "name": "Сан-ремо",
+      "category": 1,
+      "description": "",
+      "ingredients": "Кунжут, сыр, темпурная креветка, лосось, спайси, унаги, масага.",
+      "image": "products/2026/08/17/сан-ремо.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:44:51.935968+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 109,
+    "fields": {
+      "name": "Калифорния с лососем",
+      "category": 1,
+      "description": "",
+      "ingredients": "Масага, лосось, сыр, огурец.",
+      "image": "products/2026/08/17/калифорния_с_лососем.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:44:02.241113+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 108,
+    "fields": {
+      "name": "Малибу",
+      "category": 1,
+      "description": "",
+      "ingredients": "Лук криспи, сыр, темпурная креветка, спайси, кунжут, масага.",
+      "image": "products/2026/08/17/малибу.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:43:23.421153+00:00",
+      "has_variants": false,
+      "price": "450.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 107,
+    "fields": {
+      "name": "Шинсей",
+      "category": 1,
+      "description": "",
+      "ingredients": "Лосось, темпурная креветка, масага, огурец.",
+      "image": "products/2026/08/17/шинсей.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:42:34.732005+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 106,
+    "fields": {
+      "name": "Эби-маки",
+      "category": 1,
+      "description": "",
+      "ingredients": "Креветка, снежный краб, лосось, огурец.",
+      "image": "products/2026/08/17/эби-маки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:41:47.275089+00:00",
+      "has_variants": false,
+      "price": "480.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 105,
+    "fields": {
+      "name": "Якитория",
+      "category": 2,
+      "description": "",
+      "ingredients": "Масага, снежный краб, лосось, томаго, спайси.",
+      "image": "products/2026/08/17/якитория.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:41:02.245292+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 104,
+    "fields": {
+      "name": "Кабуки",
+      "category": 2,
+      "description": "",
+      "ingredients": "Масага, снежный краб, огурец, креветка, сливочный соус, унаги.",
+      "image": "products/2026/08/17/кабуки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:40:22.008920+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 103,
+    "fields": {
+      "name": "Фудзико",
+      "category": 2,
+      "description": "",
+      "ingredients": "Кунжут, сыр, снежный краб, угорь, курица, сливочный соус, моцарелла, масага.",
+      "image": "products/2026/08/17/фудзико.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:39:34.710529+00:00",
+      "has_variants": false,
+      "price": "450.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 102,
+    "fields": {
+      "name": "Судзуки",
+      "category": 2,
+      "description": "",
+      "ingredients": "Кунжут, сыр, лосось, томаго, сливочный соус, унаги.",
+      "image": "products/2026/08/17/судзуки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:38:33.550453+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 101,
+    "fields": {
+      "name": "Инури",
+      "category": 2,
+      "description": "",
+      "ingredients": "Масага, снежный краб, лосось, огурец, сливочный соус, унаги.",
+      "image": "products/2026/08/17/инури.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:37:45.194445+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 100,
+    "fields": {
+      "name": "Окинава",
+      "category": 7,
+      "description": "",
+      "ingredients": "Лосось, краб, сыр, овощная шапочка.",
+      "image": "products/2026/08/17/окинава.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:36:50.152862+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 99,
+    "fields": {
+      "name": "Королевский",
+      "category": 7,
+      "description": "",
+      "ingredients": "Лосось, огурец, сыр, масага.",
+      "image": "products/2026/08/17/королевский.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:36:10.558179+00:00",
+      "has_variants": false,
+      "price": "450.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 98,
+    "fields": {
+      "name": "Чикен-темпура",
+      "category": 7,
+      "description": "",
+      "ingredients": "Курица, сыр, огурец.",
+      "image": "products/2026/08/17/чикен-темпура.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:35:35.402140+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 97,
+    "fields": {
+      "name": "Томаго",
+      "category": 7,
+      "description": "",
+      "ingredients": "Краб, сыр, томаго.",
+      "image": "products/2026/08/17/томаго.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:34:57.931227+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 94,
+    "fields": {
+      "name": "Темпура",
+      "category": 7,
+      "description": "",
+      "ingredients": "Лосось\\креветка\\угорь, сыр, унаги.",
+      "image": "products/2026/08/17/темпура.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:33:12.335514+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 93,
+    "fields": {
+      "name": "Асимури",
+      "category": 7,
+      "description": "",
+      "ingredients": "Сыр, лосось, креветка, томаго, масага.",
+      "image": "products/2026/08/17/асимури.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:32:23.531633+00:00",
+      "has_variants": false,
+      "price": "440.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 92,
+    "fields": {
+      "name": "Тай-тай",
+      "category": 7,
+      "description": "",
+      "ingredients": "Сыр, креветка, угорь, спайси, унаги, кунжут.",
+      "image": "products/2026/08/17/тай-тай.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:31:44.732348+00:00",
+      "has_variants": false,
+      "price": "450.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 91,
+    "fields": {
+      "name": "Тиаки",
+      "category": 7,
+      "description": "",
+      "ingredients": "Угорь, лосось, сыр, спайси, унаги.",
+      "image": "products/2026/08/17/тиаки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:31:02.710194+00:00",
+      "has_variants": false,
+      "price": "450.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 90,
+    "fields": {
+      "name": "Дзен",
+      "category": 7,
+      "description": "",
+      "ingredients": "Сыр, снежный краб, лосось, спайси, унаги.",
+      "image": "products/2026/08/17/дзен.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:30:27.049589+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 89,
+    "fields": {
+      "name": "Вулкан",
+      "category": 7,
+      "description": "",
+      "ingredients": "Краб, сыр, креветка в спайси соусе, масага.",
+      "image": "products/2026/08/17/вулкан.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:29:32.628308+00:00",
+      "has_variants": false,
+      "price": "470.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 88,
+    "fields": {
+      "name": "Тасай",
+      "category": 7,
+      "description": "",
+      "ingredients": "Краб, сыр, лосось, креветка, соус яки, масага.",
+      "image": "products/2026/08/17/тасай.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:28:52.543374+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 87,
+    "fields": {
+      "name": "Голден-плейс",
+      "category": 7,
+      "description": "",
+      "ingredients": "Лосось, сыр, масага, сырно-крабовая шапочка.",
+      "image": "products/2026/08/17/голден-плейс.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:28:09.024375+00:00",
+      "has_variants": false,
+      "price": "450.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 86,
+    "fields": {
+      "name": "Сырный",
+      "category": 7,
+      "description": "",
+      "ingredients": "Курица, сыр, сырная шапочка, чеснок.",
+      "image": "products/2026/08/17/сырный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:27:23.867828+00:00",
+      "has_variants": false,
+      "price": "440.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 84,
+    "fields": {
+      "name": "Эби катана",
+      "category": 2,
+      "description": "",
+      "ingredients": "Сыр, темпурная креветка, курица, сливочный соус, спайси, унаги, масага.",
+      "image": "products/2026/08/17/эби_катана.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:25:40.819785+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 83,
+    "fields": {
+      "name": "Эби спайс",
+      "category": 2,
+      "description": "",
+      "ingredients": "Кунжут, сыр, краб, креветка, спайси.",
+      "image": "products/2026/08/17/эби_спайси.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:24:46.972944+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 82,
+    "fields": {
+      "name": "Острый бекон",
+      "category": 2,
+      "description": "",
+      "ingredients": "Лук криспи, сыр, огурец, томаго, бекон, спайси.",
+      "image": "products/2026/08/17/острый_бекон.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:24:01.834021+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 81,
+    "fields": {
+      "name": "Хот ролл",
+      "category": 2,
+      "description": "",
+      "ingredients": "Масага, кунжут, сыр, снежный краб, огурец, спайси, унаги.",
+      "image": "products/2026/08/17/хот_ролл.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:23:07.163776+00:00",
+      "has_variants": false,
+      "price": "410.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 80,
+    "fields": {
+      "name": "Сумо",
+      "category": 2,
+      "description": "",
+      "ingredients": "Кунжут, сыр, курица, огурец, лосось, сладкий чили.",
+      "image": "products/2026/08/17/сумо.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:22:06.690530+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 79,
+    "fields": {
+      "name": "Хот-чикен",
+      "category": 2,
+      "description": "",
+      "ingredients": "Курица, сыр, соус яки.",
+      "image": "products/2026/08/17/хот-чикен.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:14:12.865516+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 77,
+    "fields": {
+      "name": "Мини-маки",
+      "category": 2,
+      "description": "",
+      "ingredients": "Лосось\\креветка, сыр, соус яки, нори.",
+      "image": "products/2026/08/17/мини-маки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:12:56.657675+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 76,
+    "fields": {
+      "name": "Тори-чикен",
+      "category": 2,
+      "description": "",
+      "ingredients": "Два вида сыра, курица, масага, сырная шапочка.",
+      "image": "products/2026/08/17/тори-чикен.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:12:06.365044+00:00",
+      "has_variants": false,
+      "price": "440.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 75,
+    "fields": {
+      "name": "Калифорния запеченная",
+      "category": 2,
+      "description": "",
+      "ingredients": "Краб снежный, огурец, майонез, масага, сырная шапочка.",
+      "image": "products/2026/08/17/калифорния_запеченная.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:11:23.081712+00:00",
+      "has_variants": false,
+      "price": "440.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 74,
+    "fields": {
+      "name": "Лакшери",
+      "category": 1,
+      "description": "",
+      "ingredients": "Сыр, угорь, огурец, масага.",
+      "image": "products/2026/08/17/лакшери.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:10:16.927739+00:00",
+      "has_variants": false,
+      "price": "470.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 72,
+    "fields": {
+      "name": "Сяки-маки",
+      "category": 1,
+      "description": "",
+      "ingredients": "Лосось\\креветка, сыр, нори,",
+      "image": "products/2026/08/17/сяки-маки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:09:02.396565+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 71,
+    "fields": {
+      "name": "Африка",
+      "category": 1,
+      "description": "",
+      "ingredients": "Креветка, сыр, масага.",
+      "image": "products/2026/08/17/африка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:08:09.568701+00:00",
+      "has_variants": false,
+      "price": "440.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 70,
+    "fields": {
+      "name": "Кантри",
+      "category": 1,
+      "description": "",
+      "ingredients": "Курица, два вида сыра, масага.",
+      "image": "products/2026/08/17/кантри.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:07:29.971619+00:00",
+      "has_variants": false,
+      "price": "410.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 69,
+    "fields": {
+      "name": "Капа-DAY",
+      "category": 1,
+      "description": "",
+      "ingredients": "Сыр творожный, огурец, лосось.",
+      "image": "products/2026/08/17/капа-дей.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:06:54.240103+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 67,
+    "fields": {
+      "name": "Калифорния",
+      "category": 1,
+      "description": "",
+      "ingredients": "Снежный краб\\креветка, огурец, майонез, масага.",
+      "image": "products/2026/08/17/калифорния.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:05:22.547781+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 66,
+    "fields": {
+      "name": "Филадельфия",
+      "category": 1,
+      "description": "",
+      "ingredients": "Творожный сыр, огурец, лосось.",
+      "image": "products/2026/08/17/филадельфия.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T04:04:16.284333+00:00",
+      "has_variants": false,
+      "price": "500.00",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 65,
+    "fields": {
+      "name": "Скусный",
+      "category": 16,
+      "description": "",
+      "ingredients": "Огурец, морковь, пряная говядина.",
+      "image": "products/2026/08/17/скусный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:22:33.847579+00:00",
+      "has_variants": false,
+      "price": "590.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 64,
+    "fields": {
+      "name": "Гавайский",
+      "category": 16,
+      "description": "",
+      "ingredients": "Филе куриное, шампиньоны, ананас, лист салата, арахис, сыр.",
+      "image": "products/2026/08/17/гавайский.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:21:56.227698+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 63,
+    "fields": {
+      "name": "Цезарь",
+      "category": 16,
+      "description": "",
+      "ingredients": "Куриное филе\\креветки\\лосось, помидор, лист салата, чеснок, сухарики, сыр, пармезан, яйца перепелиные.",
+      "image": "products/2026/08/17/цезарь.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:21:03.435926+00:00",
+      "has_variants": false,
+      "price": "",
+      "weight": 0
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 62,
+    "fields": {
+      "name": "Пикантный",
+      "category": 16,
+      "description": "",
+      "ingredients": "Пряная говядина, маринованный огурец, перец.",
+      "image": "products/2026/08/17/пикантный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:20:07.695297+00:00",
+      "has_variants": false,
+      "price": "590.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 61,
+    "fields": {
+      "name": "Хрустящая свинина",
+      "category": 16,
+      "description": "",
+      "ingredients": "Свинина, перец, лук, арахис, чеснок.",
+      "image": "products/2026/08/17/хрустящая_свинина.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:19:25.780059+00:00",
+      "has_variants": false,
+      "price": "590.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 60,
+    "fields": {
+      "name": "С баклажанами",
+      "category": 16,
+      "description": "",
+      "ingredients": "Баклажан, морковь, лук, пряная говядина, чеснок.",
+      "image": "products/2026/08/17/с_баклажанами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:18:34.177727+00:00",
+      "has_variants": false,
+      "price": "590.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 59,
+    "fields": {
+      "name": "Язык по китайски",
+      "category": 16,
+      "description": "",
+      "ingredients": "Свиной язык, перец, огурец, чеснок, кунжут.",
+      "image": "products/2026/08/17/язык_по_китайски.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:17:41.360673+00:00",
+      "has_variants": false,
+      "price": "580.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 58,
+    "fields": {
+      "name": "Язык с опятами",
+      "category": 16,
+      "description": "",
+      "ingredients": "Свиной язык, перец, опята, чеснок.",
+      "image": "products/2026/08/17/язык_с_опятами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:16:54.988557+00:00",
+      "has_variants": false,
+      "price": "580.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 57,
+    "fields": {
+      "name": "С кальмарами",
+      "category": 16,
+      "description": "",
+      "ingredients": "Кальмары, перец, опята, чеснок.",
+      "image": "products/2026/08/17/с_кальмарами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:16:11.191228+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 56,
+    "fields": {
+      "name": "Из пряной говядины",
+      "category": 16,
+      "description": "",
+      "ingredients": "Пряная говядина, огурец, перец, чеснок.",
+      "image": "products/2026/08/17/из_пряной_говядины.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:15:25.544088+00:00",
+      "has_variants": false,
+      "price": "590.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 55,
+    "fields": {
+      "name": "Китайский",
+      "category": 16,
+      "description": "",
+      "ingredients": "Пряная говядина, огурец, морковь, картофель, чеснок.",
+      "image": "products/2026/08/17/китайский.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:14:43.982920+00:00",
+      "has_variants": false,
+      "price": "570.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 54,
+    "fields": {
+      "name": "Из свиной рульки",
+      "category": 16,
+      "description": "",
+      "ingredients": "Свиная рулька, огурец, морковь, чеснок.",
+      "image": "products/2026/08/17/из_свиной_рульки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:13:53.169971+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 53,
+    "fields": {
+      "name": "Фунчоза с курицей",
+      "category": 16,
+      "description": "",
+      "ingredients": "Перец болгарский, морковь, фунчоза, кинза, лук, корица.",
+      "image": "products/2026/08/17/фунчоза_с_курицей.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:12:58.163200+00:00",
+      "has_variants": false,
+      "price": "540.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 52,
+    "fields": {
+      "name": "Харбин",
+      "category": 16,
+      "description": "",
+      "ingredients": "Пекинская капуста, болгарский перец, красный лук, огурец, морковь, свинина, фунчоза, древесные грибы, кунжут, заправка.",
+      "image": "products/2026/08/17/харбин.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:11:58.559830+00:00",
+      "has_variants": false,
+      "price": "520.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 49,
+    "fields": {
+      "name": "Из древесных грибов",
+      "category": 16,
+      "description": "",
+      "ingredients": "Древесные грибы, морковь, огурец, чеснок.",
+      "image": "products/2026/08/17/из_древесных_грибов.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:08:17.642744+00:00",
+      "has_variants": false,
+      "price": "490.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 48,
+    "fields": {
+      "name": "Шаньдун",
+      "category": 16,
+      "description": "",
+      "ingredients": "пряная говядина, маринованный огурец, помидор, лист салата, чеснок, кунжут.",
+      "image": "products/2026/08/17/шаньдун.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:07:24.985944+00:00",
+      "has_variants": false,
+      "price": "590.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 47,
+    "fields": {
+      "name": "Из куриного мяса с овощами",
+      "category": 16,
+      "description": "",
+      "ingredients": "Куриное филе, перец, огурец, чеснок.",
+      "image": "products/2026/08/17/из_куриного_мяса_с_овощами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:06:31.524798+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 46,
+    "fields": {
+      "name": "Из свиных ушей",
+      "category": 16,
+      "description": "",
+      "ingredients": "Свиные уши, морковь, огурец, чеснок.",
+      "image": "products/2026/08/17/из_свиных_ушей.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:05:10.145801+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 45,
+    "fields": {
+      "name": "С кальмарами и овощами",
+      "category": 16,
+      "description": "",
+      "ingredients": "Морковь, огурец, кальмары, чеснок.",
+      "image": "products/2026/08/17/с_кальмарами_и_овощами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:04:17.012773+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 44,
+    "fields": {
+      "name": "Домашний",
+      "category": 16,
+      "description": "",
+      "ingredients": "Капуста, огурец, морковь, древесные грибы, фунчоза, чеснок.",
+      "image": "products/2026/08/17/домашний.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T03:03:24.432791+00:00",
+      "has_variants": false,
+      "price": "490.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 43,
+    "fields": {
+      "name": "Лимонная",
+      "category": 17,
+      "description": "",
+      "ingredients": "Лимон.",
+      "image": "products/2026/08/17/лимонная_нарезка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:48:37.591836+00:00",
+      "has_variants": false,
+      "price": "200.00",
+      "weight": 100
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 42,
+    "fields": {
+      "name": "Овощная",
+      "category": 17,
+      "description": "",
+      "ingredients": "Огурец, перец, помидор, зелень.",
+      "image": "products/2026/08/17/овощная_нарезка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:48:07.441130+00:00",
+      "has_variants": false,
+      "price": "460.00",
+      "weight": 350
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 41,
+    "fields": {
+      "name": "Рыбная",
+      "category": 17,
+      "description": "",
+      "ingredients": "Сельдь малосольная, кета.",
+      "image": "products/2026/08/17/рыбная_нарезка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:47:24.805821+00:00",
+      "has_variants": false,
+      "price": "490.00",
+      "weight": 270
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 40,
+    "fields": {
+      "name": "Мясная",
+      "category": 17,
+      "description": "",
+      "ingredients": "Колбаса п/к, карбонад, грудинка в/к, язык свиной.",
+      "image": "products/2026/08/17/мясная_нарезка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:46:40.801172+00:00",
+      "has_variants": false,
+      "price": "510.00",
+      "weight": 350
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 39,
+    "fields": {
+      "name": "Фруктовая",
+      "category": 17,
+      "description": "",
+      "ingredients": "Фрукты по сезону.",
+      "image": "products/2026/08/17/фруктовая_нарезка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:45:17.888947+00:00",
+      "has_variants": false,
+      "price": "490.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 38,
+    "fields": {
+      "name": "Рис отварной",
+      "category": 15,
+      "description": "",
+      "ingredients": "Рис.",
+      "image": "products/2026/08/17/рис_отварной.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:44:37.675092+00:00",
+      "has_variants": false,
+      "price": "150.00",
+      "weight": 100
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 37,
+    "fields": {
+      "name": "Кольца кальмара",
+      "category": 15,
+      "description": "",
+      "ingredients": "Кальмар, панировка.",
+      "image": "products/2026/08/17/кольца_кальмара.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:44:09.567784+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 36,
+    "fields": {
+      "name": "Рис с овощами",
+      "category": 15,
+      "description": "",
+      "ingredients": "Рис, огурец, морковь, яйцо.",
+      "image": "products/2026/08/17/рис_с_овощами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:43:32.990427+00:00",
+      "has_variants": false,
+      "price": "430.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 35,
+    "fields": {
+      "name": "Картофельные дольки",
+      "category": 15,
+      "description": "",
+      "ingredients": "Картофель.",
+      "image": "products/2026/08/17/картофельные_дольки.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:42:51.036253+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 300
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 34,
+    "fields": {
+      "name": "Картофель фри",
+      "category": 15,
+      "description": "",
+      "ingredients": "Картофель.",
+      "image": "products/2026/08/17/картофель_фри.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:42:17.938247+00:00",
+      "has_variants": false,
+      "price": "420.00",
+      "weight": 300
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 33,
+    "fields": {
+      "name": "Брокколи в сухарях",
+      "category": 14,
+      "description": "",
+      "ingredients": "Брокколи, панировка.",
+      "image": "products/2026/08/17/брокколи_в_сухарях.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:17:55.916125+00:00",
+      "has_variants": false,
+      "price": "530.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 32,
+    "fields": {
+      "name": "Говядина на жаровне",
+      "category": 13,
+      "description": "",
+      "ingredients": "Говядина, болгарский перец, лук, чеснок, соус.",
+      "image": "products/2026/08/17/говядина_на_жаровне.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:17:15.283590+00:00",
+      "has_variants": false,
+      "price": "850.00",
+      "weight": 700
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 31,
+    "fields": {
+      "name": "Свинина на жаровне",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, болгарский перец, лук, чеснок, соус.",
+      "image": "products/2026/08/17/свинина_на_жаровне.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:16:25.985162+00:00",
+      "has_variants": false,
+      "price": "730.00",
+      "weight": 700
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 30,
+    "fields": {
+      "name": "Жареные древесные грибы",
+      "category": 14,
+      "description": "",
+      "ingredients": "Древесные грибы, яйцо, чеснок, соус.",
+      "image": "products/2026/08/17/жареные_древесные_грибы.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:15:23.825289+00:00",
+      "has_variants": false,
+      "price": "480.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 29,
+    "fields": {
+      "name": "Стрелки чеснока",
+      "category": 12,
+      "description": "",
+      "ingredients": "Побеги чеснока, свинина, чеснок, соус.",
+      "image": "products/2026/08/17/стрелки_чеснока.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:14:29.348943+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 28,
+    "fields": {
+      "name": "Жареный папоротник",
+      "category": 12,
+      "description": "",
+      "ingredients": "Папоротник, свинина, морковь, лук, чеснок, соус.",
+      "image": "products/2026/08/17/Жареный_папоротник.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:13:28.167047+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 27,
+    "fields": {
+      "name": "Веревочка в кисло-сладком соусе",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, болгарский перец, морковь, лук, древесные грибы, соус.",
+      "image": "products/2026/08/17/веревочка_в_кислосладком_соусе.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:12:38.290740+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 26,
+    "fields": {
+      "name": "Баклажаны с курицей в кисло-сладком соусе",
+      "category": 11,
+      "description": "",
+      "ingredients": "Баклажан, курица, болгарский перец, лук, чеснок, соус.",
+      "image": "products/2026/08/17/курица_в_кислосладком_соусе_0LIALyw.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:11:23.238165+00:00",
+      "has_variants": false,
+      "price": "530.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 25,
+    "fields": {
+      "name": "Хрустящая курица с кунжутом",
+      "category": 11,
+      "description": "",
+      "ingredients": "Курица, арахис, кунжут, чеснок.",
+      "image": "products/2026/08/17/хрустящая_курица_с_кунжутом.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:10:18.876364+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 24,
+    "fields": {
+      "name": "Курица Кунг Пао",
+      "category": 11,
+      "description": "",
+      "ingredients": "Курица, болгарский перец, арахис, зеленый лук, кунжут, соус.",
+      "image": "products/2026/08/17/курица_кунг_пао.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:09:25.826452+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 23,
+    "fields": {
+      "name": "Курица тушеная с картофелем",
+      "category": 11,
+      "description": "",
+      "ingredients": "Картофель, курица, болгарский перец, лук, чеснок, соус.",
+      "image": "products/2026/08/17/курица_тушеная_с_картофелем.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:08:21.755611+00:00",
+      "has_variants": false,
+      "price": "520.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 22,
+    "fields": {
+      "name": "Язык тушеный",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свиной язык, перец, лук, чеснок.",
+      "image": "products/2026/08/17/язык_тушеный.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:07:07.464386+00:00",
+      "has_variants": false,
+      "price": "610.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 21,
+    "fields": {
+      "name": "Свинина в кляре",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, кляр.",
+      "image": "products/2026/08/17/свинина_в_кляре.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:06:21.249581+00:00",
+      "has_variants": false,
+      "price": "580.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 20,
+    "fields": {
+      "name": "Свинина в соевом",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, перец, лук, чеснок.",
+      "image": "products/2026/08/17/свинина_в_соевом_SjBj4fc.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:05:41.912577+00:00",
+      "has_variants": false,
+      "price": "580.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 19,
+    "fields": {
+      "name": "Свинина тушеная с картофелем",
+      "category": 12,
+      "description": "",
+      "ingredients": "Картофель, свинина, перец, лук, чеснок.",
+      "image": "products/2026/08/17/свинина_тушеная_с_картофелем.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:04:57.901972+00:00",
+      "has_variants": false,
+      "price": "550.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 18,
+    "fields": {
+      "name": "Свинина с овощами",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, перец, огурец, морковь, древесные грибы, чеснок.",
+      "image": "products/2026/08/17/Свинина_с_овощами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:03:55.988179+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 17,
+    "fields": {
+      "name": "Баклажаны с мясом",
+      "category": 12,
+      "description": "",
+      "ingredients": "Баклажан, перец, лук, свинина, чеснок.",
+      "image": "products/2026/08/17/баклажаны_с_мясом.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:02:56.515159+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 16,
+    "fields": {
+      "name": "Баклажаны с картофелем",
+      "category": 14,
+      "description": "",
+      "ingredients": "Баклажан, картофель, перец, лук, чеснок.",
+      "image": "products/2026/08/17/баклажаны_с_картофелем.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:01:58.025794+00:00",
+      "has_variants": false,
+      "price": "530.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 15,
+    "fields": {
+      "name": "Куриная соломка",
+      "category": 11,
+      "description": "",
+      "ingredients": "Курица, перец, морковь, лук, древесные грибы.",
+      "image": "products/2026/08/17/куриная_соломка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T02:00:33.050485+00:00",
+      "has_variants": false,
+      "price": "540.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 14,
+    "fields": {
+      "name": "Курица в кляре",
+      "category": 11,
+      "description": "",
+      "ingredients": "Курица, кляр.",
+      "image": "products/2026/08/17/курица_в_кляре.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:59:36.354097+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 13,
+    "fields": {
+      "name": "Курица в кисло-сладком соусе",
+      "category": 11,
+      "description": "",
+      "ingredients": "Курица, перец, лук, чеснок.",
+      "image": "products/2026/08/17/курица_в_кислосладком_соусе.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:58:58.758819+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 12,
+    "fields": {
+      "name": "Курица с арахисом",
+      "category": 11,
+      "description": "",
+      "ingredients": "Курица, арахис, чеснок.",
+      "image": "products/2026/08/17/курица_с_арахисом.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:57:59.971614+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 11,
+    "fields": {
+      "name": "Говядина тушеная с картофелем",
+      "category": 13,
+      "description": "",
+      "ingredients": "Картофель, перец, лук, пряная говядина, чеснок.",
+      "image": "products/2026/08/17/говядина_тушеная_с_картофелем.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:50:25.734307+00:00",
+      "has_variants": false,
+      "price": "640.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 10,
+    "fields": {
+      "name": "Говядина с луком",
+      "category": 13,
+      "description": "",
+      "ingredients": "Говядина, лук, чеснок.",
+      "image": "products/2026/08/17/говядина_с_луком.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:49:23.096607+00:00",
+      "has_variants": false,
+      "price": "640.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 9,
+    "fields": {
+      "name": "Говядина с кунжутом",
+      "category": 13,
+      "description": "",
+      "ingredients": "Говядина, перец, чеснок, кунжут",
+      "image": "products/2026/08/17/говядина_с_кунжутом.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:47:38.994349+00:00",
+      "has_variants": false,
+      "price": "640.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+      "name": "Говядина с овощами",
+      "category": 13,
+      "description": "",
+      "ingredients": "Говядина, перец, лук, чеснок.",
+      "image": "products/2026/08/17/говядина_с_овощами.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:46:52.142062+00:00",
+      "has_variants": false,
+      "price": "640.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+      "name": "Свинина",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, перец, лук, морковь, древесный гриб, чеснок",
+      "image": "products/2026/08/17/свинина_веревочка.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:45:34.763364+00:00",
+      "has_variants": false,
+      "price": "560.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "Свинина в кисло-сладком соусе",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, перец, лук, ананас, чеснок, кисло-сладкий соус.",
+      "image": "products/2026/08/17/свинина_в_соевом.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:44:32.237834+00:00",
+      "has_variants": false,
+      "price": "580.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Гобаджоу",
+      "category": 12,
+      "description": "",
+      "ingredients": "Свинина, лук, морковь, чеснок, кисло-сладкий соус.",
+      "image": "products/2026/08/17/гобаджоу.jpg",
+      "image_url": null,
+      "is_hit": false,
+      "is_new": false,
+      "created_at": "2026-08-17T01:42:43.807609+00:00",
+      "has_variants": false,
+      "price": "580.00",
+      "weight": 500
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 28,
+    "fields": {
+      "product": 150,
+      "name": "200 мл",
+      "price": "120.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 30,
+    "fields": {
+      "product": 152,
+      "name": "200 мл",
+      "price": "120.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 34,
+    "fields": {
+      "product": 156,
+      "name": "200 мл",
+      "price": "120.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 36,
+    "fields": {
+      "product": 158,
+      "name": "200",
+      "price": "120.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 32,
+    "fields": {
+      "product": 154,
+      "name": "200 мл",
+      "price": "120.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 33,
+    "fields": {
+      "product": 154,
+      "name": "500",
+      "price": "250.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 31,
+    "fields": {
+      "product": 152,
+      "name": "500 мл",
+      "price": "250.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 29,
+    "fields": {
+      "product": 150,
+      "name": "500",
+      "price": "250.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 35,
+    "fields": {
+      "product": 156,
+      "name": "500 мл",
+      "price": "250.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 37,
+    "fields": {
+      "product": 158,
+      "name": "500 мл",
+      "price": "250.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 26,
+    "fields": {
+      "product": 142,
+      "name": "Острые",
+      "price": "350.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 27,
+    "fields": {
+      "product": 142,
+      "name": "Нежные",
+      "price": "350.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 16,
+    "fields": {
+      "product": 72,
+      "name": "Сяки-маки с лососем",
+      "price": "400.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 18,
+    "fields": {
+      "product": 77,
+      "name": "Мини-маки с лососем",
+      "price": "410.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 14,
+    "fields": {
+      "product": 67,
+      "name": "Калифорния с крабом",
+      "price": "410.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 20,
+    "fields": {
+      "product": 94,
+      "name": "Темпура с лососем",
+      "price": "420.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 17,
+    "fields": {
+      "product": 72,
+      "name": "Сяки-маки с креветкой",
+      "price": "420.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 23,
+    "fields": {
+      "product": 113,
+      "name": "Акира с лососем",
+      "price": "420.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 19,
+    "fields": {
+      "product": 77,
+      "name": "Мини-маки с креветкой",
+      "price": "430.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 21,
+    "fields": {
+      "product": 94,
+      "name": "Темпура с креветкой",
+      "price": "440.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 15,
+    "fields": {
+      "product": 67,
+      "name": "Калифорния с креветкой",
+      "price": "440.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 24,
+    "fields": {
+      "product": 113,
+      "name": "Акира с креветкой",
+      "price": "450.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 22,
+    "fields": {
+      "product": 94,
+      "name": "Темпура с угрем",
+      "price": "460.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 39,
+    "fields": {
+      "product": 183,
+      "name": "27 см",
+      "price": "470.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 41,
+    "fields": {
+      "product": 184,
+      "name": "27 см",
+      "price": "470.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 67,
+    "fields": {
+      "product": 197,
+      "name": "27 см",
+      "price": "470.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 53,
+    "fields": {
+      "product": 190,
+      "name": "27 см",
+      "price": "470.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 51,
+    "fields": {
+      "product": 189,
+      "name": "27 см",
+      "price": "470.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 45,
+    "fields": {
+      "product": 186,
+      "name": "27 см",
+      "price": "480.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 47,
+    "fields": {
+      "product": 187,
+      "name": "27 см",
+      "price": "480.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 49,
+    "fields": {
+      "product": 188,
+      "name": "27 см",
+      "price": "480.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 9,
+    "fields": {
+      "product": 168,
+      "name": "27 см",
+      "price": "480.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 7,
+    "fields": {
+      "product": 167,
+      "name": "27 см",
+      "price": "480.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 25,
+    "fields": {
+      "product": 113,
+      "name": "Акира с угрем",
+      "price": "480.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 71,
+    "fields": {
+      "product": 199,
+      "name": "27 см",
+      "price": "490.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 61,
+    "fields": {
+      "product": 194,
+      "name": "27 см",
+      "price": "490.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 63,
+    "fields": {
+      "product": 195,
+      "name": "27",
+      "price": "500.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 3,
+    "fields": {
+      "product": 165,
+      "name": "27 см",
+      "price": "500.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 43,
+    "fields": {
+      "product": 185,
+      "name": "27 см",
+      "price": "500.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 55,
+    "fields": {
+      "product": 191,
+      "name": "27 см",
+      "price": "500.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 65,
+    "fields": {
+      "product": 196,
+      "name": "27",
+      "price": "500.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 59,
+    "fields": {
+      "product": 193,
+      "name": "27 см",
+      "price": "520.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 57,
+    "fields": {
+      "product": 192,
+      "name": "27 см",
+      "price": "520.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 69,
+    "fields": {
+      "product": 198,
+      "name": "27 см",
+      "price": "530.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 11,
+    "fields": {
+      "product": 63,
+      "name": "Цезарь с курицей",
+      "price": "550.00",
+      "old_price": "",
+      "weight": 500,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 5,
+    "fields": {
+      "product": 166,
+      "name": "27 см",
+      "price": "550.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 66,
+    "fields": {
+      "product": 197,
+      "name": "33 см",
+      "price": "640.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 70,
+    "fields": {
+      "product": 199,
+      "name": "33 см",
+      "price": "660.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 60,
+    "fields": {
+      "product": 194,
+      "name": "33 см",
+      "price": "660.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 40,
+    "fields": {
+      "product": 184,
+      "name": "33 см",
+      "price": "660.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 50,
+    "fields": {
+      "product": 189,
+      "name": "33 см",
+      "price": "660.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 52,
+    "fields": {
+      "product": 190,
+      "name": "33 см",
+      "price": "660.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 38,
+    "fields": {
+      "product": 183,
+      "name": "33 см",
+      "price": "660.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 44,
+    "fields": {
+      "product": 186,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 46,
+    "fields": {
+      "product": 187,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 48,
+    "fields": {
+      "product": 188,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 8,
+    "fields": {
+      "product": 168,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 54,
+    "fields": {
+      "product": 191,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 6,
+    "fields": {
+      "product": 167,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 62,
+    "fields": {
+      "product": 195,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 64,
+    "fields": {
+      "product": 196,
+      "name": "33 см",
+      "price": "670.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 2,
+    "fields": {
+      "product": 165,
+      "name": "33 см",
+      "price": "680.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 42,
+    "fields": {
+      "product": 185,
+      "name": "33 см",
+      "price": "680.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 58,
+    "fields": {
+      "product": 193,
+      "name": "33 см",
+      "price": "690.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 12,
+    "fields": {
+      "product": 63,
+      "name": "Цезарь с креветками",
+      "price": "700.00",
+      "old_price": "",
+      "weight": 400,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 68,
+    "fields": {
+      "product": 198,
+      "name": "33 см",
+      "price": "700.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 56,
+    "fields": {
+      "product": 192,
+      "name": "33 см",
+      "price": "700.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 13,
+    "fields": {
+      "product": 63,
+      "name": "Цезарь с лососем",
+      "price": "700.00",
+      "old_price": "",
+      "weight": 400,
+      "is_available": true
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": 4,
+    "fields": {
+      "product": 166,
+      "name": "33 см",
+      "price": "720.00",
+      "old_price": "",
+      "weight": 0,
+      "is_available": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "username": "testuser",
+      "email": "test@mail.ru",
+      "phone": "+79991234567",
+      "full_name": "Тестовый Пользователь",
+      "role": "client",
+      "is_active": true,
+      "bonus_points": 0
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "username": "Nastya",
+      "email": "anastasia@mail.ru",
+      "phone": "8999636262",
+      "full_name": "Анастасия",
+      "role": "client",
+      "is_active": true,
+      "bonus_points": 0
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "username": "Sergey",
+      "email": "",
+      "phone": "89148303597",
+      "full_name": "Сергей",
+      "role": "client",
+      "is_active": true,
+      "bonus_points": 0
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "username": "Sasha",
+      "email": "sashaVas@mail.ru",
+      "phone": "+79998303597",
+      "full_name": "Саша Василье",
+      "role": "client",
+      "is_active": true,
+      "bonus_points": 0
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "email": "admin@mail.com",
+      "phone": "+7‒908‒599‒04‒01",
+      "full_name": "",
+      "role": "admin",
+      "is_active": true,
+      "bonus_points": 0
+    }
+  }
+]
