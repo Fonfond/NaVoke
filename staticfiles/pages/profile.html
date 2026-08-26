@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — НаVoke</title>
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23FF6B35' font-weight='bold'>Н</text></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23FF6B35' font-weight='bold'>Н</text></svg>">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="/">
+                    <span class="brand-text">НаVoke</span>
+                </a>
+                <div class="search-wrapper">
+                    <input type="text" class="form-control" placeholder="Поиск блюд..." id="searchInput"
+                        autocomplete="off">
+                    <button class="btn btn-search" aria-label="Поиск" onclick="applySearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <!-- ВЫПАДАЮЩИЙ СПИСОК -->
+                    <div class="search-dropdown" id="searchDropdown"></div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary btn-login" id="authBtn">
+                        <i class="fas fa-user"></i> <span id="authText">Профиль</span>
+                    </button>
+                    <a href="/cart/" class="cart-link" aria-label="Корзина">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ЛИЧНЫЙ КАБИНЕТ -->
+    <main class="profile-page py-4">
+        <div class="container">
+
+            <!-- Хлебные крошки -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                    <li class="breadcrumb-item active">Личный кабинет</li>
+                </ol>
+            </nav>
+
+            <div class="row g-4">
+
+                <!-- ЛЕВАЯ ПАНЕЛЬ (Меню) -->
+                <div class="col-lg-3">
+                    <div class="profile-sidebar">
+                        <div class="profile-avatar">
+                            <div class="avatar-circle" id="avatarCircle">
+                                <span id="avatarLetter">П</span>
+                            </div>
+                            <h5 id="profileName">Пользователь</h5>
+                            <span class="badge bg-secondary" id="profileRole">Клиент</span>
+                        </div>
+                        <hr>
+                        <ul class="profile-menu">
+                            <li class="active" data-tab="profile">
+                                <i class="fas fa-user"></i> Профиль
+                            </li>
+                            <li data-tab="orders">
+                                <i class="fas fa-list"></i> История заказов
+                            </li>
+                            <li data-tab="favorites">
+                                <i class="fas fa-heart"></i> Избранное
+                            </li>
+                            <li data-tab="bonus">
+                                <i class="fas fa-coins"></i> Бонусы
+                            </li>
+                            <li data-tab="settings">
+                                <i class="fas fa-cog"></i> Настройки
+                            </li>
+                        </ul>
+                        <button class="btn btn-danger w-100 mt-3" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Выйти
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ПРАВАЯ ПАНЕЛЬ (Контент) -->
+                <div class="col-lg-9">
+                    <div class="profile-content">
+
+                        <!-- Вкладка: ПРОФИЛЬ -->
+                        <div class="tab-content active" id="tab-profile">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h3>Мои данные</h3>
+                                <button class="btn btn-outline-primary" onclick="toggleEditProfile()">
+                                    <i class="fas fa-edit"></i> Редактировать
+                                </button>
+                            </div>
+
+                            <div class="profile-info" id="profileInfo">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="info-item">
+                                            <label>Имя пользователя</label>
+                                            <p id="pUsername">-</p>
+                                        </div>
+                                        <div class="info-item">
+                                            <label>Полное имя</label>
+                                            <p id="pFullName">-</p>
+                                        </div>
+                                        <div class="info-item">
+                                            <label>Email</label>
+                                            <p id="pEmail">-</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="info-item">
+                                            <label>Телефон</label>
+                                            <p id="pPhone">-</p>
+                                        </div>
+                                        <div class="info-item">
+                                            <label>Дата регистрации</label>
+                                            <p id="pDate">-</p>
+                                        </div>
+                                        <div class="info-item">
+                                            <label>Бонусов</label>
+                                            <p id="pBonus" class="text-primary fw-bold">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Форма редактирования (скрыта) -->
+                            <div class="profile-edit d-none" id="profileEdit">
+                                <form id="editProfileForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="eUsername">Имя пользователя</label>
+                                                <input type="text" class="form-control" id="eUsername" readonly
+                                                    placeholder="Имя пользователя" aria-label="Имя пользователя">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="eFullName">Полное имя</label>
+                                                <input type="text" class="form-control" id="eFullName"
+                                                    placeholder="Введите полное имя" aria-label="Полное имя">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="eEmail">Email</label>
+                                                <input type="email" class="form-control" id="eEmail"
+                                                    placeholder="example@mail.ru" aria-label="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="ePhone">Телефон</label>
+                                                <input type="tel" class="form-control" id="ePhone"
+                                                    placeholder="+7 (999) 123-45-67" aria-label="Телефон">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="ePassword">Новый пароль
+                                                    (опционально)</label>
+                                                <input type="password" class="form-control" id="ePassword"
+                                                    placeholder="Оставьте пустым, чтобы не менять"
+                                                    aria-label="Новый пароль">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        onclick="toggleEditProfile()">Отмена</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Вкладка: ИСТОРИЯ ЗАКАЗОВ -->
+                        <div class="tab-content" id="tab-orders">
+                            <h3 class="mb-4">Мои заказы</h3>
+                            <div id="ordersList">
+                                <div class="text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Загрузка...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вкладка: ИЗБРАННОЕ -->
+                        <div class="tab-content" id="tab-favorites">
+                            <h3 class="mb-4">Избранные товары</h3>
+                            <div class="row g-4" id="favoritesList">
+                                <div class="col-12 text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Загрузка...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вкладка: БОНУСЫ -->
+                        <div class="tab-content" id="tab-bonus">
+                            <h3 class="mb-4">Мои бонусы</h3>
+                            <div class="bonus-card">
+                                <div class="bonus-balance">
+                                    <span class="bonus-amount" id="bonusAmount">0</span>
+                                    <span class="bonus-label">бонусных баллов</span>
+                                </div>
+                                <p class="bonus-info">1 балл = 1 ₽ при оплате заказа</p>
+                                <div class="bonus-history">
+                                    <h6>История начислений</h6>
+                                    <ul id="bonusHistory" class="list-unstyled">
+                                        <li class="text-muted">История пока пуста</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вкладка: НАСТРОЙКИ -->
+                        <div class="tab-content" id="tab-settings">
+                            <h3 class="mb-4">Настройки</h3>
+                            <div class="settings-item">
+                                <label class="form-label">Уведомления на email</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notifEmail" checked>
+                                    <label class="form-check-label" for="notifEmail">Получать уведомления о статусе
+                                        заказа</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notifPromo" checked>
+                                    <label class="form-check-label" for="notifPromo">Получать акции и скидки</label>
+                                </div>
+                            </div>
+                            <div class="settings-item mt-4">
+                                <label class="form-label" for="languageSelect">Язык интерфейса</label>
+                                <select class="form-select language-select" id="languageSelect"
+                                    aria-label="Выбор языка">
+                                    <option value="ru">Русский</option>
+                                    <option value="en">English</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Контакты</h5>
+                    <p><i class="fas fa-phone"></i> +7 (999) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@navoke.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> пгт. Селенгинск, ул. Ленина, 10</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Режим работы</h5>
+                    <p>Пн-Чт: 10:00 — 23:00</p>
+                    <p>Пт-Вс: 11:00 — 00:00</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Мы в соцсетях</h5>
+                    <div class="social-links">
+                        <a href="#" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h5>Скачайте приложение</h5>
+                    <div class="app-links">
+                        <a href="#" aria-label="App Store">
+                            <img src="/static/images/app-store.png" alt="App Store">
+                        </a>
+                        <a href="#" aria-label="Google Play">
+                            <img src="/static/images/google-play.png" alt="Google Play">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 НаVoke. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/cart.js"></script>
+    <script src="/static/js/profile.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+# Виртуальное окружение
+venv/
+.venv/
+env/
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+
+# Локальная база данных
+db.sqlite3
+
+# Медиа-файлы
+media/
+
+# Секреты
+.env
+serviceAccountKey.json
+
+# Файлы IDE
+.idea/
+.vscode/

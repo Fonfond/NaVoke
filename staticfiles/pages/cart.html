@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина — НаVoke</title>
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23FF6B35' font-weight='bold'>Н</text></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23FF6B35' font-weight='bold'>Н</text></svg>">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="/">
+                    <span class="brand-text">НаVoke</span>
+                </a>
+                <div class="search-wrapper">
+                    <input type="text" class="form-control" placeholder="Поиск блюд..." id="searchInput">
+                    <button class="btn btn-search" aria-label="Поиск" onclick="searchProducts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline-primary btn-login" id="authBtn">
+                        <i class="fas fa-user"></i> <span id="authText">Вход</span>
+                    </button>
+                    <a href="/cart/" class="cart-link" aria-label="Корзина">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- КОРЗИНА -->
+    <main class="cart-page py-4">
+        <div class="container">
+
+            <!-- Хлебные крошки -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                    <li class="breadcrumb-item active">Корзина</li>
+                </ol>
+            </nav>
+
+            <h1 class="section-title">Корзина</h1>
+
+            <div class="row g-4" id="cartContainer">
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Загрузка...</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Контакты</h5>
+                    <p><i class="fas fa-phone"></i> +7 (999) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@navoke.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> пгт. Селенгинск, ул. Ленина, 10</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Режим работы</h5>
+                    <p>Пн-Чт: 10:00 — 23:00</p>
+                    <p>Пт-Вс: 11:00 — 00:00</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Мы в соцсетях</h5>
+                    <div class="social-links">
+                        <a href="#" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h5>Скачайте приложение</h5>
+                    <div class="app-links">
+                        <a href="#" aria-label="App Store">
+                            <img src="/static/images/app-store.png" alt="App Store">
+                        </a>
+                        <a href="#" aria-label="Google Play">
+                            <img src="/static/images/google-play.png" alt="Google Play">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 НаVoke. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/cart.js"></script>
+    <script src="/static/js/main.js"></script>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО ВХОДА/РЕГИСТРАЦИИ ===== -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content auth-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authModalTitle">Вход</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" class="auth-form">
+                        <div class="mb-3">
+                            <label for="loginUsername" class="form-label">Имя пользователя</label>
+                            <input type="text" class="form-control" id="loginUsername" placeholder="Введите логин"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Введите пароль"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" id="loginBtn">
+                            <span id="loginBtnText">Войти</span>
+                            <span id="loginSpinner" class="spinner-border spinner-border-sm d-none"
+                                role="status"></span>
+                        </button>
+                    </form>
+                    <hr>
+                    <form id="registerForm" class="auth-form">
+                        <p class="text-center text-muted small">Нет аккаунта? Зарегистрируйтесь</p>
+                        <div class="mb-3">
+                            <label for="regUsername" class="form-label">Имя пользователя</label>
+                            <input type="text" class="form-control" id="regUsername" placeholder="Придумайте логин"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="regEmail" placeholder="example@mail.ru"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regPhone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="regPhone" placeholder="+7 (999) 123-45-67"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regFullName" class="form-label">Полное имя</label>
+                            <input type="text" class="form-control" id="regFullName" placeholder="Иван Иванов">
+                        </div>
+                        <div class="mb-3">
+                            <label for="regPassword" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="regPassword"
+                                placeholder="Минимум 8 символов" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regPassword2" class="form-label">Подтверждение пароля</label>
+                            <input type="password" class="form-control" id="regPassword2" placeholder="Повторите пароль"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100" id="registerBtn">
+                            <span id="registerBtnText">Зарегистрироваться</span>
+                            <span id="registerSpinner" class="spinner-border spinner-border-sm d-none"
+                                role="status"></span>
+                        </button>
+                    </form>
+                    <div id="authError" class="alert alert-danger mt-3 d-none"></div>
+                    <div id="authSuccess" class="alert alert-success mt-3 d-none"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
