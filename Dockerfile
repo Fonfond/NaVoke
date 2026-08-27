@@ -14,6 +14,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Копируем весь остальной код проекта в контейнер [citation:8]
 COPY . /app/
+RUN python manage.py collectstatic --no-input
 
 # ✅ Добавляем права на выполнение для start.sh
 RUN chmod +x /app/start.sh
