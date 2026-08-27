@@ -1,0 +1,12 @@
+# Исключаем ненужные файлы
+venv/
+__pycache__/
+*.pyc
+.env
+.git/
+.gitignore
+
+# НЕ исключаем медиа-файлы
+!media/
+!media/products/
+!media/products/2026/08/
