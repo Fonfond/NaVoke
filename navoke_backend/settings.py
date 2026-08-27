@@ -146,6 +146,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# ✅ ДОБАВЛЕНО: WhiteNoise для медиа-файлов
+WHITENOISE_MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+WHITENOISE_USE_FINDERS = True
+
 # Celery настройки
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
 CELERY_ACCEPT_CONTENT = ['json']
