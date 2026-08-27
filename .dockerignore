@@ -6,7 +6,3 @@ __pycache__/
 .gitignore
 db.sqlite3
 
-# НЕ исключаем медиа-файлы
-!media/
-!media/products/
-!media/products/2026/08/
