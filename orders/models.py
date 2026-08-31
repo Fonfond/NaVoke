@@ -125,7 +125,10 @@ class Order(models.Model):
     )
     pickup_time = models.TimeField(null=True, blank=True, help_text='Желаемое время самовывоза')
     pickup_date = models.DateField(null=True, blank=True, help_text='Желаемая дата самовывоза')
-
+     # ✅ ДОБАВЛЕНО
+    persons_count = models.IntegerField(default=1, verbose_name='Количество персон')
+    cutlery_count = models.IntegerField(default=2, verbose_name='Количество приборов')
+    
     class Meta:
         db_table = 'orders'
         ordering = ['-order_date']
