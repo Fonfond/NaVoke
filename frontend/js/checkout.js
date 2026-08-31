@@ -1,8 +1,28 @@
 // frontend/static/js/checkout.js
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     loadOrderSummary();
-
+    
+    const token = localStorage.getItem('access_token');
+    if (token) {
+        try {
+            const user = await getProfile();
+            console.log('👤 Пользователь:', user);
+            
+            if (document.getElementById('checkoutName')) {
+                document.getElementById('checkoutName').value = user.full_name || '';
+            }
+            if (document.getElementById('checkoutPhone')) {
+                document.getElementById('checkoutPhone').value = user.phone || '';
+            }
+            if (document.getElementById('checkoutEmail')) {
+                document.getElementById('checkoutEmail').value = user.email || '';
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки профиля:', error);
+        }
+    }
+    
     const form = document.getElementById('checkoutForm');
     if (form) {
         form.addEventListener('submit', handleCheckout);
