@@ -326,6 +326,8 @@ class CreateOrderView(APIView):
             delivery_type=delivery_type,
             pickup_time=data.get('pickup_time'),
             pickup_date=data.get('pickup_date'),
+            persons_count=data.get('persons_count', 1),
+            cutlery_count=data.get('cutlery_count', 2),
         )
         
         for cart_item in cart.items.all():
