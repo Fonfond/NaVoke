@@ -92,6 +92,9 @@ class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
     user_name = serializers.ReadOnlyField(source='user.full_name')
     status_display = serializers.ReadOnlyField(source='get_status_display')
+    full_name = serializers.CharField(source='user.full_name', read_only=True)
+    phone = serializers.CharField(source='user.phone', read_only=True)
+    payment_method_display = serializers.CharField(source='get_payment_method_display', read_only=True)
     
     class Meta:
         model = Order
@@ -104,5 +107,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'payment_status', 'items',
             'delivery_type', 'pickup_time', 'pickup_date',
             'delivery_lat', 'delivery_lng', # ✅ Добавить сюда
+            'full_name', 'phone', 'payment_method_display',
+            'persons_count', 'cutlery_count',
         )
         read_only_fields = ('order_number', 'order_date', 'status', 'payment_status')
