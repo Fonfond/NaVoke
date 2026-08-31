@@ -3,13 +3,19 @@ set -e
 python manage.py collectstatic --noinput
 python manage.py migrate --noinput
 
-# Создаём суперпользователя ПЕРЕД запуском Gunicorn
 python manage.py shell -c "
 from django.contrib.auth import get_user_model
 User = get_user_model()
-if not User.objects.filter(username='admin').exists():
+user = User.objects.filter(username='admin').first()
+if user:
+    user.is_staff = True
+    user.is_superuser = True
+    user.is_active = True
+    user.save()
+    print('Пользователь admin теперь администратор!')
+else:
+    print('Пользователь admin не найден, создаю...')
     User.objects.create_superuser('admin', 'admin@example.com', 'admin492357816')
-print('Суперпользователь создан!')
 "
 
 # Запускаем Gunicorn
