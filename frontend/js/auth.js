@@ -186,8 +186,6 @@ async function handleLogin(e) {
 async function handleRegister(e) {
     e.preventDefault();
     
-    const username = document.getElementById('regUsername').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
     const phone = document.getElementById('regPhone').value.trim();
     const full_name = document.getElementById('regFullName').value.trim();
     const password = document.getElementById('regPassword').value;
@@ -201,18 +199,25 @@ async function handleRegister(e) {
     errorEl.classList.add('d-none');
     successEl.classList.add('d-none');
     
-    if (!username || !email || !phone || !password || !password2) {
-        showAuthError('Заполните все обязательные поля');
+    if (!phone || !password || !password2) {
+        showAuthError('⚠️ Заполните все обязательные поля');
         return;
     }
     
     if (password.length < 8) {
-        showAuthError('Пароль должен содержать минимум 8 символов');
+        showAuthError('⚠️ Пароль должен содержать минимум 8 символов');
         return;
     }
     
     if (password !== password2) {
-        showAuthError('Пароли не совпадают');
+        showAuthError('⚠️ Пароли не совпадают');
+        return;
+    }
+    
+    // ✅ Валидация телефона
+    const phoneRegex = /^\+7[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
+    if (!phoneRegex.test(phone)) {
+        showAuthError('⚠️ Введите телефон в формате +7 (999) 123-45-67');
         return;
     }
     
@@ -222,8 +227,6 @@ async function handleRegister(e) {
     
     try {
         const result = await register({
-            username,
-            email,
             phone,
             full_name,
             password,
@@ -233,8 +236,6 @@ async function handleRegister(e) {
         
         showAuthSuccess('✅ Регистрация выполнена успешно! Теперь войдите в систему.');
         
-        document.getElementById('regUsername').value = '';
-        document.getElementById('regEmail').value = '';
         document.getElementById('regPhone').value = '';
         document.getElementById('regFullName').value = '';
         document.getElementById('regPassword').value = '';
@@ -247,7 +248,7 @@ async function handleRegister(e) {
         
     } catch (error) {
         console.error('❌ Ошибка регистрации:', error);
-        showAuthError(error.message || 'Ошибка регистрации. Попробуйте другой логин.');
+        showAuthError(error.message || 'Ошибка регистрации. Попробуйте другой телефон.');
     } finally {
         btn.disabled = false;
         btnText.textContent = 'Зарегистрироваться';
