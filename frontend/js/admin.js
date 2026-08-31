@@ -429,27 +429,30 @@ async function loadOrders() {
         if (!tbody) return;
 
         if (!orders || orders.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4">Нет заказов</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="10" class="text-center py-4">Нет заказов</td></tr>`;
             return;
         }
 
         tbody.innerHTML = orders.map(order => `
             <tr>
                 <td><strong>#${order.order_number}</strong></td>
-                <td>${order.user_name || order.user}</td>
+                <td>${order.full_name || order.user_name || '—'}</td>
+                <td>${order.phone || '—'}</td>
                 <td>${order.total_amount} ₽</td>
                 <td><span class="badge bg-${getStatusColor(order.status)}">${getStatusText(order.status)}</span></td>
                 <td>
-    <select class="form-select form-select-sm" 
-            onchange="updatePaymentStatus(${order.id}, this.value)" 
-            style="width: 150px;">
-        <option value="pending" ${order.payment_status === 'pending' ? 'selected' : ''}>⏳ Ожидает</option>
-        <option value="paid" ${order.payment_status === 'paid' ? 'selected' : ''}>✅ Оплачен</option>
-        <option value="failed" ${order.payment_status === 'failed' ? 'selected' : ''}>❌ Ошибка</option>
-        <option value="refunded" ${order.payment_status === 'refunded' ? 'selected' : ''}>🔄 Возврат</option>
-    </select>
-</td>
-                <td>${new Date(order.order_date).toLocaleDateString('ru-RU')}</td>
+                    <select class="form-select form-select-sm" 
+                            onchange="updatePaymentStatus(${order.id}, this.value)" 
+                            style="width: 150px;">
+                        <option value="pending" ${order.payment_status === 'pending' ? 'selected' : ''}>⏳ Ожидает</option>
+                        <option value="paid" ${order.payment_status === 'paid' ? 'selected' : ''}>✅ Оплачен</option>
+                        <option value="failed" ${order.payment_status === 'failed' ? 'selected' : ''}>❌ Ошибка</option>
+                        <option value="refunded" ${order.payment_status === 'refunded' ? 'selected' : ''}>🔄 Возврат</option>
+                    </select>
+                </td>
+                <td>${order.payment_method_display || order.payment_method || '—'}</td>
+                <td>${new Date(order.created_at || order.order_date).toLocaleDateString('ru-RU')}</td>
+                <td>${order.persons_count || '—'} чел. / ${order.cutlery_count || '—'} приб.</td>
                 <td>
                     <button class="btn btn-sm btn-outline-primary me-1" onclick="openStatusModal(${order.id}, '${order.status}')">
                         <i class="fas fa-edit"></i>
