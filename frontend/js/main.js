@@ -391,10 +391,7 @@ async function loadAndApplySettings() {
             banner.style.display = settings.banner_enabled ? 'block' : 'none';
         }
 
-        const bonusSection = document.querySelector('.bonus-section');
-        if (bonusSection) {
-            bonusSection.style.display = settings.bonus_enabled ? 'block' : 'none';
-        }
+        
 
     } catch (error) {
         console.error('❌ Ошибка загрузки настроек:', error);
