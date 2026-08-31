@@ -2465,3 +2465,256 @@ a {
         border-radius: 10px;
     }
 }
+/* ===== АДАПТИВ ДЛЯ ВСЕХ СТРАНИЦ (ДОБАВИТЬ В КОНЕЦ) ===== */
+
+@media (max-width: 768px) {
+    /* ===== СТРАНИЦА ТОВАРА ===== */
+    .product-page {
+        padding: 10px 0;
+    }
+
+    .product-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .product-meta {
+        gap: 4px;
+        margin-bottom: 12px;
+    }
+
+    .product-meta .badge {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+
+    .product-image-wrapper {
+        border-radius: 12px;
+        margin-bottom: 16px;
+    }
+
+    .product-image-wrapper img {
+        max-height: 280px;
+    }
+
+    .product-description h5 {
+        font-size: 15px;
+    }
+
+    .product-description p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .product-price {
+        font-size: 24px;
+    }
+
+    .product-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin: 12px 0;
+    }
+
+    .quantity-selector {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn-add-to-cart {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .btn-favorite {
+        width: 48px;
+        margin: 0 auto;
+    }
+
+    .product-info-links {
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+
+    /* Похожие товары */
+    .similar-products {
+        margin-top: 24px;
+        padding-top: 16px;
+    }
+
+    .similar-products .section-title {
+        font-size: 18px;
+    }
+
+    /* ===== СТРАНИЦА УСПЕШНОГО ЗАКАЗА ===== */
+    .success-page {
+        padding: 20px 0;
+    }
+
+    .success-page .card {
+        max-width: 100%;
+        padding: 16px;
+    }
+
+    .success-page .card-body {
+        padding: 16px;
+    }
+
+    .success-page h1 {
+        font-size: 20px;
+    }
+
+    .success-page p {
+        font-size: 14px;
+    }
+
+    .success-page .btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .success-page .mt-4 {
+        margin-top: 16px !important;
+    }
+
+    /* ===== ДЕТАЛИ ЗАКАЗА ===== */
+    .order-detail-page {
+        padding: 10px 0;
+    }
+
+    .order-detail-page .card-body {
+        padding: 16px;
+    }
+
+    .order-detail-page h3 {
+        font-size: 20px;
+    }
+
+    .order-detail-page h4 {
+        font-size: 18px;
+    }
+
+    .order-detail-page .order-items-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .order-detail-page .d-flex.flex-wrap.gap-2 {
+        flex-direction: column;
+    }
+
+    .order-detail-page .btn {
+        width: 100%;
+    }
+
+    /* ===== ПОИСК ===== */
+    .search-wrapper {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 8px 0;
+    }
+
+    .search-dropdown {
+        max-height: 280px;
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .search-dropdown-item {
+        padding: 8px 12px;
+    }
+
+    .search-dropdown-item img {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+    .breadcrumb {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    /* ===== КНОПКИ ===== */
+    .btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .btn-lg {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    /* ===== ФОРМЫ ===== */
+    .form-control {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .form-select {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    /* ===== ТАБЛИЦЫ ===== */
+    .table {
+        font-size: 13px;
+    }
+
+    .table th, .table td {
+        padding: 6px 8px;
+    }
+}
+
+/* ===== ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 400px) ===== */
+@media (max-width: 400px) {
+    .brand-text {
+        font-size: 18px;
+    }
+
+    .btn-login {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .cart-link {
+        font-size: 18px;
+    }
+
+    .cart-badge {
+        font-size: 10px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .product-card .product-name {
+        font-size: 13px;
+    }
+
+    .product-card .product-price {
+        font-size: 15px;
+    }
+
+    .product-card img {
+        height: 120px;
+    }
+
+    .cart-item img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cart-item-actions .btn-quantity {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .cart-item-total {
+        font-size: 15px;
+    }
+}
