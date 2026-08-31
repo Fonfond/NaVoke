@@ -2337,3 +2337,131 @@ a {
         margin: 0 auto;
     }
 }
+/* ===== МОБИЛЬНАЯ КОРЗИНА (ДОБАВИТЬ В КОНЕЦ ФАЙЛА) ===== */
+
+@media (max-width: 768px) {
+    /* Контейнер корзины */
+    .cart-page {
+        padding: 10px 0;
+    }
+
+    .cart-page .section-title {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    /* Карточка товара в корзине */
+    .cart-item {
+        position: relative;
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 12px;
+        gap: 8px;
+    }
+
+    .cart-item img {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    /* Блок информации о товаре */
+    .cart-item-info {
+        flex: 1 1 100%;
+        margin-bottom: 4px;
+    }
+
+    .cart-item-name {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    .cart-item-price {
+        font-size: 13px;
+        color: var(--gray);
+    }
+
+    /* Блок действий с количеством */
+    .cart-item-actions {
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .cart-item-actions .btn-quantity {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cart-item-quantity {
+        min-width: 32px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    /* Итоговая цена */
+    .cart-item-total {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    /* Кнопка удаления */
+    .cart-item .btn-remove {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 50%;
+        color: #E74C3C;
+        font-size: 14px;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .cart-item .btn-remove:hover {
+        background: #E74C3C;
+        color: #fff;
+    }
+
+    /* Итоговая сумма заказа */
+    .cart-summary {
+        position: static;
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .cart-summary h4 {
+        font-size: 18px;
+    }
+
+    .cart-summary .summary-total {
+        font-size: 18px;
+    }
+
+    /* Кнопка оформления */
+    .cart-summary .btn-primary {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+}
