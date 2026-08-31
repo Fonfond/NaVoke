@@ -156,22 +156,19 @@
                 <div class="modal-body">
                     <!-- Форма входа -->
                     <form id="loginForm" class="auth-form">
-                        <div class="mb-3">
-                            <label for="loginUsername" class="form-label">Имя пользователя</label>
-                            <input type="text" class="form-control" id="loginUsername" placeholder="Введите логин"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="loginPassword" class="form-label">Пароль</label>
-                            <input type="password" class="form-control" id="loginPassword" placeholder="Введите пароль"
-                                required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100" id="loginBtn">
-                            <span id="loginBtnText">Войти</span>
-                            <span id="loginSpinner" class="spinner-border spinner-border-sm d-none"
-                                role="status"></span>
-                        </button>
-                    </form>
+    <div class="mb-3">
+        <label for="loginPhone" class="form-label">Телефон</label>
+        <input type="tel" class="form-control" id="loginPhone" placeholder="+7 (999) 123-45-67" required>
+    </div>
+    <div class="mb-3">
+        <label for="loginPassword" class="form-label">Пароль</label>
+        <input type="password" class="form-control" id="loginPassword" placeholder="Введите пароль" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100" id="loginBtn">
+        <span id="loginBtnText">Войти</span>
+        <span id="loginSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+    </button>
+</form>
 
                     <hr>
 
