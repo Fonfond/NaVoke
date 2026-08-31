@@ -86,7 +86,8 @@ class CreateOrderSerializer(serializers.Serializer):
     delivery_type = serializers.ChoiceField(choices=Order.DELIVERY_TYPE_CHOICES, default='delivery')
     pickup_time = serializers.TimeField(required=False, allow_null=True)
     pickup_date = serializers.DateField(required=False, allow_null=True)
-
+    persons_count = serializers.IntegerField(default=1, min_value=1)
+    cutlery_count = serializers.IntegerField(default=2, min_value=1)
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
