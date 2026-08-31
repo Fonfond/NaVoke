@@ -108,14 +108,16 @@ async function handleCheckout(e) {
     const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || 'delivery';
 
     const data = {
-        full_name: document.getElementById('checkoutName').value.trim(),
-        phone: document.getElementById('checkoutPhone').value.trim(),
-        email: document.getElementById('checkoutEmail').value.trim(),
-        delivery_type: deliveryType,
-        comment: document.getElementById('checkoutComment').value.trim(),
-        payment_method: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'online',
-        bonus_used: 0,
-    };
+    full_name: document.getElementById('checkoutName').value.trim(),
+    phone: document.getElementById('checkoutPhone').value.trim(),
+    email: document.getElementById('checkoutEmail').value.trim(),
+    delivery_type: deliveryType,
+    comment: document.getElementById('checkoutComment').value.trim(),
+    payment_method: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'online',
+    persons_count: parseInt(document.getElementById('checkoutPersons')?.value) || 1,
+    cutlery_count: parseInt(document.getElementById('checkoutCutlery')?.value) || 2,
+    bonus_used: 0,
+};
 
     if (deliveryType === 'delivery') {
         data.delivery_address = document.getElementById('checkoutAddress').value.trim();
