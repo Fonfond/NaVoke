@@ -191,8 +191,8 @@ YOOKASSA_RETURN_URL = os.getenv('YOOKASSA_RETURN_URL', 'http://127.0.0.1:8000/or
 
 # CSRF настройки
 CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-b0761.up.railway.app',
-    'https://*.railway.app',
+    'https://navoke.relaxdev.ru',
+    'https://*.relaxdev.ru',
 ]
 
 # CORS настройки
