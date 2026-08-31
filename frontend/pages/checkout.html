@@ -76,9 +76,11 @@
                             <div class="mb-3">
                                 <label for="checkoutPhone" class="form-label">Телефон *</label>
                                 <input type="tel" class="form-control" id="checkoutPhone" 
-                                       placeholder="+7 (999) 123-45-67" 
-                                       aria-label="Номер телефона"
-                                       required>
+       placeholder="+7 (999) 123-45-67" 
+       pattern="\+7\s?\(?\d{3}\)?\s?\d{3}\s?\d{2}\s?\d{2}"
+       title="Введите телефон в формате +7 (999) 123-45-67"
+       aria-label="Номер телефона"
+       required>
                             </div>
                             <div class="mb-3">
                                 <label for="checkoutEmail" class="form-label">Email *</label>
