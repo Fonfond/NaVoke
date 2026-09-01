@@ -12,11 +12,61 @@ document.addEventListener('DOMContentLoaded', function() {
     if (registerForm) {
         registerForm.addEventListener('submit', handleRegister);
     }
+
+    // ✅ ПЕРЕКЛЮЧЕНИЕ ФОРМ (ГЛАВНАЯ ЛОГИКА)
+    const showRegister = document.getElementById('showRegister');
+    const showLogin = document.getElementById('showLogin');
+    const modalTitle = document.getElementById('authModalTitle');
+
+    if (showRegister) {
+        showRegister.addEventListener('click', function() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            if (modalTitle) modalTitle.textContent = 'Регистрация';
+            document.getElementById('authError').classList.add('d-none');
+            document.getElementById('authSuccess').classList.add('d-none');
+        });
+    }
+
+    if (showLogin) {
+        showLogin.addEventListener('click', function() {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            if (modalTitle) modalTitle.textContent = 'Вход';
+            document.getElementById('authError').classList.add('d-none');
+            document.getElementById('authSuccess').classList.add('d-none');
+        });
+    }
+
+    // ✅ ПРИ ЗАГРУЗКЕ ВСЕГДА ПОКАЗЫВАЕМ ФОРМУ ВХОДА
+    if (loginForm) loginForm.style.display = 'block';
+    if (registerForm) registerForm.style.display = 'none';
+
+    // ✅ Если ссылки для переключения не найдены — создаём их автоматически
+    if (!showRegister && loginForm) {
+        const loginToggle = document.createElement('p');
+        loginToggle.className = 'text-center mt-3 small';
+        loginToggle.innerHTML = 'Нет аккаунта? <span class="toggle-link" id="showRegister" style="color: #FF6B35; cursor: pointer;">Зарегистрироваться</span>';
+        loginForm.appendChild(loginToggle);
+        document.getElementById('showRegister').addEventListener('click', function() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            if (modalTitle) modalTitle.textContent = 'Регистрация';
+        });
+    }
+
+    if (!showLogin && registerForm) {
+        const registerToggle = document.createElement('p');
+        registerToggle.className = 'text-center mt-3 small';
+        registerToggle.innerHTML = 'Уже есть аккаунт? <span class="toggle-link" id="showLogin" style="color: #FF6B35; cursor: pointer;">Войти</span>';
+        registerForm.appendChild(registerToggle);
+        document.getElementById('showLogin').addEventListener('click', function() {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            if (modalTitle) modalTitle.textContent = 'Вход';
+        });
+    }
 });
-
-// frontend/static/js/auth.js
-
-// frontend/static/js/auth.js
 
 // ===== ОБНОВЛЕНИЕ UI ПОСЛЕ ВХОДА =====
 function updateAuthUI() {
@@ -91,7 +141,6 @@ function resetAuthButton() {
     authBtn.onclick = null;
 }
 
-// frontend/static/js/auth.js
 // ✅ Маска телефона
 function formatPhone(input) {
     let value = input.value.replace(/\D/g, '');
@@ -126,8 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
             formatPhone(this);
         });
     }
-// frontend/static/js/auth.js
-}
+});
+
 // ===== ВХОД =====
 async function handleLogin(e) {
     e.preventDefault();
@@ -329,54 +378,6 @@ function logout() {
         window.location.href = '/';
     }
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-    const modalTitle = document.getElementById('authModalTitle');
-    
-    if (loginForm && registerForm) {
-        if (!document.getElementById('showRegister')) {
-            const loginToggle = document.createElement('p');
-            loginToggle.className = 'text-center mt-3 small';
-            loginToggle.innerHTML = 'Нет аккаунта? <span class="toggle-link" id="showRegister">Зарегистрироваться</span>';
-            loginForm.appendChild(loginToggle);
-        }
-        
-        if (!document.getElementById('showLogin')) {
-            const registerToggle = document.createElement('p');
-            registerToggle.className = 'text-center mt-3 small';
-            registerToggle.innerHTML = 'Уже есть аккаунт? <span class="toggle-link" id="showLogin">Войти</span>';
-            registerForm.appendChild(registerToggle);
-        }
-        
-        const showRegister = document.getElementById('showRegister');
-        const showLogin = document.getElementById('showLogin');
-        
-        if (showRegister) {
-            showRegister.addEventListener('click', function() {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                if (modalTitle) modalTitle.textContent = 'Регистрация';
-                document.getElementById('authError').classList.add('d-none');
-                document.getElementById('authSuccess').classList.add('d-none');
-            });
-        }
-        
-        if (showLogin) {
-            showLogin.addEventListener('click', function() {
-                registerForm.style.display = 'none';
-                loginForm.style.display = 'block';
-                if (modalTitle) modalTitle.textContent = 'Вход';
-                document.getElementById('authError').classList.add('d-none');
-                document.getElementById('authSuccess').classList.add('d-none');
-            });
-        }
-        
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-    }
-});
 
 // ===== ЭКСПОРТ =====
 window.updateAuthUI = updateAuthUI;
