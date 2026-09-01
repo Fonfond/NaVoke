@@ -197,20 +197,23 @@ async function handleLogin(e) {
         return;
     }
     
-    // ✅ Валидация телефона
+    // ✅ ВАЛИДАЦИЯ ТЕЛЕФОНА
     const phoneRegex = /^\+7[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
     if (!phoneRegex.test(phone)) {
         showAuthError('⚠️ Введите телефон в формате +7 (999) 123-45-67');
         return;
     }
     
+    // ✅ ПРЕОБРАЗУЕМ ТЕЛЕФОН В ЧИСТЫЙ ВИД (БЕЗ +, ПРОБЕЛОВ, СКОБОК)
+    const cleanPhone = phone.replace(/[^\d]/g, ''); // убираем всё, кроме цифр
+    const loginUsername = cleanPhone.startsWith('8') ? '7' + cleanPhone.slice(1) : cleanPhone;
+    
     btn.disabled = true;
     btnText.textContent = 'Вход...';
     spinner.classList.remove('d-none');
     
     try {
-        // ✅ Вместо username передаём phone
-        const result = await login({ username: phone, password });
+        const result = await login({ username: loginUsername, password });
         console.log('✅ Вход выполнен:', result);
         
         // ✅ ПЕРЕНОСИМ ГОСТЕВУЮ КОРЗИНУ
@@ -304,7 +307,7 @@ async function handleRegister(e) {
         return;
     }
     
-    // ✅ Валидация телефона
+    // ✅ ВАЛИДАЦИЯ ТЕЛЕФОНА
     const phoneRegex = /^\+7[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
     if (!phoneRegex.test(phone)) {
         showAuthError('⚠️ Введите телефон в формате +7 (999) 123-45-67');
