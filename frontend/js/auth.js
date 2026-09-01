@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 // frontend/static/js/auth.js
-
+}
 // ===== ВХОД =====
 async function handleLogin(e) {
     e.preventDefault();
