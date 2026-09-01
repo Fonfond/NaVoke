@@ -120,7 +120,7 @@ async function loadCart() {
     isLoading = false;
 }
 
-// ===== ОБНОВЛЕНИЕ СЧЁТЧИКА =====
+// ===== ОБНОВЛЕНИЕ СЧЁТЧИКА (ТОЛЬКО ДЛЯ КОРЗИНЫ) =====
 function updateCartBadgeOnly(cart) {
     const badge = document.getElementById('cartCount');
     if (!badge) return;
@@ -131,19 +131,6 @@ function updateCartBadgeOnly(cart) {
         if (window.cartData) {
             window.cartData.total_quantity = total;
         }
-    } else {
-        badge.textContent = '0';
-    }
-}
-
-function updateCartBadgeFromCache() {
-    const badge = document.getElementById('cartCount');
-    if (!badge) return;
-    
-    if (window.cartData && window.cartData.items) {
-        const total = window.cartData.items.reduce((sum, item) => sum + item.quantity, 0);
-        badge.textContent = total;
-        window.cartData.total_quantity = total;
     } else {
         badge.textContent = '0';
     }
@@ -253,14 +240,5 @@ window.loadCart = loadCart;
 window.updateQuantity = updateQuantity;
 window.removeFromCart = removeFromCart;
 window.checkout = checkout;
-window.updateCartBadgeFromCache = updateCartBadgeFromCache;
-
-// ===== ЯВНЫЙ ЗАПУСК ПОИСКА В КОРЗИНЕ =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Запускаем live search, если есть поле поиска
-    if (document.getElementById('searchInput') && document.getElementById('searchDropdown')) {
-        initLiveSearch();
-    }
-});
 
 console.log('✅ cart.js загружен!');
