@@ -200,3 +200,4 @@ CORS_ALLOWED_ORIGINS = [
     'https://web-production-b0761.up.railway.app',
     'https://*.railway.app',
 ]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
