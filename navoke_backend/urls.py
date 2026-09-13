@@ -5,6 +5,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.views.static import serve
+<<<<<<< HEAD
+=======
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+>>>>>>> 0969cd6 (chore: normalize line endings)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +27,11 @@ urlpatterns = [
     path('order-success/', TemplateView.as_view(template_name='order-success.html'), name='order-success'),
     path('api/v1/core/', include('core.urls')),
     path('order/<int:order_id>/', TemplateView.as_view(template_name='order-detail.html'), name='order-detail'),
+<<<<<<< HEAD
+=======
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+>>>>>>> 0969cd6 (chore: normalize line endings)
 ]
 
 # ✅ ДОБАВЛЕНО: ОТДАЧА МЕДИА-ФАЙЛОВ

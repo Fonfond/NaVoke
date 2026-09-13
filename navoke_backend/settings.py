@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
-    'drf_yasg',
+    'drf_spectacular',
     
     # Свои
     'core',
@@ -121,6 +121,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 1000,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # JWT настройки
@@ -201,3 +202,14 @@ CORS_ALLOWED_ORIGINS = [
     'https://*.railway.app',
 ]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+<<<<<<< HEAD
+=======
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'НаVoke API',
+    'DESCRIPTION': 'API для системы доставки еды НаVoke',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,  # не показывать саму схему в списке эндпоинтов
+}
+>>>>>>> 0969cd6 (chore: normalize line endings)
