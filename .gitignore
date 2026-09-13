@@ -1,23 +1,41 @@
-# Виртуальное окружение
+﻿# Р’РёСЂС‚СѓР°Р»СЊРЅРѕРµ РѕРєСЂСѓР¶РµРЅРёРµ
 venv/
 .venv/
 env/
 
-# Кэш Python
+# РљСЌС€ Python
 __pycache__/
 *.py[cod]
+*$py.class
 
-# Локальная база данных
+# Р›РѕРєР°Р»СЊРЅР°СЏ Р±Р°Р·Р° РґР°РЅРЅС‹С…
 db.sqlite3
 
-
-
-# Секреты
+# РЎРµРєСЂРµС‚С‹
 .env
+.env.*
+!.env.example
 serviceAccountKey.json
 
-# Файлы IDE
+# Р¤Р°Р№Р»С‹ IDE
 .idea/
 .vscode/
 
+# РЎС‚Р°С‚РёС‡РµСЃРєРёРµ С„Р°Р№Р»С‹ (СЃРѕР±РёСЂР°СЋС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё)
 staticfiles/
+
+# РџРѕРєСЂС‹С‚РёРµ С‚РµСЃС‚Р°РјРё
+.coverage
+test/.coverage
+htmlcov/
+.pytest_cache/
+
+# Р›РѕРіРё
+*.log
+
+# РњРµРґРёР°-С„Р°Р№Р»С‹ (РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ С…СЂР°РЅРёС‚СЊ РІ Git)
+media/
+
+# Docker volumes
+postgres_data/
+redis_data/

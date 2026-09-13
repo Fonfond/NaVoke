@@ -202,8 +202,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://*.railway.app',
 ]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-<<<<<<< HEAD
-=======
+
 
 
 SPECTACULAR_SETTINGS = {
@@ -212,4 +211,4 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,  # не показывать саму схему в списке эндпоинтов
 }
->>>>>>> 0969cd6 (chore: normalize line endings)
+
