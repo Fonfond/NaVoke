@@ -114,18 +114,18 @@ async function loadProduct(id) {
         container.innerHTML = `
             <div class="col-lg-6">
                 <div class="product-image-wrapper">
-                    <img src="${product.image_url || '/static/images/no-image.png'}" 
-                         alt="${product.name}" 
+                    <img src="${escapeHTML(product.image_url || '/static/images/no-image.png')}"
+                         alt="${escapeHTML(product.name)}"
                          class="product-image"
                          onerror="this.src='/static/images/no-image.png'">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="product-details">
-                    <h1 class="product-title">${product.name}</h1>
+                    <h1 class="product-title">${escapeHTML(product.name)}</h1>
                     
                     <div class="product-meta">
-                        <span class="badge bg-primary">${product.category_name || 'Категория'}</span>
+                        <span class="badge bg-primary">${escapeHTML(product.category_name || 'Категория')}</span>
                         ${product.is_hit ? '<span class="badge bg-success">🔥 Хит</span>' : ''}
                         ${product.is_new ? '<span class="badge bg-info">✨ Новинка</span>' : ''}
                     </div>
@@ -140,9 +140,9 @@ async function loadProduct(id) {
                     
                     <div class="product-description">
                         <h5>Состав</h5>
-                        <p>${product.ingredients || 'Информация о составе отсутствует'}</p>
+                        <p>${escapeHTML(product.ingredients || 'Информация о составе отсутствует')}</p>
                         <h5>Описание</h5>
-                        <p>${product.description || 'Описание отсутствует'}</p>
+                        <p>${escapeHTML(product.description || 'Описание отсутствует')}</p>
                     </div>
                     
                     <!-- ✅ ВЫБОР ВАРИАНТА ТОЛЬКО ЕСЛИ ОНИ ЕСТЬ -->
@@ -151,19 +151,19 @@ async function loadProduct(id) {
                             <label class="form-label fw-bold">Выберите размер:</label>
                             <select class="form-select" id="productVariant">
                                 ${sortedVariants.map(v => `
-                                    <option value="${v.id}" data-price="${v.price}" data-weight="${v.weight}">
-                                        ${v.name || 'Стандарт'} — ${v.price} ₽ (${v.weight} г)
+                                    <option value="${Number(v.id)}" data-price="${escapeHTML(v.price)}" data-weight="${escapeHTML(v.weight)}">
+                                        ${escapeHTML(v.name || 'Стандарт')} — ${escapeHTML(v.price)} ₽ (${escapeHTML(v.weight)} г)
                                     </option>
                                 `).join('')}
                             </select>
                         </div>
                         <div class="product-price-block">
-                            <div class="product-price" id="productPriceDisplay">${firstVariant.price} ₽</div>
-                            ${firstVariant.old_price ? `<span class="product-old-price">${firstVariant.old_price} ₽</span>` : ''}
+                            <div class="product-price" id="productPriceDisplay">${escapeHTML(firstVariant.price)} ₽</div>
+                            ${firstVariant.old_price ? `<span class="product-old-price">${escapeHTML(firstVariant.old_price)} ₽</span>` : ''}
                         </div>
                     ` : `
                         <div class="product-price-block">
-                            <div class="product-price">${product.price || 0} ₽</div>
+                            <div class="product-price">${escapeHTML(product.price || 0)} ₽</div>
                         </div>
                     `}
                     
@@ -180,12 +180,12 @@ async function loadProduct(id) {
                         
                         <div class="favorite-actions">
                             <button class="btn-favorite ${isFavorite ? 'active' : ''}" 
-                                    onclick="toggleFavoriteProduct(${product.id})" 
+                                    onclick="toggleFavoriteProduct(${Number(product.id)})"
                                     id="favoriteBtn">
                                 <i class="fas fa-heart" style="${isFavorite ? 'color: #FF0000;' : ''}"></i>
                             </button>
                             ${isFavorite ? `
-                                <button class="btn-favorite-remove" onclick="removeFromFavorites(${product.id})" 
+                                <button class="btn-favorite-remove" onclick="removeFromFavorites(${Number(product.id)})"
                                         title="Удалить из избранного">
                                     <i class="fas fa-times"></i>
                                 </button>
@@ -267,14 +267,14 @@ function renderReviews(reviews) {
                 <div class="review-item border-bottom py-3">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <strong>${review.user_name || 'Пользователь'}</strong>
+                            <strong>${escapeHTML(review.user_name || 'Пользователь')}</strong>
                             <span class="ms-2 text-warning" style="font-size: 16px;">
                                 ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
                             </span>
                         </div>
                         <span class="text-muted small">${new Date(review.created_at).toLocaleDateString('ru-RU')}</span>
                     </div>
-                    <p class="mt-1 mb-0">${review.text || 'Без текста'}</p>
+                    <p class="mt-1 mb-0">${escapeHTML(review.text || 'Без текста')}</p>
                 </div>
             `).join('')}
         </div>
@@ -520,13 +520,13 @@ async function loadSimilarProducts(productId) {
         
         container.innerHTML = similar.map(product => `
             <div class="col-lg-3 col-md-6">
-                <div class="product-card" onclick="window.location.href='/product/${product.id}/'">
-                    <img src="${product.image_url || '/static/images/no-image.png'}" alt="${product.name}">
+                <div class="product-card" onclick="window.location.href='/product/${Number(product.id)}/'">
+                    <img src="${escapeHTML(product.image_url || '/static/images/no-image.png')}" alt="${escapeHTML(product.name)}">
                     <div class="product-info">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-desc">${product.weight || 0} г</div>
-                        <div class="product-price">${product.price || 0} ₽</div>
-                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
+                        <div class="product-name">${escapeHTML(product.name)}</div>
+                        <div class="product-desc">${escapeHTML(product.weight || 0)} г</div>
+                        <div class="product-price">${escapeHTML(product.price || 0)} ₽</div>
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${Number(product.id)})">
                             В корзину
                         </button>
                     </div>

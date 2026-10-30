@@ -56,25 +56,25 @@ async function loadCart() {
             <div class="col-lg-8">
                 <div class="cart-items">
                     ${cart.items.map(item => `
-                        <div class="cart-item" id="cart-item-${item.id}">
-                            <img src="${item.product_image || 'https://via.placeholder.com/80x80/FFF0E6/FF6B35?text=НаVoke'}" 
-                                 alt="${item.product_name}" 
+                        <div class="cart-item" id="cart-item-${Number(item.id)}">
+                            <img src="${escapeHTML(item.product_image || 'https://via.placeholder.com/80x80/FFF0E6/FF6B35?text=НаVoke')}"
+                                 alt="${escapeHTML(item.product_name)}"
                                  onerror="this.src='https://via.placeholder.com/80x80/FFF0E6/FF6B35?text=НаVoke'">
                             <div class="cart-item-info">
-                                <div class="cart-item-name">${item.product_name}</div>
-                                <div class="cart-item-price">${item.product_price} ₽</div>
+                                <div class="cart-item-name">${escapeHTML(item.product_name)}</div>
+                                <div class="cart-item-price">${escapeHTML(item.product_price)} ₽</div>
                             </div>
                             <div class="cart-item-actions">
-                                <button class="btn-quantity" onclick="updateQuantity(${item.id}, -1)">
+                                <button class="btn-quantity" onclick="updateQuantity(${Number(item.id)}, -1)">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <span class="cart-item-quantity" id="qty-${item.id}">${item.quantity}</span>
-                                <button class="btn-quantity" onclick="updateQuantity(${item.id}, 1)">
+                                <span class="cart-item-quantity" id="qty-${Number(item.id)}">${escapeHTML(item.quantity)}</span>
+                                <button class="btn-quantity" onclick="updateQuantity(${Number(item.id)}, 1)">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
-                            <div class="cart-item-total">${(item.product_price * item.quantity).toFixed(2)} ₽</div>
-                            <button class="btn-remove" onclick="removeFromCart(${item.id})">
+                            <div class="cart-item-total">${escapeHTML((item.product_price * item.quantity).toFixed(2))} ₽</div>
+                            <button class="btn-remove" onclick="removeFromCart(${Number(item.id)})">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
@@ -111,7 +111,7 @@ async function loadCart() {
         console.error('❌ Ошибка загрузки корзины:', error);
         container.innerHTML = `
             <div class="col-12 text-center py-5">
-                <p class="text-danger">Ошибка загрузки корзины: ${error.message}</p>
+                <p class="text-danger">Ошибка загрузки корзины: ${escapeHTML(error.message)}</p>
                 <button class="btn btn-secondary" onclick="loadCart()">🔄 Повторить</button>
             </div>
         `;
