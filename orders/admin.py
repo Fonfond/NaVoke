@@ -1,19 +1,30 @@
 # orders/admin.py
 from django.contrib import admin
-from .models import Order, OrderItem, Cart, CartItem
+from .models import Order, OrderItem, Cart, CartItem, OrderStatusHistory
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
     readonly_fields = ('price_at_order',)
 
+
+class OrderStatusHistoryInline(admin.TabularInline):
+    model = OrderStatusHistory
+    extra = 0
+    can_delete = False
+    readonly_fields = ('from_status', 'to_status', 'changed_by', 'created_at')
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_number', 'user', 'total_amount', 'status', 'payment_status', 'order_date')
     list_filter = ('status', 'payment_status', 'order_date')
     search_fields = ('order_number', 'user__username', 'user__phone')
-    readonly_fields = ('order_number', 'order_date', 'subtotal', 'total_amount')
-    inlines = [OrderItemInline]
+    # status меняется только через API/FSM, чтобы не обойти OrderStatusHistory
+    readonly_fields = ('order_number', 'order_date', 'subtotal', 'total_amount', 'status')
+    inlines = [OrderItemInline, OrderStatusHistoryInline]
     
     fieldsets = (
         ('Основная информация', {

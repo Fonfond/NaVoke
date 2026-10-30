@@ -204,29 +204,29 @@ async function loadOrders() {
         container.innerHTML = orders.map(order => `
             <div class="order-card">
                 <div class="order-header">
-                    <div class="order-number">Заказ #${order.order_number || order.id}</div>
-                    <span class="order-status status-${order.status || 'new'}">${getStatusText(order.status)}</span>
+                    <div class="order-number">Заказ #${escapeHTML(order.order_number || order.id)}</div>
+                    <span class="order-status status-${escapeHTML(order.status || 'new')}">${escapeHTML(getStatusText(order.status))}</span>
                 </div>
                 <div class="order-body">
                     <div class="order-date">${order.order_date ? new Date(order.order_date).toLocaleDateString('ru-RU') : 'Дата неизвестна'}</div>
-                    <div class="order-total">${order.total_amount || order.total || 0} ₽</div>
+                    <div class="order-total">${escapeHTML(order.total_amount || order.total || 0)} ₽</div>
                 </div>
                 <div class="order-items">
                     ${order.items && Array.isArray(order.items) ? order.items.map(item => `
-                        <span class="order-item">${item.quantity || 1}x ${item.product_name || item.product || 'Товар'}</span>
+                        <span class="order-item">${escapeHTML(item.quantity || 1)}x ${escapeHTML(item.product_name || item.product || 'Товар')}</span>
                     `).join('') : ''}
                 </div>
                 <div class="d-flex gap-2 mt-2">
-                    <button class="btn btn-sm btn-outline-primary" onclick="viewOrder(${order.id})">
+                    <button class="btn btn-sm btn-outline-primary" onclick="viewOrder(${Number(order.id)})">
                         Подробнее
                     </button>
                     ${order.status === 'new' && order.payment_status !== 'paid' ? `
-                        <button class="btn btn-sm btn-success" onclick="payOrder(${order.id})">
+                        <button class="btn btn-sm btn-success" onclick="payOrder(${Number(order.id)})">
                             <i class="fas fa-credit-card"></i> Оплатить
                         </button>
                     ` : ''}
                     ${order.status === 'new' || order.status === 'confirmed' ? `
-                        <button class="btn btn-sm btn-danger" onclick="cancelOrder(${order.id})">
+                        <button class="btn btn-sm btn-danger" onclick="cancelOrder(${Number(order.id)})">
                             <i class="fas fa-times"></i> Отменить
                         </button>
                     ` : ''}
@@ -238,7 +238,7 @@ async function loadOrders() {
         console.error('❌ Ошибка загрузки заказов:', error);
         container.innerHTML = `
             <div class="text-center py-4">
-                <p class="text-danger">Ошибка загрузки заказов: ${error.message}</p>
+                <p class="text-danger">Ошибка загрузки заказов: ${escapeHTML(error.message)}</p>
                 <button class="btn btn-secondary btn-sm mt-2" onclick="loadOrders()">🔄 Повторить</button>
             </div>
         `;
@@ -390,16 +390,16 @@ async function loadFavorites() {
             
             return `
                 <div class="col-lg-3 col-md-6">
-                    <div class="product-card" onclick="window.location.href='/product/${productId}/'">
-                        <img src="${productImage}" alt="${productName}" onerror="this.src='https://via.placeholder.com/300x200/FFF0E6/FF6B35?text=НаVoke'">
+                    <div class="product-card" onclick="window.location.href='/product/${Number(productId)}/'">
+                        <img src="${escapeHTML(productImage)}" alt="${escapeHTML(productName)}" onerror="this.src='https://via.placeholder.com/300x200/FFF0E6/FF6B35?text=НаVoke'">
                         <div class="product-info">
-                            <div class="product-name">${productName}</div>
-                            <div class="product-price">${productPrice} ₽</div>
+                            <div class="product-name">${escapeHTML(productName)}</div>
+                            <div class="product-price">${escapeHTML(productPrice)} ₽</div>
                             <div class="favorite-actions">
-                                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${productId})">
+                                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${Number(productId)})">
                                     В корзину
                                 </button>
-                                <button class="btn-favorite-remove" onclick="event.stopPropagation(); removeFavoriteItem(${productId})" 
+                                <button class="btn-favorite-remove" onclick="event.stopPropagation(); removeFavoriteItem(${Number(productId)})"
                                         title="Удалить из избранного">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
@@ -414,7 +414,7 @@ async function loadFavorites() {
         console.error('❌ Ошибка загрузки избранного:', error);
         container.innerHTML = `
             <div class="col-12 text-center py-4">
-                <p class="text-danger">Ошибка загрузки избранного: ${error.message}</p>
+                <p class="text-danger">Ошибка загрузки избранного: ${escapeHTML(error.message)}</p>
                 <button class="btn btn-secondary btn-sm mt-2" onclick="loadFavorites()">🔄 Повторить</button>
             </div>
         `;

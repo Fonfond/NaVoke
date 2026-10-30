@@ -250,13 +250,13 @@ async function loadCatalog() {
         } else {
             container.innerHTML = pageProducts.map(product => `
                 <div class="col-lg-4 col-md-6">
-                    <div class="product-card" onclick="window.location.href='/product/${product.id}/'">
-                        <img src="${product.image_url || '/static/images/no-image.png'}" alt="${product.name}">
+                    <div class="product-card" onclick="window.location.href='/product/${Number(product.id)}/'">
+                        <img src="${escapeHTML(product.image_url || '/static/images/no-image.png')}" alt="${escapeHTML(product.name)}">
                         <div class="product-info">
-                            <div class="product-name">${product.name}</div>
-                            <div class="product-desc">${product.weight || 0} г · ${product.ingredients || ''}</div>
-                            <div class="product-price">${product.price || 0} ₽</div>
-                            <button class="btn-add-cart" onclick="event.stopPropagation(); window.addToCart(${product.id})">
+                            <div class="product-name">${escapeHTML(product.name)}</div>
+                            <div class="product-desc">${escapeHTML(product.weight || 0)} г · ${escapeHTML(product.ingredients || '')}</div>
+                            <div class="product-price">${escapeHTML(product.price || 0)} ₽</div>
+                            <button class="btn-add-cart" onclick="event.stopPropagation(); window.addToCart(${Number(product.id)})">
                                 В корзину
                             </button>
                         </div>
@@ -274,7 +274,7 @@ async function loadCatalog() {
         console.error('❌ Ошибка загрузки каталога:', error);
         container.innerHTML = `
             <div class="col-12 text-center py-5">
-                <p class="text-danger">Ошибка загрузки товаров: ${error.message}</p>
+                <p class="text-danger">Ошибка загрузки товаров: ${escapeHTML(error.message)}</p>
             </div>
         `;
     }
@@ -308,11 +308,11 @@ async function loadCategoryFilters() {
             container.innerHTML = categories.map(cat => `
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="category" 
-                           id="cat_${cat.slug}" value="${cat.slug}"
+                           id="cat_${escapeHTML(cat.slug)}" value="${escapeHTML(cat.slug)}"
                            ${selectedCategory === cat.slug ? 'checked' : ''}
-                           onchange="onCategoryChange('${cat.slug}')">
-                    <label class="form-check-label" for="cat_${cat.slug}">
-                        ${cat.name}
+                           onchange="onCategoryChange(this.value)">
+                    <label class="form-check-label" for="cat_${escapeHTML(cat.slug)}">
+                        ${escapeHTML(cat.name)}
                     </label>
                 </div>
             `).join('');

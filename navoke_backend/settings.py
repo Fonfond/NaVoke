@@ -6,6 +6,7 @@ import base64
 import firebase_admin
 from firebase_admin import credentials
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 
 
 try:
@@ -22,20 +23,33 @@ except:
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ✅ ИСПРАВЛЕНО: Загрузка Firebase credentials
-if os.environ.get('FIREBASE_CREDENTIALS'):
-    # Декодируем base64 строку в JSON
-    firebase_credentials_json = base64.b64decode(os.environ['FIREBASE_CREDENTIALS'])
+
+def _required_env(name):
+    value = os.getenv(name)
+    if not value:
+        raise ImproperlyConfigured(f'{name} must be set')
+    return value
+
+
+# Безопасность
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+SECRET_KEY = _required_env('DJANGO_SECRET_KEY')
+
+# Firebase: в production обязателен FIREBASE_CREDENTIALS.
+firebase_credentials = os.getenv('FIREBASE_CREDENTIALS')
+if firebase_credentials:
+    firebase_credentials_json = base64.b64decode(firebase_credentials)
     cred = credentials.Certificate(json.loads(firebase_credentials_json))
+elif DEBUG and (BASE_DIR / 'serviceAccountKey.json').exists():
+    # Удобство локальной разработки; файл в .gitignore.
+    cred = credentials.Certificate(str(BASE_DIR / 'serviceAccountKey.json'))
 else:
-    # Если переменной нет — используем локальный файл
-    cred = credentials.Certificate(os.path.join(BASE_DIR, 'serviceAccountKey.json'))
+    raise ImproperlyConfigured(
+        'FIREBASE_CREDENTIALS must be set when DEBUG=False'
+    )
 
 firebase_admin.initialize_app(cred)
 
-# Безопасность
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,10.0.2.2,192.168.1.0/24').split(',') + ['.railway.app', '.onrender.com', '.pythonanywhere.com']
 
 # ✅ Убираем дублирование - оставляем только один раз
@@ -92,11 +106,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
 ]
 
+DATABASE_URL = _required_env('DATABASE_URL')
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600
-        
+        default=DATABASE_URL,
+        conn_max_age=600,
     )
 }
 
@@ -184,9 +199,25 @@ TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', '')
 SITE_URL = os.getenv('SITE_URL', 'http://127.0.0.1:8000')
 
 # ✅ Добавляем настройки для ЮKassa
-YOOKASSA_SHOP_ID = os.getenv('YOOKASSA_SHOP_ID', '')
-YOOKASSA_SECRET_KEY = os.getenv('YOOKASSA_SECRET_KEY', '')
+YOOKASSA_SHOP_ID = os.getenv('YOOKASSA_SHOP_ID')
+YOOKASSA_SECRET_KEY = os.getenv('YOOKASSA_SECRET_KEY')
 YOOKASSA_RETURN_URL = os.getenv('YOOKASSA_RETURN_URL', 'http://127.0.0.1:8000/order-success/')
+
+# Официальные IP-диапазоны, с которых ЮKassa присылает HTTP-уведомления.
+# Сверять при деплое: https://yookassa.ru/developers/using-api/webhooks#ip
+YOOKASSA_TRUSTED_NETS = [
+    net.strip()
+    for net in os.getenv(
+        'YOOKASSA_TRUSTED_NETS',
+        '185.71.76.0/27,185.71.77.0/27,77.75.153.0/25,'
+        '77.75.154.128/25,77.75.156.11/32,77.75.156.35/32',
+    ).split(',')
+    if net.strip()
+]
+
+# True только за доверенным reverse-proxy, который сам перезаписывает
+# X-Real-IP / X-Forwarded-For. Иначе заголовки можно подделать.
+YOOKASSA_TRUST_PROXY = os.getenv('YOOKASSA_TRUST_PROXY', 'False').lower() == 'true'
 
 # Добавьте в конец settings.py:
 

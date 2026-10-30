@@ -20,8 +20,8 @@ class ProductVariantInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'category', 'get_min_price', 'is_hit', 'is_new')
-    list_filter = ('category', 'is_hit', 'is_new')
+    list_display = ('id', 'name', 'category', 'get_min_price', 'is_hit', 'is_new', 'is_archived')
+    list_filter = ('category', 'is_hit', 'is_new', 'is_archived')
     search_fields = ('name', 'description', 'ingredients')
     prepopulated_fields = {}
     inlines = [ProductVariantInline]
@@ -38,7 +38,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('image', 'image_url')
         }),
         ('Маркировка', {
-            'fields': ('is_hit', 'is_new')
+            'fields': ('is_hit', 'is_new', 'is_archived')
         }),
     )
 

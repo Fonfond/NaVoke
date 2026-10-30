@@ -1,7 +1,10 @@
 # orders/views.py
 import uuid
+from decimal import Decimal
+
 from django.utils import timezone
 from django.db import transaction
+from django.db.models import F
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
@@ -9,7 +12,9 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-from .models import Cart, CartItem, Order, OrderItem
+from core.models import SiteSettings
+from users.models import User
+from .models import Cart, CartItem, Order, OrderItem, OrderStatusHistory
 from products.models import Product, ProductVariant
 from .serializers import CartSerializer, OrderSerializer, CreateOrderSerializer
 from firebase_admin import messaging
@@ -29,6 +34,58 @@ def send_push_notification(fcm_token, title, body):
         messaging.send(message)
     except Exception as e:
         print(f"Ошибка отправки уведомления: {e}")
+
+
+def _cart_item_price(item):
+    """Единая цена позиции корзины для subtotal и OrderItem."""
+    if item.variant_id:
+        return item.variant.price
+
+    first_variant = item.product.variants.filter(is_available=True).first()
+    if first_variant:
+        return first_variant.price
+
+    return item.product.price or Decimal('0')
+
+
+def _refund_order_bonus(order):
+    """Возврат списанных бонусов. Вызывается только внутри transaction.atomic."""
+    if not order.bonus_used:
+        return
+
+    user = User.objects.select_for_update().get(pk=order.user_id)
+    User.objects.filter(pk=user.pk).update(
+        bonus_points=F('bonus_points') + order.bonus_used
+    )
+
+
+def _award_bonus_for_delivery(order):
+    """Начисление бонусов за доставленный заказ."""
+    site = SiteSettings.get_settings()
+    if not site.bonus_enabled:
+        return
+
+    earned_bonus = int(
+        order.total_amount * Decimal(str(site.bonus_rate)) / Decimal('100')
+    )
+    if earned_bonus <= 0:
+        return
+
+    user = User.objects.select_for_update().get(pk=order.user_id)
+    User.objects.filter(pk=user.pk).update(
+        bonus_points=F('bonus_points') + earned_bonus
+    )
+
+
+def _notify_status_change(order, new_status):
+    if not order.user.fcm_token:
+        return
+
+    send_push_notification(
+        order.user.fcm_token,
+        f"Статус заказа #{order.order_number}",
+        f"Ваш заказ теперь: {dict(Order.STATUS_CHOICES).get(new_status, new_status)}",
+    )
 
 
 # ===== ГОСТЕВАЯ КОРЗИНА =====
@@ -69,7 +126,7 @@ class GuestCartView(APIView):
             )
         
         try:
-            product = Product.objects.get(id=product_id)
+            product = Product.objects.get(id=product_id, is_archived=False)
         except Product.DoesNotExist:
             return Response(
                 {'error': 'Товар не найден'},
@@ -173,7 +230,7 @@ class AddToCartView(APIView):
             )
         
         try:
-            product = Product.objects.get(id=product_id)
+            product = Product.objects.get(id=product_id, is_archived=False)
         except Product.DoesNotExist:
             return Response(
                 {'error': 'Товар не найден'}, 
@@ -284,32 +341,69 @@ class CreateOrderView(APIView):
         data = serializer.validated_data
         
         try:
-            cart = Cart.objects.get(user=request.user)
-            if not cart.items.exists():
-                return Response(
-                    {'error': 'Корзина пуста'},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+            cart = Cart.objects.select_for_update().get(user=request.user)
         except Cart.DoesNotExist:
             return Response(
                 {'error': 'Корзина пуста'},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
-        
-        subtotal = sum(item.total for item in cart.items.all())
+
+        cart_items = list(cart.items.select_related('product', 'variant'))
+        if not cart_items:
+            return Response(
+                {'error': 'Корзина пуста'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = User.objects.select_for_update().get(pk=request.user.pk)
+        site = SiteSettings.get_settings()
+
+        priced_items = [(item, _cart_item_price(item)) for item in cart_items]
+        subtotal = sum(
+            (price * item.quantity for item, price in priced_items),
+            Decimal('0'),
+        )
+
         delivery_type = data.get('delivery_type', 'delivery')
-        delivery_cost = 0 if delivery_type == 'pickup' else (150 if subtotal < 800 else 0)
-        discount = 0
-        bonus_used = min(data.get('bonus_used', 0), request.user.bonus_points)
-        if bonus_used > 0:
-            request.user.bonus_points -= bonus_used
-            request.user.save()
-        total = subtotal + delivery_cost - discount - bonus_used
+        if delivery_type == 'pickup' or subtotal >= site.delivery_free_threshold:
+            delivery_cost = Decimal('0')
+        else:
+            delivery_cost = Decimal(site.delivery_base_cost)
+
+        requested_bonus = data.get('bonus_used', 0)
+        if requested_bonus > subtotal:
+            return Response(
+                {'error': 'Бонусов больше, чем стоимость заказа'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if site.bonus_enabled:
+            max_bonus_by_percent = int(
+                subtotal * Decimal(site.bonus_max_percent) / Decimal('100')
+            )
+            bonus_used = max(
+                0,
+                min(requested_bonus, user.bonus_points, max_bonus_by_percent),
+            )
+        else:
+            bonus_used = 0
+
+        total = subtotal + delivery_cost - Decimal(bonus_used)
+        if total < 0:
+            return Response(
+                {'error': 'Итоговая сумма не может быть отрицательной'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if bonus_used:
+            User.objects.filter(pk=user.pk).update(
+                bonus_points=F('bonus_points') - bonus_used
+            )
         
         order_number = f"NVK-{timezone.now().strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
         
         order = Order.objects.create(
-            user=request.user,
+            user=user,
             order_number=order_number,
             delivery_address=data.get('delivery_address', ''),
             delivery_date=data.get('delivery_date'),
@@ -318,7 +412,7 @@ class CreateOrderView(APIView):
             comment=data.get('comment', ''),
             subtotal=subtotal,
             delivery_cost=delivery_cost,
-            discount=discount,
+            discount=0,
             bonus_used=bonus_used,
             total_amount=total,
             payment_method=data['payment_method'],
@@ -330,27 +424,14 @@ class CreateOrderView(APIView):
             cutlery_count=data.get('cutlery_count', 2),
         )
         
-        for cart_item in cart.items.all():
-            # Если у товара есть вариация — это отдельная позиция
-            if cart_item.variant:
-                OrderItem.objects.create(
-                    order=order,
-                    product=cart_item.product,
-                    variant=cart_item.variant,  # ✅ Сохраняем вариацию
-                    quantity=cart_item.quantity,
-                    price_at_order=cart_item.variant.price,
-                )
-            else:
-                # Если вариации нет — создаём обычную позицию
-                first_variant = cart_item.product.variants.filter(is_available=True).first()
-                price_at_order = first_variant.price if first_variant else cart_item.product.price or 0
-                
-                OrderItem.objects.create(
-                    order=order,
-                    product=cart_item.product,
-                    quantity=cart_item.quantity,
-                    price_at_order=price_at_order,
-                )
+        for item, price in priced_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                variant=item.variant,
+                quantity=item.quantity,
+                price_at_order=price,
+            )
         
         cart.items.all().delete()
         serializer = OrderSerializer(order)
@@ -382,22 +463,39 @@ class OrderDetailView(generics.RetrieveAPIView):
 
 class CancelOrderView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
+
+    @transaction.atomic
     def post(self, request, order_id):
         try:
-            order = Order.objects.get(id=order_id, user=request.user)
-            if order.status not in ['new', 'confirmed']:
-                return Response(
-                    {'error': 'Заказ нельзя отменить (уже в обработке или доставлен)'},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            order.status = 'cancelled'
-            order.save()
-            return Response(OrderSerializer(order).data)
+            order = Order.objects.select_for_update().get(
+                id=order_id,
+                user=request.user,
+            )
         except Order.DoesNotExist:
             return Response(
                 {'error': 'Заказ не найден'},
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
+
+        if order.status not in ('new', 'confirmed'):
+            return Response(
+                {'error': 'Заказ нельзя отменить (уже в обработке или доставлен)'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        old_status = order.status
+        order.status = 'cancelled'
+        order.save(update_fields=['status'])
+        _refund_order_bonus(order)
+
+        OrderStatusHistory.objects.create(
+            order=order,
+            from_status=old_status,
+            to_status='cancelled',
+            changed_by=request.user,
+        )
+
+        return Response(OrderSerializer(order).data)
 
 class UpdatePaymentStatusView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -431,47 +529,71 @@ class UpdatePaymentStatusView(APIView):
 
 class UpdateOrderStatusView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
+
+    @transaction.atomic
     def put(self, request, order_id):
         if request.user.role != 'admin':
             return Response(
                 {'error': 'Только администраторы могут изменять статус заказа'},
-                status=status.HTTP_403_FORBIDDEN
+                status=status.HTTP_403_FORBIDDEN,
             )
+
         try:
-            order = Order.objects.get(id=order_id)
+            order = Order.objects.select_for_update().get(id=order_id)
         except Order.DoesNotExist:
             return Response(
                 {'error': 'Заказ не найден'},
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
+
         new_status = request.data.get('status')
         if new_status not in dict(Order.STATUS_CHOICES):
             return Response(
-                {'error': f'Недопустимый статус. Допустимые: {", ".join(dict(Order.STATUS_CHOICES).keys())}'},
-                status=status.HTTP_400_BAD_REQUEST
+                {
+                    'error': (
+                        'Недопустимый статус. Допустимые: '
+                        + ', '.join(dict(Order.STATUS_CHOICES).keys())
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
             )
-        order.status = new_status
-        order.save()
 
-        # ✅ Отправляем уведомление (если есть токен)
-        if order.user.fcm_token:
-            send_push_notification(
-                order.user.fcm_token,
-                f"Статус заказа #{order.order_number}",
-                f"Ваш заказ теперь: {dict(Order.STATUS_CHOICES)[new_status]}"
+        allowed = Order.ALLOWED_TRANSITIONS.get(order.status, set())
+        if new_status not in allowed:
+            return Response(
+                {'error': f'Переход {order.status} -> {new_status} запрещён'},
+                status=status.HTTP_409_CONFLICT,
             )
-        
-        # ✅ Начисляем бонусы, если статус delivered
+
+        if (
+            new_status == 'delivered'
+            and order.payment_method == 'online'
+            and order.payment_status != 'paid'
+        ):
+            return Response(
+                {'error': 'Нельзя доставить неоплаченный онлайн-заказ'},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        old_status = order.status
+        order.status = new_status
+        order.save(update_fields=['status'])
+
+        OrderStatusHistory.objects.create(
+            order=order,
+            from_status=old_status,
+            to_status=new_status,
+            changed_by=request.user,
+        )
+
+        if new_status == 'cancelled':
+            _refund_order_bonus(order)
+
         if new_status == 'delivered':
-            from core.models import SiteSettings
-            settings = SiteSettings.get_settings()
-            if settings.bonus_enabled:
-                bonus_for_100 = float(settings.bonus_rate)
-                earned_bonus = int((order.total_amount / 100) * bonus_for_100)
-                if earned_bonus > 0:
-                    user = order.user
-                    user.bonus_points += earned_bonus
-                    user.save()
-        
-        # ✅ ЕДИНСТВЕННЫЙ return в конце функции
+            _award_bonus_for_delivery(order)
+
+        transaction.on_commit(
+            lambda: _notify_status_change(order, new_status)
+        )
+
         return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)

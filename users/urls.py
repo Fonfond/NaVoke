@@ -1,13 +1,16 @@
 # users/urls.py
 from django.urls import path
-from .views import RegisterView, ProfileView
-from .views import UserListView, UpdateUserRoleView, ToggleUserStatusView, save_fcm_token
+from rest_framework_simplejwt.views import TokenRefreshView
 
-try:
-    from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-except ImportError:
-    TokenObtainPairView = None
-    TokenRefreshView = None
+from .views import (
+    PhoneTokenObtainPairView,
+    ProfileView,
+    RegisterView,
+    ToggleUserStatusView,
+    UpdateUserRoleView,
+    UserListView,
+    save_fcm_token,
+)
 
 app_name = 'users'
 
@@ -18,10 +21,6 @@ urlpatterns = [
     path('<int:user_id>/update-role/', UpdateUserRoleView.as_view(), name='update-role'),
     path('<int:user_id>/toggle-status/', ToggleUserStatusView.as_view(), name='toggle-status'),
     path('save-fcm-token/', save_fcm_token, name='save-fcm-token'),
+    path('login/', PhoneTokenObtainPairView.as_view(), name='login'),
+    path('refresh/', TokenRefreshView.as_view(), name='refresh'),
 ]
-
-if TokenObtainPairView is not None:
-    urlpatterns += [
-        path('login/', TokenObtainPairView.as_view(), name='login'),
-        path('refresh/', TokenRefreshView.as_view(), name='refresh'),
-    ]

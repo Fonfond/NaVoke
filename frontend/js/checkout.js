@@ -101,9 +101,9 @@ async function loadOrderSummary() {
 
         container.innerHTML = cart.items.map(item => `
             <div class="order-item-summary">
-                <span class="item-name">${item.product_name}</span>
-                <span class="item-qty">×${item.quantity}</span>
-                <span class="item-price">${(item.product_price * item.quantity).toFixed(2)} ₽</span>
+                <span class="item-name">${escapeHTML(item.product_name)}</span>
+                <span class="item-qty">×${escapeHTML(item.quantity)}</span>
+                <span class="item-price">${escapeHTML((item.product_price * item.quantity).toFixed(2))} ₽</span>
             </div>
         `).join('');
 

@@ -50,12 +50,12 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'category', 'category_name', 'category_slug',
             'description', 'ingredients', 'image', 'image_url',
-            'is_hit', 'is_new', 'created_at',
+            'is_hit', 'is_new', 'is_archived', 'created_at',
             'variants', 'min_price', 'has_variants',
             'reviews', 'average_rating',
             'price', 'weight'
         )
-        read_only_fields = ('created_at',)
+        read_only_fields = ('created_at', 'is_archived')
 
     def get_image_url(self, obj):
         if obj.image:
@@ -90,7 +90,60 @@ class ProductSerializer(serializers.ModelSerializer):
         return obj.weight or 0
 
     def get_has_variants(self, obj):
-        return obj.variants.filter(is_available=True).exists()
+        # Хранимый флаг нужен админке, чтобы сразу после создания товара
+        # с has_variants=True открыть управление вариациями.
+        return bool(obj.has_variants or obj.variants.filter(is_available=True).exists())
+
+
+class ProductWriteSerializer(serializers.ModelSerializer):
+    """Сериализатор для создания/редактирования товара (только админка)."""
+
+    price = serializers.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        required=False,
+        allow_null=True,
+        min_value=0,
+    )
+    weight = serializers.IntegerField(
+        required=False,
+        allow_null=True,
+        min_value=0,
+    )
+    has_variants = serializers.BooleanField(required=False)
+    image_url = serializers.URLField(
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        max_length=500,
+    )
+
+    class Meta:
+        model = Product
+        fields = (
+            'name', 'category', 'description', 'ingredients',
+            'image', 'image_url', 'is_hit', 'is_new',
+            'price', 'weight', 'has_variants',
+        )
+
+    def validate(self, attrs):
+        instance = self.instance
+        has_variants = attrs.get(
+            'has_variants',
+            getattr(instance, 'has_variants', False) if instance else False,
+        )
+        price = attrs.get(
+            'price',
+            getattr(instance, 'price', None) if instance else None,
+        )
+
+        if not has_variants and (price is None or price <= 0):
+            raise serializers.ValidationError({
+                'price': 'Для товара без вариаций price обязателен и должен быть больше 0.'
+            })
+
+        return attrs
+
 
 class LunchMenuSerializer(serializers.ModelSerializer):
     class Meta:

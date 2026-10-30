@@ -1,12 +1,53 @@
 # payments/views.py
+import ipaddress
+import logging
+from decimal import Decimal, InvalidOperation
+
+from django.conf import settings
+from django.db import transaction
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from orders.models import Order
+from orders.models import Order, OrderStatusHistory
 from .models import Payment
-from .services import YooKassaService
+from .services import YooKassaAPIError, YooKassaService
+
+
+logger = logging.getLogger(__name__)
+
+
+def _client_ip(request):
+    """IP клиента с учётом доверенного reverse-proxy."""
+    if settings.YOOKASSA_TRUST_PROXY:
+        real_ip = request.META.get('HTTP_X_REAL_IP')
+        if real_ip:
+            return real_ip.strip()
+        forwarded = request.META.get('HTTP_X_FORWARDED_FOR', '')
+        if forwarded:
+            # Последний адрес добавлен ближайшим доверенным прокси;
+            # первый клиент может подставить сам.
+            return forwarded.split(',')[-1].strip()
+    return request.META.get('REMOTE_ADDR', '').strip()
+
+
+def _is_trusted_ip(ip):
+    try:
+        address = ipaddress.ip_address(ip)
+        networks = [
+            net if isinstance(net, (ipaddress.IPv4Network, ipaddress.IPv6Network))
+            else ipaddress.ip_network(net, strict=False)
+            for net in settings.YOOKASSA_TRUSTED_NETS
+        ]
+    except ValueError:
+        logger.error('Invalid client IP or YOOKASSA_TRUSTED_NETS: %s', ip)
+        return False
+
+    return any(
+        address.version == net.version and address in net
+        for net in networks
+    )
 
 
 class CreatePaymentView(APIView):
@@ -64,57 +105,149 @@ class CreatePaymentView(APIView):
 
 
 class PaymentWebhookView(APIView):
-    """Webhook для обработки уведомлений от ЮKassa"""
+    """Webhook для обработки уведомлений от ЮKassa."""
     permission_classes = (permissions.AllowAny,)
-    
+    authentication_classes = ()
+
     def post(self, request):
+        ip = _client_ip(request)
+        if not _is_trusted_ip(ip):
+            logger.warning('Rejected YooKassa webhook from %s', ip)
+            return Response({'error': 'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
+
         event = request.data.get('event')
-        payment_data = request.data.get('object')
-        
-        if not event or not payment_data:
-            return Response({'error': 'Invalid webhook'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        payment_id = payment_data['id']
-        
+        payment_data = request.data.get('object') or {}
+        payment_id = payment_data.get('id')
+
+        if not event or not payment_id:
+            return Response(
+                {'error': 'Invalid webhook'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # В рамках C-1 обрабатываем только подтверждённую оплату.
+        # Отмена/возврат требуют отдельного refund-flow и не меняются по телу запроса.
+        if event != 'payment.succeeded':
+            return Response({'status': 'ignored'}, status=status.HTTP_200_OK)
+
         try:
-            payment = Payment.objects.get(payment_id=payment_id)
-            order = payment.order
-            
-            if event == 'payment.succeeded':
-                order.payment_status = 'paid'
-                order.status = 'confirmed'
-                order.save()
-                
-                payment.status = 'succeeded'
-                payment.paid_at = timezone.now()
-                payment.save()
-                
-                # TODO: Отправить уведомление клиенту
-                print(f"✅ Платёж {payment_id} успешен для заказа {order.order_number}")
-            
-            elif event == 'payment.canceled':
-                payment.status = 'canceled'
-                payment.save()
-                
-                order.payment_status = 'failed'
-                order.save()
-                
-                print(f"❌ Платёж {payment_id} отменён для заказа {order.order_number}")
-            
-            elif event == 'payment.refunded':
-                payment.status = 'refunded'
-                payment.refunded_at = timezone.now()
-                payment.save()
-                
-                order.payment_status = 'refunded'
-                order.save()
-                
-                print(f"🔄 Платёж {payment_id} возвращён для заказа {order.order_number}")
-        
+            payment = Payment.objects.select_related('order').get(payment_id=payment_id)
         except Payment.DoesNotExist:
-            return Response({'error': 'Payment not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        return Response({'status': 'ok'})
+            return Response(
+                {'error': 'Payment not found'},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        order = payment.order
+        if order.payment_status == 'paid':
+            return Response({'status': 'ok'}, status=status.HTTP_200_OK)
+
+        # Не доверяем телу запроса: проверяем реальный статус и сумму в API.
+        try:
+            remote = YooKassaService().get_payment(payment_id)
+        except YooKassaAPIError:
+            logger.exception('YooKassa API unavailable for payment %s', payment_id)
+            return Response(
+                {'error': 'Payment provider unavailable'},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+
+        if remote.get('status') != 'succeeded':
+            return Response({'status': 'ignored'}, status=status.HTTP_200_OK)
+
+        try:
+            remote_amount = Decimal(str(remote['amount']['value']))
+        except (KeyError, TypeError, InvalidOperation):
+            logger.critical('Malformed YooKassa amount for payment %s', payment_id)
+            return Response(
+                {'error': 'Malformed payment data'},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        currency = (remote.get('amount') or {}).get('currency')
+        remote_order_id = str((remote.get('metadata') or {}).get('order_id'))
+
+        if (
+            str(remote.get('id')) != str(payment_id)
+            or currency != 'RUB'
+            or remote_amount != order.total_amount
+            or payment.amount != order.total_amount
+            or remote_order_id != str(order.id)
+        ):
+            logger.critical(
+                'YooKassa verification failed payment=%s order=%s '
+                'remote_amount=%s order_total=%s currency=%s metadata_order=%s',
+                payment_id,
+                order.id,
+                remote_amount,
+                order.total_amount,
+                currency,
+                remote_order_id,
+            )
+            return Response(
+                {'error': 'Payment verification failed'},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        # Блокируем строки только после ответа внешнего API.
+        with transaction.atomic():
+            try:
+                payment = Payment.objects.select_for_update().get(pk=payment.pk)
+                order = Order.objects.select_for_update().get(pk=payment.order_id)
+            except (Payment.DoesNotExist, Order.DoesNotExist):
+                return Response(
+                    {'error': 'Payment not found'},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
+            if order.payment_status == 'paid':
+                return Response({'status': 'ok'}, status=status.HTTP_200_OK)
+
+            if order.status == 'cancelled':
+                logger.critical(
+                    'YooKassa succeeded for cancelled order %s (payment %s)',
+                    order.id,
+                    payment_id,
+                )
+                return Response(
+                    {'error': 'Order cancelled'},
+                    status=status.HTTP_409_CONFLICT,
+                )
+
+            if (
+                payment.amount != order.total_amount
+                or remote_amount != order.total_amount
+            ):
+                logger.critical(
+                    'Order total changed during YooKassa webhook order=%s '
+                    'payment=%s',
+                    order.id,
+                    payment_id,
+                )
+                return Response(
+                    {'error': 'Amount changed'},
+                    status=status.HTTP_409_CONFLICT,
+                )
+
+            payment.status = 'succeeded'
+            payment.paid_at = timezone.now()
+            payment.save(update_fields=['status', 'paid_at'])
+
+            old_status = order.status
+            order.payment_status = 'paid'
+            if order.status == 'new':
+                order.status = 'confirmed'
+            order.save(update_fields=['payment_status', 'status'])
+
+            if old_status != order.status:
+                OrderStatusHistory.objects.create(
+                    order=order,
+                    from_status=old_status,
+                    to_status=order.status,
+                    changed_by=None,
+                )
+
+        return Response({'status': 'ok'}, status=status.HTTP_200_OK)
 
 
 class CheckPaymentStatusView(APIView):
