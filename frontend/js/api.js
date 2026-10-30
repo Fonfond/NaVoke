@@ -16,6 +16,18 @@
         localStorage.removeItem('access_token');
     }
 
+    async function parseApiResponse(response) {
+        const text = await response.text();
+        if (!text) {
+            return {};
+        }
+        try {
+            return JSON.parse(text);
+        } catch {
+            return { detail: text };
+        }
+    }
+
     function logout() {
         removeToken();
         localStorage.removeItem('refresh_token');
@@ -62,7 +74,10 @@
                         });
 
                         if (refreshResponse.ok) {
-                            const refreshData = await refreshResponse.json();
+                            const refreshData = await parseApiResponse(refreshResponse);
+                            if (!refreshData.access) {
+                                throw new Error('Не удалось обновить токен');
+                            }
                             localStorage.setItem('access_token', refreshData.access);
 
                             // ✅ Повторяем исходный запрос с новым токеном
@@ -90,10 +105,14 @@
                 }
             }
 
-            const result = await response.json();
+            const result = await parseApiResponse(response);
 
             if (!response.ok) {
-                throw new Error(result.detail || result.error || 'Ошибка запроса');
+                const detail = result && (result.detail || result.error);
+                const message = typeof detail === 'string'
+                    ? detail
+                    : JSON.stringify(detail || result);
+                throw new Error(message || `HTTP ${response.status}`);
             }
 
             return result;

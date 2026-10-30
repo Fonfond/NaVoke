@@ -174,32 +174,32 @@ function renderUsersTable(users) {
     const pageUsers = users.slice(start, end);
 
     tbody.innerHTML = pageUsers.map(user => `
-        <tr id="user-row-${user.id}">
-            <td>${user.id}</td>
+        <tr id="user-row-${Number(user.id)}">
+            <td>${escapeHTML(user.id)}</td>
             <td>
                 <div class="d-flex align-items-center">
                     <div class="avatar-circle-sm me-2" style="width:32px;height:32px;border-radius:50%;background:#FF6B35;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;">
-                        ${(user.full_name || user.username || 'U').charAt(0).toUpperCase()}
+                        ${escapeHTML((user.full_name || user.username || 'U').charAt(0).toUpperCase())}
                     </div>
-                    <span>${user.full_name || user.username}</span>
+                    <span>${escapeHTML(user.full_name || user.username)}</span>
                 </div>
             </td>
-            <td>${user.email || '—'}</td>
-            <td>${user.phone || '—'}</td>
-            <td>${user.orders_count || 0}</td>
+            <td>${escapeHTML(user.email || '—')}</td>
+            <td>${escapeHTML(user.phone || '—')}</td>
+            <td>${escapeHTML(user.orders_count || 0)}</td>
             <td>
                 <span class="badge bg-${user.role === 'admin' ? 'danger' : user.role === 'manager' ? 'warning' : 'secondary'}">
                     ${user.role === 'admin' ? 'Админ' : user.role === 'manager' ? 'Менеджер' : 'Клиент'}
                 </span>
             </td>
             <td>
-                <button class="btn btn-sm btn-outline-primary me-1" onclick="editUserRole(${user.id})" title="Изменить роль">
+                <button class="btn btn-sm btn-outline-primary me-1" onclick="editUserRole(${Number(user.id)})" title="Изменить роль">
                     <i class="fas fa-user-cog"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-${user.is_active ? 'danger' : 'success'} me-1" onclick="toggleUserStatus(${user.id})" title="${user.is_active ? 'Заблокировать' : 'Разблокировать'}">
+                <button class="btn btn-sm btn-outline-${user.is_active ? 'danger' : 'success'} me-1" onclick="toggleUserStatus(${Number(user.id)})" title="${user.is_active ? 'Заблокировать' : 'Разблокировать'}">
                     <i class="fas fa-${user.is_active ? 'ban' : 'check-circle'}"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-info" onclick="viewUserOrders(${user.id})" title="Заказы пользователя">
+                <button class="btn btn-sm btn-outline-info" onclick="viewUserOrders(${Number(user.id)})" title="Заказы пользователя">
                     <i class="fas fa-list"></i>
                 </button>
             </td>
@@ -296,7 +296,7 @@ function editUserRole(userId) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>Пользователь:</strong> ${user.full_name || user.username}</p>
+                        <p><strong>Пользователь:</strong> ${escapeHTML(user.full_name || user.username)}</p>
                         <div class="mb-3">
                             <label class="form-label">Роль</label>
                             <select class="form-select" id="newRole">
@@ -305,7 +305,7 @@ function editUserRole(userId) {
                                 <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Администратор</option>
                             </select>
                         </div>
-                        <input type="hidden" id="roleUserId" value="${user.id}">
+                        <input type="hidden" id="roleUserId" value="${Number(user.id)}">
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
@@ -435,14 +435,14 @@ async function loadOrders() {
 
         tbody.innerHTML = orders.map(order => `
             <tr>
-                <td><strong>#${order.order_number}</strong></td>
-                <td>${order.full_name || order.user_name || '—'}</td>
-                <td>${order.phone || '—'}</td>
-                <td>${order.total_amount} ₽</td>
-                <td><span class="badge bg-${getStatusColor(order.status)}">${getStatusText(order.status)}</span></td>
+                <td><strong>#${escapeHTML(order.order_number)}</strong></td>
+                <td>${escapeHTML(order.full_name || order.user_name || '—')}</td>
+                <td>${escapeHTML(order.phone || '—')}</td>
+                <td>${escapeHTML(order.total_amount)} ₽</td>
+                <td><span class="badge bg-${getStatusColor(order.status)}">${escapeHTML(getStatusText(order.status))}</span></td>
                 <td>
                     <select class="form-select form-select-sm" 
-                            onchange="updatePaymentStatus(${order.id}, this.value)" 
+                            onchange="updatePaymentStatus(${Number(order.id)}, this.value)"
                             style="width: 150px;">
                         <option value="pending" ${order.payment_status === 'pending' ? 'selected' : ''}>⏳ Ожидает</option>
                         <option value="paid" ${order.payment_status === 'paid' ? 'selected' : ''}>✅ Оплачен</option>
@@ -450,14 +450,16 @@ async function loadOrders() {
                         <option value="refunded" ${order.payment_status === 'refunded' ? 'selected' : ''}>🔄 Возврат</option>
                     </select>
                 </td>
-                <td>${order.payment_method_display || order.payment_method || '—'}</td>
+                <td>${escapeHTML(order.payment_method_display || order.payment_method || '—')}</td>
                 <td>${new Date(order.created_at || order.order_date).toLocaleDateString('ru-RU')}</td>
-                <td>${order.persons_count || '—'} чел. / ${order.cutlery_count || '—'} приб.</td>
+                <td>${escapeHTML(order.persons_count || '—')} чел. / ${escapeHTML(order.cutlery_count || '—')} приб.</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" onclick="openStatusModal(${order.id}, '${order.status}')">
+                    <button class="btn btn-sm btn-outline-primary me-1"
+                            data-status="${escapeHTML(order.status)}"
+                            onclick="openStatusModal(${Number(order.id)}, this.dataset.status)">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="btn btn-sm btn-outline-info" onclick="viewOrderDetail(${order.id})">
+                    <button class="btn btn-sm btn-outline-info" onclick="viewOrderDetail(${Number(order.id)})">
                         <i class="fas fa-eye"></i>
                     </button>
                 </td>
@@ -537,28 +539,28 @@ function renderProductsTable(products) {
     }
 
     tbody.innerHTML = pageProducts.map(product => `
-        <tr id="product-row-${product.id}">
+        <tr id="product-row-${Number(product.id)}">
             <td>
-                <img src="${product.image || product.image_url || '/static/images/no-image.png'}" 
-                     alt="${product.name}" 
+                <img src="${escapeHTML(product.image || product.image_url || '/static/images/no-image.png')}"
+                     alt="${escapeHTML(product.name)}"
                      style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"
-                     onclick="openUploadModal(${product.id})"
+                     onclick="openUploadModal(${Number(product.id)})"
                      title="Нажмите для смены фото"
                      class="product-thumb">
             </td>
-            <td><strong>${product.id}</strong></td>
-            <td>${product.name}</td>
-            <td>${product.category_name || '—'}</td>
-            <td>${product.has_variants ? (product.min_price || '—') : (product.price || '—')} ₽</td>
-            <td>${product.variants?.length || 0} шт.</td>
+            <td><strong>${escapeHTML(product.id)}</strong></td>
+            <td>${escapeHTML(product.name)}</td>
+            <td>${escapeHTML(product.category_name || '—')}</td>
+            <td>${escapeHTML(product.has_variants ? (product.min_price || '—') : (product.price || '—'))} ₽</td>
+            <td>${escapeHTML(product.variants?.length || 0)} шт.</td>
             <td>
-                <button class="btn btn-sm btn-outline-primary me-1" onclick="openEditVariantModal(${product.id})" title="Управлять вариациями">
+                <button class="btn btn-sm btn-outline-primary me-1" onclick="openEditVariantModal(${Number(product.id)})" title="Управлять вариациями">
                     <i class="fas fa-layer-group"></i> Вариации
                 </button>
-                <button class="btn btn-sm btn-outline-warning me-1" onclick="editProduct(${product.id})" title="Редактировать">
+                <button class="btn btn-sm btn-outline-warning me-1" onclick="editProduct(${Number(product.id)})" title="Редактировать">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})" title="Удалить">
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${Number(product.id)})" title="Удалить">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -781,7 +783,7 @@ async function showEditProductModal(productId) {
     }
 
     const categoryOptions = categories.map(cat =>
-        `<option value="${cat.id}" ${productData.category === cat.id ? 'selected' : ''}>${cat.name}</option>`
+        `<option value="${Number(cat.id)}" ${productData.category === cat.id ? 'selected' : ''}>${escapeHTML(cat.name)}</option>`
     ).join('');
 
     // ✅ Определяем, есть ли у товара вариации
@@ -796,16 +798,16 @@ async function showEditProductModal(productId) {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><i class="fas fa-edit text-warning"></i> Редактировать товар #${productId}</h5>
+                        <h5 class="modal-title"><i class="fas fa-edit text-warning"></i> Редактировать товар #${Number(productId)}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <form id="editProductForm">
-                            <input type="hidden" id="editProductId" value="${productData.id}">
+                            <input type="hidden" id="editProductId" value="${Number(productData.id)}">
                             
                             <div class="mb-3">
                                 <label class="form-label">Название *</label>
-                                <input type="text" class="form-control" id="editProductName" value="${productData.name}" required>
+                                <input type="text" class="form-control" id="editProductName" value="${escapeHTML(productData.name)}" required>
                             </div>
                             
                             <div class="mb-3">
@@ -819,21 +821,21 @@ async function showEditProductModal(productId) {
                             <div id="editProductPriceWeightBlock" style="${hasVariants ? 'display: none;' : ''}">
                                 <div class="mb-3">
                                     <label class="form-label">Цена (₽)</label>
-                                    <input type="number" class="form-control" id="editProductPrice" value="${priceValue}" step="0.01" ${!hasVariants ? 'required' : ''}>
+                                    <input type="number" class="form-control" id="editProductPrice" value="${escapeHTML(priceValue)}" step="0.01" ${!hasVariants ? 'required' : ''}>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Вес (г)</label>
-                                    <input type="number" class="form-control" id="editProductWeight" value="${weightValue}">
+                                    <input type="number" class="form-control" id="editProductWeight" value="${escapeHTML(weightValue)}">
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <label class="form-label">Состав</label>
-                                <textarea class="form-control" id="editProductIngredients" rows="2">${productData.ingredients || ''}</textarea>
+                                <textarea class="form-control" id="editProductIngredients" rows="2">${escapeHTML(productData.ingredients || '')}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Описание</label>
-                                <textarea class="form-control" id="editProductDescription" rows="2">${productData.description || ''}</textarea>
+                                <textarea class="form-control" id="editProductDescription" rows="2">${escapeHTML(productData.description || '')}</textarea>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="editProductHit" ${productData.is_hit ? 'checked' : ''}>
@@ -990,7 +992,7 @@ async function showAddProductModal() {
     }
 
     const categoryOptions = categories.map(cat =>
-        `<option value="${cat.id}">${cat.name}</option>`
+        `<option value="${Number(cat.id)}">${escapeHTML(cat.name)}</option>`
     ).join('');
 
     const modalHtml = `
@@ -1184,17 +1186,17 @@ async function openEditVariantModal(productId) {
 
     const variants = productData.variants || [];
     const variantRows = variants.map(v => `
-        <tr id="variant-row-${v.id}">
-            <td>${v.id}</td>
-            <td>${v.name || '—'}</td>
-            <td>${v.price} ₽</td>
-            <td>${v.weight || 0} г</td>
+        <tr id="variant-row-${Number(v.id)}">
+            <td>${escapeHTML(v.id)}</td>
+            <td>${escapeHTML(v.name || '—')}</td>
+            <td>${escapeHTML(v.price)} ₽</td>
+            <td>${escapeHTML(v.weight || 0)} г</td>
             <td>${v.is_available ? '✅' : '❌'}</td>
             <td>
-                <button class="btn btn-sm btn-outline-warning me-1" onclick="editVariant(${v.id}, ${productId})" title="Редактировать">
+                <button class="btn btn-sm btn-outline-warning me-1" onclick="editVariant(${Number(v.id)}, ${Number(productId)})" title="Редактировать">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="deleteVariant(${v.id}, ${productId})" title="Удалить">
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteVariant(${Number(v.id)}, ${Number(productId)})" title="Удалить">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -1206,13 +1208,13 @@ async function openEditVariantModal(productId) {
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><i class="fas fa-layer-group text-info"></i> Управление вариациями товара #${productId}</h5>
+                        <h5 class="modal-title"><i class="fas fa-layer-group text-info"></i> Управление вариациями товара #${Number(productId)}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <div class="d-flex justify-content-between mb-3">
-                            <h6>Товар: <strong>${productData.name}</strong></h6>
-                            <button class="btn btn-success btn-sm" onclick="showAddVariantModal(${productId})">
+                            <h6>Товар: <strong>${escapeHTML(productData.name)}</strong></h6>
+                            <button class="btn btn-success btn-sm" onclick="showAddVariantModal(${Number(productId)})">
                                 <i class="fas fa-plus"></i> Добавить вариацию
                             </button>
                         </div>
@@ -1264,7 +1266,7 @@ function showAddVariantModal(productId) {
                     </div>
                     <div class="modal-body">
                         <form id="addVariantForm">
-                            <input type="hidden" id="addVariantProductId" value="${productId}">
+                            <input type="hidden" id="addVariantProductId" value="${Number(productId)}">
                             <div class="mb-3">
                                 <label class="form-label">Название (размер) *</label>
                                 <input type="text" class="form-control" id="addVariantName" placeholder="Например: 30 см, 40 см, большой" required>
@@ -1393,19 +1395,19 @@ async function editVariant(variantId, productId) {
                     </div>
                     <div class="modal-body">
                         <form id="editSingleVariantForm">
-                            <input type="hidden" id="editSingleVariantId" value="${variantData.id}">
-                            <input type="hidden" id="editSingleProductId" value="${productId}">
+                            <input type="hidden" id="editSingleVariantId" value="${Number(variantData.id)}">
+                            <input type="hidden" id="editSingleProductId" value="${Number(productId)}">
                             <div class="mb-3">
                                 <label class="form-label">Название (размер)</label>
-                                <input type="text" class="form-control" id="editSingleVariantName" value="${variantData.name || ''}">
+                                <input type="text" class="form-control" id="editSingleVariantName" value="${escapeHTML(variantData.name || '')}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Цена</label>
-                                <input type="number" class="form-control" id="editSingleVariantPrice" value="${variantData.price}">
+                                <input type="number" class="form-control" id="editSingleVariantPrice" value="${escapeHTML(variantData.price)}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Вес (г)</label>
-                                <input type="number" class="form-control" id="editSingleVariantWeight" value="${variantData.weight || 0}">
+                                <input type="number" class="form-control" id="editSingleVariantWeight" value="${escapeHTML(variantData.weight || 0)}">
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="editSingleVariantAvailable" ${variantData.is_available ? 'checked' : ''}>
@@ -1701,12 +1703,12 @@ function renderRecentOrders(orders) {
     container.innerHTML = orders.map(order => `
         <div class="order-item d-flex justify-content-between align-items-center py-2 border-bottom">
             <div>
-                <strong>#${order.order_number}</strong>
-                <span class="text-muted ms-2">${order.user_name || order.user}</span>
+                <strong>#${escapeHTML(order.order_number)}</strong>
+                <span class="text-muted ms-2">${escapeHTML(order.user_name || order.user)}</span>
             </div>
             <div>
-                <span class="badge bg-${getStatusColor(order.status)} me-2">${getStatusText(order.status)}</span>
-                <span class="fw-bold">${order.total_amount} ₽</span>
+                <span class="badge bg-${getStatusColor(order.status)} me-2">${escapeHTML(getStatusText(order.status))}</span>
+                <span class="fw-bold">${escapeHTML(order.total_amount)} ₽</span>
             </div>
         </div>
     `).join('');
@@ -1859,10 +1861,10 @@ function addLunchItem(name = '', price = '') {
     itemDiv.className = 'lunch-item-form row g-2 mb-2';
     itemDiv.innerHTML = `
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="Название блюда" value="${name}">
+            <input type="text" class="form-control" placeholder="Название блюда" value="${escapeHTML(name)}">
         </div>
         <div class="col-md-2">
-            <input type="number" class="form-control" placeholder="Цена" value="${price}">
+            <input type="number" class="form-control" placeholder="Цена" value="${escapeHTML(price)}">
         </div>
         <div class="col-md-3">
             <input type="hidden" class="form-control lunch-product-id" value="">
@@ -2218,12 +2220,12 @@ function showNewOrderModal(count, orders) {
                                 ${orders.map(order => `
                                     <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
                                         <div>
-                                            <strong>#${order.order_number || order.id}</strong>
-                                            <span class="text-muted ms-2">${order.user_name || order.user || 'Клиент'}</span>
+                                            <strong>#${escapeHTML(order.order_number || order.id)}</strong>
+                                            <span class="text-muted ms-2">${escapeHTML(order.user_name || order.user || 'Клиент')}</span>
                                         </div>
                                         <div>
-                                            <span class="fw-bold">${order.total_amount} ₽</span>
-                                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="viewOrderDetail(${order.id})">
+                                            <span class="fw-bold">${escapeHTML(order.total_amount)} ₽</span>
+                                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="viewOrderDetail(${Number(order.id)})">
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                         </div>
@@ -2334,16 +2336,16 @@ async function loadUserOrders(userId) {
 
         tbody.innerHTML = userOrders.map(order => `
             <tr>
-                <td><strong>#${order.order_number || order.id}</strong></td>
+                <td><strong>#${escapeHTML(order.order_number || order.id)}</strong></td>
                 <td>${order.order_date ? new Date(order.order_date).toLocaleDateString('ru-RU') : '—'}</td>
-                <td>${order.total_amount} ₽</td>
+                <td>${escapeHTML(order.total_amount)} ₽</td>
                 <td>
                     <span class="badge bg-${statusColorMap[order.status] || 'secondary'}">
-                        ${statusMap[order.status] || order.status}
+                        ${escapeHTML(statusMap[order.status] || order.status)}
                     </span>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-outline-primary" onclick="viewOrderDetail(${order.id})">
+                    <button class="btn btn-sm btn-outline-primary" onclick="viewOrderDetail(${Number(order.id)})">
                         <i class="fas fa-eye"></i> Подробнее
                     </button>
                 </td>

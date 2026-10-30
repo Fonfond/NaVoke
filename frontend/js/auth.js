@@ -230,8 +230,8 @@ async function handleLogin(e) {
     spinner.classList.remove('d-none');
     
     try {
-        const result = await login({ username: loginUsername, password });
-        console.log('✅ Вход выполнен:', result);
+        await login({ username: loginUsername, password });
+        console.log('✅ Вход выполнен');
         
         // ✅ ПЕРЕНОСИМ ГОСТЕВУЮ КОРЗИНУ
         if (typeof mergeCart === 'function') {
@@ -342,13 +342,13 @@ async function handleRegister(e) {
     spinner.classList.remove('d-none');
     
     try {
-        const result = await register({
+        await register({
             phone: cleanPhone,
             full_name,
             password,
             password2
         });
-        console.log('✅ Регистрация выполнена:', result);
+        console.log('✅ Регистрация выполнена');
         
         showAuthSuccess('✅ Регистрация выполнена успешно! Теперь войдите в систему.');
         

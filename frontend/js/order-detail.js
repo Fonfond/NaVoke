@@ -61,25 +61,25 @@ async function loadOrderDetail(orderId) {
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Заказ #${order.order_number || order.id}</h3>
-                    <p><strong>Дата заказа:</strong> ${orderDate}</p>
+                    <h3>Заказ #${escapeHTML(order.order_number || order.id)}</h3>
+                    <p><strong>Дата заказа:</strong> ${escapeHTML(orderDate)}</p>
                     <p>
                         <strong>Статус:</strong> 
                         <span class="badge bg-${statusColorMap[order.status] || 'secondary'}">
-                            ${statusMap[order.status] || order.status}
+                            ${escapeHTML(statusMap[order.status] || order.status)}
                         </span>
                     </p>
-                    <p><strong>Способ получения:</strong> ${deliveryTypeMap[order.delivery_type] || order.delivery_type || 'Доставка'}</p>
+                    <p><strong>Способ получения:</strong> ${escapeHTML(deliveryTypeMap[order.delivery_type] || order.delivery_type || 'Доставка')}</p>
                     ${order.delivery_type === 'delivery' ? `
-                        <p><strong>Адрес доставки:</strong> ${order.delivery_address || '—'}</p>
-                        <p><strong>Дата доставки:</strong> ${deliveryDate}</p>
-                        <p><strong>Время доставки:</strong> ${order.delivery_time_from || '—'} — ${order.delivery_time_to || '—'}</p>
+                        <p><strong>Адрес доставки:</strong> ${escapeHTML(order.delivery_address || '—')}</p>
+                        <p><strong>Дата доставки:</strong> ${escapeHTML(deliveryDate)}</p>
+                        <p><strong>Время доставки:</strong> ${escapeHTML(order.delivery_time_from || '—')} — ${escapeHTML(order.delivery_time_to || '—')}</p>
                     ` : `
                         <p><strong>Адрес самовывоза:</strong> пгт. Селенгинск, ул. Ленина, 10</p>
-                        <p><strong>Дата самовывоза:</strong> ${order.pickup_date ? new Date(order.pickup_date).toLocaleDateString('ru-RU') : '—'}</p>
-                        <p><strong>Время самовывоза:</strong> ${order.pickup_time || '—'}</p>
+                        <p><strong>Дата самовывоза:</strong> ${order.pickup_date ? escapeHTML(new Date(order.pickup_date).toLocaleDateString('ru-RU')) : '—'}</p>
+                        <p><strong>Время самовывоза:</strong> ${escapeHTML(order.pickup_time || '—')}</p>
                     `}
-                    <p><strong>Комментарий:</strong> ${order.comment || '—'}</p>
+                    <p><strong>Комментарий:</strong> ${escapeHTML(order.comment || '—')}</p>
                     <p><strong>Способ оплаты:</strong> ${order.payment_method === 'online' ? 'Онлайн картой' : 'Наличными'}</p>
                     <p><strong>Статус оплаты:</strong> ${order.payment_status === 'paid' ? '✅ Оплачено' : '⏳ Ожидает оплаты'}</p>
                 </div>
@@ -89,11 +89,11 @@ async function loadOrderDetail(orderId) {
                         ${order.items && order.items.length > 0 ? order.items.map(item => `
                             <div class="order-item-row d-flex justify-content-between align-items-center py-2 border-bottom">
                                 <div>
-                                    <strong>${item.product_name || item.product}</strong>
-                                    <span class="text-muted ms-2">× ${item.quantity}</span>
+                                    <strong>${escapeHTML(item.product_name || item.product)}</strong>
+                                    <span class="text-muted ms-2">× ${escapeHTML(item.quantity)}</span>
                                 </div>
                                 <div>
-                                    <span class="fw-bold">${item.price_at_order * item.quantity} ₽</span>
+                                    <span class="fw-bold">${escapeHTML(item.price_at_order * item.quantity)} ₽</span>
                                 </div>
                             </div>
                         `).join('') : '<p class="text-muted">Нет товаров в заказе</p>'}
@@ -102,39 +102,39 @@ async function loadOrderDetail(orderId) {
                     <div class="order-total mt-3">
                         <div class="d-flex justify-content-between">
                             <span>Товары:</span>
-                            <span>${order.subtotal} ₽</span>
+                            <span>${escapeHTML(order.subtotal)} ₽</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span>Доставка:</span>
-                            <span>${order.delivery_cost} ₽</span>
+                            <span>${escapeHTML(order.delivery_cost)} ₽</span>
                         </div>
                         ${order.bonus_used > 0 ? `
                             <div class="d-flex justify-content-between">
                                 <span>Списано бонусов:</span>
-                                <span>-${order.bonus_used} ₽</span>
+                                <span>-${escapeHTML(order.bonus_used)} ₽</span>
                             </div>
                         ` : ''}
                         ${order.discount > 0 ? `
                             <div class="d-flex justify-content-between">
                                 <span>Скидка:</span>
-                                <span>-${order.discount} ₽</span>
+                                <span>-${escapeHTML(order.discount)} ₽</span>
                             </div>
                         ` : ''}
                         <div class="d-flex justify-content-between fw-bold border-top pt-2 mt-2">
                             <span>Итого:</span>
-                            <span class="text-primary">${order.total_amount} ₽</span>
+                            <span class="text-primary">${escapeHTML(order.total_amount)} ₽</span>
                         </div>
                     </div>
                     
                     <!-- ✅ КНОПКИ В ОДНОЙ СТРОКЕ С ПРАВИЛЬНЫМИ ОТСТУПАМИ -->
                     <div class="d-flex flex-wrap gap-2 mt-4">
                         ${order.status === 'new' && order.payment_status !== 'paid' ? `
-                            <button class="btn btn-success" onclick="payOrderFromDetail(${order.id})">
+                            <button class="btn btn-success" onclick="payOrderFromDetail(${Number(order.id)})">
                                 <i class="fas fa-credit-card"></i> Оплатить сейчас
                             </button>
                         ` : ''}
                         ${order.status === 'new' || order.status === 'confirmed' ? `
-                            <button class="btn btn-danger" onclick="cancelOrder(${order.id})">
+                            <button class="btn btn-danger" onclick="cancelOrder(${Number(order.id)})">
                                 <i class="fas fa-times"></i> Отменить заказ
                             </button>
                         ` : ''}
