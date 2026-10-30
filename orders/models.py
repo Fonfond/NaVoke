@@ -132,6 +132,16 @@ class Order(models.Model):
     class Meta:
         db_table = 'orders'
         ordering = ['-order_date']
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(total_amount__gte=0),
+                name='order_total_amount_non_negative',
+            ),
+            models.CheckConstraint(
+                condition=models.Q(bonus_used__gte=0),
+                name='order_bonus_used_non_negative',
+            ),
+        ]
 
     def __str__(self):
         return f"Заказ {self.order_number} - {self.user.username}"
