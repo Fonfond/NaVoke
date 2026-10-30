@@ -1,6 +1,9 @@
 # users/models.py
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
+
+from .utils import InvalidPhoneError, normalize_phone
 
 class User(AbstractUser):
     ROLE_CHOICES = (
@@ -40,6 +43,14 @@ class User(AbstractUser):
 
     class Meta:
         db_table = 'users'
+
+    def clean(self):
+        super().clean()
+        if self.phone:
+            try:
+                self.phone = normalize_phone(self.phone)
+            except InvalidPhoneError as exc:
+                raise ValidationError({'phone': str(exc)}) from exc
 
     def __str__(self):
         return f"{self.username} - {self.get_role_display()}"

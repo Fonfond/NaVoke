@@ -160,6 +160,20 @@ function formatPhone(input) {
     input.value = formatted;
 }
 
+// ✅ Нормализация номера для API: только цифры, 79991234567
+function normalizePhone(value) {
+    let digits = String(value || '').replace(/\D/g, '');
+
+    if (digits.length === 11 && digits.startsWith('8')) {
+        digits = '7' + digits.slice(1);
+    }
+    if (digits.length === 10) {
+        digits = '7' + digits;
+    }
+
+    return digits;
+}
+
 // ✅ Инициализация маски телефона
 document.addEventListener('DOMContentLoaded', function() {
     const loginPhoneInput = document.getElementById('loginPhone');
@@ -205,8 +219,11 @@ async function handleLogin(e) {
     }
     
     // ✅ ПРЕОБРАЗУЕМ ТЕЛЕФОН В ЧИСТЫЙ ВИД (БЕЗ +, ПРОБЕЛОВ, СКОБОК)
-    const cleanPhone = phone.replace(/[^\d]/g, ''); // убираем всё, кроме цифр
-    const loginUsername = cleanPhone.startsWith('8') ? '7' + cleanPhone.slice(1) : cleanPhone;
+    const loginUsername = normalizePhone(phone);
+    if (loginUsername.length !== 11) {
+        showAuthError('⚠️ Введите корректный номер телефона');
+        return;
+    }
     
     btn.disabled = true;
     btnText.textContent = 'Вход...';
@@ -313,6 +330,12 @@ async function handleRegister(e) {
         showAuthError('⚠️ Введите телефон в формате +7 (999) 123-45-67');
         return;
     }
+
+    const cleanPhone = normalizePhone(phone);
+    if (cleanPhone.length !== 11) {
+        showAuthError('⚠️ Введите корректный номер телефона');
+        return;
+    }
     
     btn.disabled = true;
     btnText.textContent = 'Регистрация...';
@@ -320,7 +343,7 @@ async function handleRegister(e) {
     
     try {
         const result = await register({
-            phone,
+            phone: cleanPhone,
             full_name,
             password,
             password2
