@@ -1,4 +1,6 @@
 # tests/test_cart.py
+from decimal import Decimal
+
 import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
@@ -25,7 +27,6 @@ class TestCartAPI:
             category=self.category,
             price=499.00,
             weight=250,
-            is_available=True
         )
     
     def test_add_to_cart(self):
@@ -40,7 +41,7 @@ class TestCartAPI:
         response = self.client.post(url, data, format='json')
         
         assert response.status_code == 200
-        assert response.data['total'] == '998.00'
+        assert response.data['total'] == Decimal('998.00')
         assert response.data['items_count'] == 1
     
     def test_view_cart(self):
@@ -56,4 +57,4 @@ class TestCartAPI:
         response = self.client.get(url)
         
         assert response.status_code == 200
-        assert response.data['total'] == '998.00'
+        assert response.data['total'] == Decimal('998.00')

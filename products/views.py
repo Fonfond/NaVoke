@@ -7,7 +7,15 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from .models import Category, Product, LunchMenu, ProductVariant, Favorite, Review
-from .serializers import CategorySerializer, LunchMenuSerializer, ProductSerializer, FavoriteSerializer, ReviewSerializer, ProductVariantSerializer
+from .serializers import (
+    CategorySerializer,
+    FavoriteSerializer,
+    LunchMenuSerializer,
+    ProductSerializer,
+    ProductVariantSerializer,
+    ProductWriteSerializer,
+    ReviewSerializer,
+)
 
 
 class CategoryListView(generics.ListAPIView):
@@ -28,13 +36,29 @@ class ProductListView(generics.ListCreateAPIView):
     ordering_fields = ['created_at', 'name']
     ordering = ['-created_at']
 
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return ProductWriteSerializer
+        return ProductSerializer
+
     def create(self, request, *args, **kwargs):
         if not request.user.is_authenticated or request.user.role != 'admin':
             return Response(
                 {'error': 'Только администраторы могут создавать товары'},
                 status=status.HTTP_403_FORBIDDEN
             )
-        return super().create(request, *args, **kwargs)
+
+        serializer = ProductWriteSerializer(
+            data=request.data,
+            context=self.get_serializer_context(),
+        )
+        serializer.is_valid(raise_exception=True)
+        product = serializer.save()
+
+        return Response(
+            ProductSerializer(product, context=self.get_serializer_context()).data,
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class ProductDetailView(generics.RetrieveAPIView):
@@ -215,12 +239,27 @@ class ProductDeleteView(generics.DestroyAPIView):
 
 class ProductUpdateView(generics.UpdateAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ProductWriteSerializer
     permission_classes = (permissions.IsAuthenticated,)
     def update(self, request, *args, **kwargs):
         if request.user.role != 'admin':
             return Response({'error': 'Только администраторы могут редактировать товары'}, status=status.HTTP_403_FORBIDDEN)
-        return super().update(request, *args, **kwargs)
+
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = ProductWriteSerializer(
+            instance,
+            data=request.data,
+            partial=partial,
+            context=self.get_serializer_context(),
+        )
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(
+            ProductSerializer(instance, context=self.get_serializer_context()).data,
+            status=status.HTTP_200_OK,
+        )
 
 
 class ReviewCreateView(generics.CreateAPIView):

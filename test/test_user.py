@@ -15,8 +15,6 @@ class TestUserAPI:
         """Тест регистрации пользователя"""
         url = reverse('users:register')
         data = {
-            'username': 'testuser',
-            'email': 'test@mail.ru',
             'phone': '+79991234567',
             'full_name': 'Тестовый Пользователь',
             'password': '12345678',
@@ -26,7 +24,7 @@ class TestUserAPI:
         
         assert response.status_code == 201
         assert 'access' in response.data
-        assert response.data['user']['username'] == 'testuser'
+        assert response.data['user']['username'] == '79991234567'
     
     def test_login_user(self):
         """Тест входа пользователя"""
