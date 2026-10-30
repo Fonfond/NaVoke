@@ -1,5 +1,6 @@
 # products/views.py
 import os
+from django.db import transaction
 from rest_framework import generics, filters, permissions, status, serializers
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
@@ -36,6 +37,9 @@ class ProductListView(generics.ListCreateAPIView):
     ordering_fields = ['created_at', 'name']
     ordering = ['-created_at']
 
+    def get_queryset(self):
+        return Product.objects.filter(is_archived=False)
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return ProductWriteSerializer
@@ -63,7 +67,7 @@ class ProductListView(generics.ListCreateAPIView):
 
 class ProductDetailView(generics.RetrieveAPIView):
     """Детальная информация о товаре (с вариациями)"""
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(is_archived=False)
     serializer_class = ProductSerializer
     permission_classes = (permissions.AllowAny,)
 
@@ -71,7 +75,7 @@ class ProductDetailView(generics.RetrieveAPIView):
 class ToggleFavoriteView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     def post(self, request, product_id):
-        product = get_object_or_404(Product, id=product_id)
+        product = get_object_or_404(Product, id=product_id, is_archived=False)
         favorite = Favorite.objects.filter(user=request.user, product=product).first()
         if favorite:
             favorite.delete()
@@ -85,13 +89,20 @@ class FavoritesListView(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = FavoriteSerializer
     def get_queryset(self):
-        return Favorite.objects.filter(user=self.request.user)
+        return Favorite.objects.filter(
+            user=self.request.user,
+            product__is_archived=False,
+        )
 
 
 class CheckFavoriteView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     def get(self, request, product_id):
-        is_favorite = Favorite.objects.filter(user=request.user, product_id=product_id).exists()
+        is_favorite = Favorite.objects.filter(
+            user=request.user,
+            product_id=product_id,
+            product__is_archived=False,
+        ).exists()
         return Response({'is_favorite': is_favorite})
 
 
@@ -102,7 +113,10 @@ class LiveSearchView(APIView):
         limit = int(request.query_params.get('limit', 10))
         if not query:
             return Response([])
-        products = Product.objects.filter(name__icontains=query)[:limit]
+        products = Product.objects.filter(
+            name__icontains=query,
+            is_archived=False,
+        )[:limit]
         data = [{
             'id': p.id,
             'name': p.name,
@@ -225,16 +239,41 @@ class ProductDeleteView(generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
     def delete(self, request, *args, **kwargs):
         if request.user.role != 'admin':
-            return Response({'error': 'Только администраторы могут удалять товары'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'error': 'Только администраторы могут удалять товары'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
         product = self.get_object()
+        product_id = product.id
         from orders.models import CartItem, OrderItem
-        CartItem.objects.filter(product=product).delete()
-        OrderItem.objects.filter(product=product).delete()
-        Favorite.objects.filter(product=product).delete()
-        product.delete()
-        return Response({'message': f'Товар #{product.id} успешно удалён'}, status=status.HTTP_200_OK)
+
+        with transaction.atomic():
+            has_order_items = OrderItem.objects.filter(product=product).exists()
+
+            # Товар больше не должен попадаться в корзинах и избранном.
+            CartItem.objects.filter(product=product).delete()
+            Favorite.objects.filter(product=product).delete()
+
+            if has_order_items:
+                product.is_archived = True
+                product.save(update_fields=['is_archived'])
+                return Response({
+                    'success': True,
+                    'archived': True,
+                    'message': 'Товар скрыт из каталога, так как есть в истории заказов',
+                }, status=status.HTTP_200_OK)
+
+            product.delete()
+
+        return Response({
+            'success': True,
+            'archived': False,
+            'message': f'Товар #{product_id} удалён',
+        }, status=status.HTTP_200_OK)
 
 
 class ProductUpdateView(generics.UpdateAPIView):
@@ -268,7 +307,7 @@ class ReviewCreateView(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     def perform_create(self, serializer):
         product_id = self.kwargs.get('product_id')
-        product = get_object_or_404(Product, id=product_id)
+        product = get_object_or_404(Product, id=product_id, is_archived=False)
         if Review.objects.filter(product=product, user=self.request.user).exists():
             return Response({'detail': 'Вы уже оставили отзыв на этот товар.'}, status=status.HTTP_400_BAD_REQUEST)
         serializer.save(user=self.request.user, product=product)

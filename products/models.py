@@ -36,6 +36,11 @@ class Product(models.Model):
     )
     is_hit = models.BooleanField(default=False)
     is_new = models.BooleanField(default=False)
+    is_archived = models.BooleanField(
+        default=False,
+        db_index=True,
+        verbose_name='Скрыт из каталога',
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     has_variants = models.BooleanField(default=False, verbose_name='Есть вариации?')
 

@@ -50,12 +50,12 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'category', 'category_name', 'category_slug',
             'description', 'ingredients', 'image', 'image_url',
-            'is_hit', 'is_new', 'created_at',
+            'is_hit', 'is_new', 'is_archived', 'created_at',
             'variants', 'min_price', 'has_variants',
             'reviews', 'average_rating',
             'price', 'weight'
         )
-        read_only_fields = ('created_at',)
+        read_only_fields = ('created_at', 'is_archived')
 
     def get_image_url(self, obj):
         if obj.image:

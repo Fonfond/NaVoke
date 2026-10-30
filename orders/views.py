@@ -69,7 +69,7 @@ class GuestCartView(APIView):
             )
         
         try:
-            product = Product.objects.get(id=product_id)
+            product = Product.objects.get(id=product_id, is_archived=False)
         except Product.DoesNotExist:
             return Response(
                 {'error': 'Товар не найден'},
@@ -173,7 +173,7 @@ class AddToCartView(APIView):
             )
         
         try:
-            product = Product.objects.get(id=product_id)
+            product = Product.objects.get(id=product_id, is_archived=False)
         except Product.DoesNotExist:
             return Response(
                 {'error': 'Товар не найден'}, 
