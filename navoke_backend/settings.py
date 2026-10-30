@@ -188,6 +188,22 @@ YOOKASSA_SHOP_ID = os.getenv('YOOKASSA_SHOP_ID', '')
 YOOKASSA_SECRET_KEY = os.getenv('YOOKASSA_SECRET_KEY', '')
 YOOKASSA_RETURN_URL = os.getenv('YOOKASSA_RETURN_URL', 'http://127.0.0.1:8000/order-success/')
 
+# Официальные IP-диапазоны, с которых ЮKassa присылает HTTP-уведомления.
+# Сверять при деплое: https://yookassa.ru/developers/using-api/webhooks#ip
+YOOKASSA_TRUSTED_NETS = [
+    net.strip()
+    for net in os.getenv(
+        'YOOKASSA_TRUSTED_NETS',
+        '185.71.76.0/27,185.71.77.0/27,77.75.153.0/25,'
+        '77.75.154.128/25,77.75.156.11/32,77.75.156.35/32',
+    ).split(',')
+    if net.strip()
+]
+
+# True только за доверенным reverse-proxy, который сам перезаписывает
+# X-Real-IP / X-Forwarded-For. Иначе заголовки можно подделать.
+YOOKASSA_TRUST_PROXY = os.getenv('YOOKASSA_TRUST_PROXY', 'False').lower() == 'true'
+
 # Добавьте в конец settings.py:
 
 # CSRF настройки

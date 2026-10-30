@@ -7,6 +7,10 @@ from orders.models import Order
 from .models import Payment
 
 
+class YooKassaAPIError(Exception):
+    """Ошибка взаимодействия с API ЮKassa."""
+
+
 class YooKassaService:
     """Сервис для работы с API ЮKassa"""
     
@@ -69,15 +73,24 @@ class YooKassaService:
     
     def get_payment(self, payment_id: str):
         """Получение информации о платеже"""
-        response = requests.get(
-            f"{self.BASE_URL}/payments/{payment_id}",
-            auth=(self.shop_id, self.secret_key)
-        )
-        
-        if response.status_code == 200:
+        try:
+            response = requests.get(
+                f"{self.BASE_URL}/payments/{payment_id}",
+                auth=(self.shop_id, self.secret_key),
+                timeout=(3.05, 10),
+            )
+        except requests.RequestException as exc:
+            raise YooKassaAPIError('YooKassa request failed') from exc
+
+        if response.status_code != 200:
+            raise YooKassaAPIError(
+                f"Ошибка получения платежа: HTTP {response.status_code}: {response.text}"
+            )
+
+        try:
             return response.json()
-        else:
-            raise Exception(f"Ошибка получения платежа: {response.text}")
+        except ValueError as exc:
+            raise YooKassaAPIError('YooKassa returned invalid JSON') from exc
     
     def cancel_payment(self, payment_id: str):
         """Отмена платежа"""
