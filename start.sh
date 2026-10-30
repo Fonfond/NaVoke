@@ -1,9 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/sh
+python manage.py migrate --noinput
 python manage.py collectstatic --noinput
-
-
-
-
-# Запускаем Gunicorn
-exec gunicorn navoke_backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 2 --preload
+gunicorn navoke_backend.wsgi:application --bind 0.0.0.0:8080
