@@ -14,7 +14,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from core.models import SiteSettings
 from users.models import User
-from .models import Cart, CartItem, Order, OrderItem
+from .models import Cart, CartItem, Order, OrderItem, OrderStatusHistory
 from products.models import Product, ProductVariant
 from .serializers import CartSerializer, OrderSerializer, CreateOrderSerializer
 from firebase_admin import messaging
@@ -46,6 +46,46 @@ def _cart_item_price(item):
         return first_variant.price
 
     return item.product.price or Decimal('0')
+
+
+def _refund_order_bonus(order):
+    """Возврат списанных бонусов. Вызывается только внутри transaction.atomic."""
+    if not order.bonus_used:
+        return
+
+    user = User.objects.select_for_update().get(pk=order.user_id)
+    User.objects.filter(pk=user.pk).update(
+        bonus_points=F('bonus_points') + order.bonus_used
+    )
+
+
+def _award_bonus_for_delivery(order):
+    """Начисление бонусов за доставленный заказ."""
+    site = SiteSettings.get_settings()
+    if not site.bonus_enabled:
+        return
+
+    earned_bonus = int(
+        order.total_amount * Decimal(str(site.bonus_rate)) / Decimal('100')
+    )
+    if earned_bonus <= 0:
+        return
+
+    user = User.objects.select_for_update().get(pk=order.user_id)
+    User.objects.filter(pk=user.pk).update(
+        bonus_points=F('bonus_points') + earned_bonus
+    )
+
+
+def _notify_status_change(order, new_status):
+    if not order.user.fcm_token:
+        return
+
+    send_push_notification(
+        order.user.fcm_token,
+        f"Статус заказа #{order.order_number}",
+        f"Ваш заказ теперь: {dict(Order.STATUS_CHOICES).get(new_status, new_status)}",
+    )
 
 
 # ===== ГОСТЕВАЯ КОРЗИНА =====
@@ -443,14 +483,18 @@ class CancelOrderView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        user = User.objects.select_for_update().get(pk=order.user_id)
-        if order.bonus_used:
-            User.objects.filter(pk=user.pk).update(
-                bonus_points=F('bonus_points') + order.bonus_used
-            )
-
+        old_status = order.status
         order.status = 'cancelled'
         order.save(update_fields=['status'])
+        _refund_order_bonus(order)
+
+        OrderStatusHistory.objects.create(
+            order=order,
+            from_status=old_status,
+            to_status='cancelled',
+            changed_by=request.user,
+        )
+
         return Response(OrderSerializer(order).data)
 
 class UpdatePaymentStatusView(APIView):
@@ -485,47 +529,71 @@ class UpdatePaymentStatusView(APIView):
 
 class UpdateOrderStatusView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
+
+    @transaction.atomic
     def put(self, request, order_id):
         if request.user.role != 'admin':
             return Response(
                 {'error': 'Только администраторы могут изменять статус заказа'},
-                status=status.HTTP_403_FORBIDDEN
+                status=status.HTTP_403_FORBIDDEN,
             )
+
         try:
-            order = Order.objects.get(id=order_id)
+            order = Order.objects.select_for_update().get(id=order_id)
         except Order.DoesNotExist:
             return Response(
                 {'error': 'Заказ не найден'},
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
+
         new_status = request.data.get('status')
         if new_status not in dict(Order.STATUS_CHOICES):
             return Response(
-                {'error': f'Недопустимый статус. Допустимые: {", ".join(dict(Order.STATUS_CHOICES).keys())}'},
-                status=status.HTTP_400_BAD_REQUEST
+                {
+                    'error': (
+                        'Недопустимый статус. Допустимые: '
+                        + ', '.join(dict(Order.STATUS_CHOICES).keys())
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
             )
-        order.status = new_status
-        order.save()
 
-        # ✅ Отправляем уведомление (если есть токен)
-        if order.user.fcm_token:
-            send_push_notification(
-                order.user.fcm_token,
-                f"Статус заказа #{order.order_number}",
-                f"Ваш заказ теперь: {dict(Order.STATUS_CHOICES)[new_status]}"
+        allowed = Order.ALLOWED_TRANSITIONS.get(order.status, set())
+        if new_status not in allowed:
+            return Response(
+                {'error': f'Переход {order.status} -> {new_status} запрещён'},
+                status=status.HTTP_409_CONFLICT,
             )
-        
-        # ✅ Начисляем бонусы, если статус delivered
+
+        if (
+            new_status == 'delivered'
+            and order.payment_method == 'online'
+            and order.payment_status != 'paid'
+        ):
+            return Response(
+                {'error': 'Нельзя доставить неоплаченный онлайн-заказ'},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        old_status = order.status
+        order.status = new_status
+        order.save(update_fields=['status'])
+
+        OrderStatusHistory.objects.create(
+            order=order,
+            from_status=old_status,
+            to_status=new_status,
+            changed_by=request.user,
+        )
+
+        if new_status == 'cancelled':
+            _refund_order_bonus(order)
+
         if new_status == 'delivered':
-            from core.models import SiteSettings
-            settings = SiteSettings.get_settings()
-            if settings.bonus_enabled:
-                bonus_for_100 = float(settings.bonus_rate)
-                earned_bonus = int((order.total_amount / 100) * bonus_for_100)
-                if earned_bonus > 0:
-                    user = order.user
-                    user.bonus_points += earned_bonus
-                    user.save()
-        
-        # ✅ ЕДИНСТВЕННЫЙ return в конце функции
+            _award_bonus_for_delivery(order)
+
+        transaction.on_commit(
+            lambda: _notify_status_change(order, new_status)
+        )
+
         return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)

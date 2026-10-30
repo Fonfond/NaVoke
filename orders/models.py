@@ -87,6 +87,16 @@ class Order(models.Model):
         ('cancelled', 'Отменён'),
     )
 
+    ALLOWED_TRANSITIONS = {
+        'new': {'confirmed', 'cancelled'},
+        'confirmed': {'cooking', 'cancelled'},
+        'cooking': {'ready', 'cancelled'},
+        'ready': {'delivering', 'delivered', 'cancelled'},
+        'delivering': {'delivered', 'cancelled'},
+        'delivered': set(),
+        'cancelled': set(),
+    }
+
     DELIVERY_TYPE_CHOICES = (
         ('delivery', 'Доставка'),
         ('pickup', 'Самовывоз'),
@@ -147,6 +157,36 @@ class Order(models.Model):
         return f"Заказ {self.order_number} - {self.user.username}"
     delivery_lat = models.FloatField(null=True, blank=True, verbose_name='Широта адреса')
     delivery_lng = models.FloatField(null=True, blank=True, verbose_name='Долгота адреса')
+
+
+class OrderStatusHistory(models.Model):
+    """История переходов статусов заказа (аудит)."""
+
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='status_history',
+    )
+    from_status = models.CharField(max_length=20, choices=Order.STATUS_CHOICES)
+    to_status = models.CharField(max_length=20, choices=Order.STATUS_CHOICES)
+    changed_by = models.ForeignKey(
+        'users.User',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='order_status_changes',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'order_status_history'
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['order', '-created_at']),
+        ]
+
+    def __str__(self):
+        return f"{self.order.order_number}: {self.from_status} -> {self.to_status}"
 
 
 class OrderItem(models.Model):

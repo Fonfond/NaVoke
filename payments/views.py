@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from orders.models import Order
+from orders.models import Order, OrderStatusHistory
 from .models import Payment
 from .services import YooKassaAPIError, YooKassaService
 
@@ -233,10 +233,19 @@ class PaymentWebhookView(APIView):
             payment.paid_at = timezone.now()
             payment.save(update_fields=['status', 'paid_at'])
 
+            old_status = order.status
             order.payment_status = 'paid'
             if order.status == 'new':
                 order.status = 'confirmed'
             order.save(update_fields=['payment_status', 'status'])
+
+            if old_status != order.status:
+                OrderStatusHistory.objects.create(
+                    order=order,
+                    from_status=old_status,
+                    to_status=order.status,
+                    changed_by=None,
+                )
 
         return Response({'status': 'ok'}, status=status.HTTP_200_OK)
 
