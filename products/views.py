@@ -1,7 +1,9 @@
 # products/views.py
+import logging
 import os
 from django.db import transaction
 from rest_framework import generics, filters, permissions, status, serializers
+from rest_framework.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -17,6 +19,8 @@ from .serializers import (
     ProductWriteSerializer,
     ReviewSerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class CategoryListView(generics.ListAPIView):
@@ -56,7 +60,12 @@ class ProductListView(generics.ListCreateAPIView):
             data=request.data,
             context=self.get_serializer_context(),
         )
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            logger.warning(
+                'Product create validation failed errors=%s',
+                serializer.errors,
+            )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         product = serializer.save()
 
         return Response(
@@ -292,7 +301,13 @@ class ProductUpdateView(generics.UpdateAPIView):
             partial=partial,
             context=self.get_serializer_context(),
         )
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            logger.warning(
+                'Product update validation failed id=%s errors=%s',
+                instance.id,
+                serializer.errors,
+            )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         self.perform_update(serializer)
 
         return Response(
@@ -329,7 +344,35 @@ class ProductVariantCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         if self.request.user.role != 'admin':
-            raise permissions.PermissionDenied('Только администраторы могут создавать вариации')
+            raise PermissionDenied('Только администраторы могут создавать вариации')
         product_id = self.kwargs.get('product_id')
         product = get_object_or_404(Product, id=product_id)
         serializer.save(product=product)
+
+
+class ProductVariantDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Просмотр, изменение и удаление вариации товара (только админ)."""
+
+    serializer_class = ProductVariantSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return ProductVariant.objects.filter(
+            product_id=self.kwargs['product_id'],
+        )
+
+    def update(self, request, *args, **kwargs):
+        if request.user.role != 'admin':
+            return Response(
+                {'error': 'Только администраторы могут редактировать вариации'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        return super().update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        if request.user.role != 'admin':
+            return Response(
+                {'error': 'Только администраторы могут удалять вариации'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        return super().destroy(request, *args, **kwargs)

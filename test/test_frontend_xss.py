@@ -42,6 +42,15 @@ def test_no_token_logging_in_api():
     assert 'console.log(result.refresh' not in source
 
 
+def test_admin_js_uses_variant_detail_endpoint():
+    source = Path('frontend/js/admin.js').read_text(encoding='utf-8')
+    assert '/variants/delete/' not in source
+    assert '/variants/${Number(variantId)}/' in source
+    assert 'has_variants: hasVariants' in source
+    assert 'editProductImageFile' in source
+    assert 'uploadEditProductImage' in source
+
+
 @pytest.mark.parametrize(
     ('path', 'forbidden'),
     [

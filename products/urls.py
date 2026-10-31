@@ -6,7 +6,7 @@ from .views import (
     LiveSearchView, UploadProductImageView, DeleteProductImageView,
     ProductDeleteView, ProductUpdateView,
     ReviewListView, ReviewCreateView,
-    ProductVariantCreateView, LunchMenuView
+    ProductVariantCreateView, LunchMenuView, ProductVariantDetailView
 )
 
 app_name = 'products'
@@ -26,5 +26,6 @@ urlpatterns = [
     path('<int:product_id>/reviews/', ReviewListView.as_view(), name='review-list'),
     path('<int:product_id>/reviews/create/', ReviewCreateView.as_view(), name='review-create'),
     path('<int:product_id>/variants/create/', ProductVariantCreateView.as_view(), name='variant-create'),
+    path('<int:product_id>/variants/<int:pk>/', ProductVariantDetailView.as_view(), name='variant-detail'),
     path('lunch-menu/', LunchMenuView.as_view(), name='lunch-menu'),
 ]
