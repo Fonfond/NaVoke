@@ -53,6 +53,17 @@ services:
       - YOOKASSA_TRUST_PROXY=${YOOKASSA_TRUST_PROXY:-False}
 
       - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS:?FIREBASE_CREDENTIALS is required}
+
+      - EMAIL_BACKEND=${EMAIL_BACKEND:-django.core.mail.backends.smtp.EmailBackend}
+      - EMAIL_HOST=${EMAIL_HOST:-smtp.yandex.ru}
+      - EMAIL_PORT=${EMAIL_PORT:-465}
+      - EMAIL_USE_SSL=${EMAIL_USE_SSL:-True}
+      - EMAIL_USE_TLS=${EMAIL_USE_TLS:-False}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER:?EMAIL_HOST_USER is required}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD:?EMAIL_HOST_PASSWORD is required}
+      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL:?DEFAULT_FROM_EMAIL is required}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:?ADMIN_EMAIL is required}
+      - EMAIL_TIMEOUT=${EMAIL_TIMEOUT:-10}
     depends_on:
       db:
         condition: service_healthy

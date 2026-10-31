@@ -1,4 +1,5 @@
 # orders/views.py
+import logging
 import uuid
 from decimal import Decimal
 
@@ -18,6 +19,9 @@ from .models import Cart, CartItem, Order, OrderItem, OrderStatusHistory
 from products.models import Product, ProductVariant
 from .serializers import CartSerializer, OrderSerializer, CreateOrderSerializer
 from firebase_admin import messaging
+
+
+logger = logging.getLogger(__name__)
 
 
 def send_push_notification(fcm_token, title, body):
@@ -86,6 +90,19 @@ def _notify_status_change(order, new_status):
         f"Статус заказа #{order.order_number}",
         f"Ваш заказ теперь: {dict(Order.STATUS_CHOICES).get(new_status, new_status)}",
     )
+
+
+def _send_order_email(order_id):
+    """Отправка email после commit. Ошибки не должны ломать заказ."""
+    try:
+        from notifications.task import send_order_notification
+
+        send_order_notification(order_id)
+    except Exception:
+        logger.exception(
+            'Order email notification failed for order %s',
+            order_id,
+        )
 
 
 # ===== ГОСТЕВАЯ КОРЗИНА =====
@@ -434,6 +451,9 @@ class CreateOrderView(APIView):
             )
         
         cart.items.all().delete()
+
+        transaction.on_commit(lambda: _send_order_email(order.id))
+
         serializer = OrderSerializer(order)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
