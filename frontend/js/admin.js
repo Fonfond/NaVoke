@@ -1,5 +1,11 @@
 // frontend/static/js/admin.js
 
+document.addEventListener('hide.bs.modal', function (event) {
+    if (event.target.contains(document.activeElement)) {
+        document.activeElement.blur();
+    }
+});
+
 function formatApiError(data, fallback = 'Ошибка запроса') {
     if (!data) return fallback;
     if (typeof data === 'string') return data;
