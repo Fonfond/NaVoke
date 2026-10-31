@@ -46,13 +46,23 @@ def send_order_notification(order_id):
     order_url = f'{settings.SITE_URL}/order/{order.id}/'
     admin_url = f'{settings.SITE_URL}/admin-panel/'
 
+    customer_name = order.customer_name or (
+        (order.user.full_name or order.user.username) if order.user else 'Гость'
+    )
+    customer_phone = order.customer_phone or (
+        order.user.phone if order.user else '—'
+    )
+    customer_email = order.customer_email or (
+        order.user.email if order.user else None
+    )
+
     admin_subject = f'🆕 Новый заказ #{order.order_number}'
     admin_message = f'''
 Новый заказ #{order.order_number}
 
-Клиент: {order.user.full_name or order.user.username}
-Телефон: {order.user.phone or '—'}
-Email: {order.user.email or '—'}
+Клиент: {customer_name}
+Телефон: {customer_phone or '—'}
+Email: {customer_email or '—'}
 Сумма: {order.total_amount} ₽
 Способ получения: {order.get_delivery_type_display()}
 Адрес: {order.delivery_address or '—'}
@@ -64,7 +74,7 @@ Email: {order.user.email or '—'}
 
     customer_subject = f'✅ Заказ #{order.order_number} оформлен'
     customer_message = f'''
-Здравствуйте, {order.user.full_name or order.user.username}!
+Здравствуйте, {customer_name}!
 
 Ваш заказ #{order.order_number} принят.
 
@@ -79,8 +89,10 @@ Email: {order.user.email or '—'}
 '''
 
     _send_one(admin_subject, admin_message, settings.ADMIN_EMAIL)
-    if order.user.email:
-        _send_one(customer_subject, customer_message, order.user.email)
+    if customer_email:
+        _send_one(customer_subject, customer_message, customer_email)
+    else:
+        logger.warning('No email for order %s', order.id)
 
     if settings.TELEGRAM_BOT_TOKEN and settings.TELEGRAM_CHAT_ID:
         send_telegram_notification(order)
@@ -93,11 +105,18 @@ def send_telegram_notification(order):
     if not settings.TELEGRAM_BOT_TOKEN or not settings.TELEGRAM_CHAT_ID:
         return
 
+    customer_name = order.customer_name or (
+        (order.user.full_name or order.user.username) if order.user else 'Гость'
+    )
+    customer_phone = order.customer_phone or (
+        order.user.phone if order.user else '—'
+    )
+
     message = f'''
 🆕 <b>Новый заказ #{order.order_number}</b>
 
-👤 {order.user.full_name or order.user.username}
-📞 {order.user.phone or '—'}
+👤 {customer_name}
+📞 {customer_phone or '—'}
 💰 {order.total_amount} ₽
 📦 {order.get_delivery_type_display()}
 📍 {order.delivery_address or '—'}

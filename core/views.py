@@ -112,7 +112,10 @@ class AnalyticsView(APIView):
             orders_data.append({
                 'id': order.id,
                 'order_number': order.order_number,
-                'user_name': order.user.full_name or order.user.username,
+                'user_name': (
+                    order.customer_name
+                    or (order.user.full_name or order.user.username if order.user else 'Гость')
+                ),
                 'total_amount': float(order.total_amount),
                 'status': order.status,
             })

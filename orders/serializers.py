@@ -76,6 +76,9 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class CreateOrderSerializer(serializers.Serializer):
+    full_name = serializers.CharField(max_length=150, required=False, allow_blank=True)
+    phone = serializers.CharField(max_length=30, required=False, allow_blank=True)
+    email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
     delivery_address = serializers.CharField(max_length=500, required=False, allow_blank=True)
     delivery_date = serializers.DateField(required=False, allow_null=True)
     delivery_time_from = serializers.TimeField(required=False, allow_null=True)
@@ -91,12 +94,27 @@ class CreateOrderSerializer(serializers.Serializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
-    user_name = serializers.ReadOnlyField(source='user.full_name')
+    user_name = serializers.SerializerMethodField()
     status_display = serializers.ReadOnlyField(source='get_status_display')
-    full_name = serializers.CharField(source='user.full_name', read_only=True)
-    phone = serializers.CharField(source='user.phone', read_only=True)
+    full_name = serializers.SerializerMethodField()
+    phone = serializers.SerializerMethodField()
     payment_method_display = serializers.CharField(source='get_payment_method_display', read_only=True)
-    
+
+    def get_user_name(self, obj):
+        if obj.customer_name:
+            return obj.customer_name
+        if obj.user:
+            return obj.user.full_name or obj.user.username
+        return ''
+
+    def get_full_name(self, obj):
+        return self.get_user_name(obj)
+
+    def get_phone(self, obj):
+        if obj.customer_phone:
+            return obj.customer_phone
+        return obj.user.phone if obj.user else ''
+
     class Meta:
         model = Order
         fields = (
@@ -109,6 +127,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'delivery_type', 'pickup_time', 'pickup_date',
             'delivery_lat', 'delivery_lng', # ✅ Добавить сюда
             'full_name', 'phone', 'payment_method_display',
+            'customer_name', 'customer_phone', 'customer_email',
             'persons_count', 'cutlery_count',
         )
         read_only_fields = ('order_number', 'order_date', 'status', 'payment_status')

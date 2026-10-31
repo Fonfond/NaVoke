@@ -9,15 +9,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             const user = await getProfile();
             console.log('👤 Пользователь:', user);
             
-            if (document.getElementById('checkoutName')) {
-                document.getElementById('checkoutName').value = user.full_name || '';
-            }
-            if (document.getElementById('checkoutPhone')) {
-                document.getElementById('checkoutPhone').value = user.phone || '';
-            }
-            if (document.getElementById('checkoutEmail')) {
-                document.getElementById('checkoutEmail').value = user.email || '';
-            }
+            const fillIfEmpty = (id, value) => {
+                const el = document.getElementById(id);
+                if (el && !el.value && value) el.value = value;
+            };
+            fillIfEmpty('checkoutName', user.full_name);
+            fillIfEmpty('checkoutPhone', user.phone);
+            fillIfEmpty('checkoutEmail', user.email);
         } catch (error) {
             console.error('Ошибка загрузки профиля:', error);
         }

@@ -54,7 +54,7 @@ def _cart_item_price(item):
 
 def _refund_order_bonus(order):
     """Возврат списанных бонусов. Вызывается только внутри transaction.atomic."""
-    if not order.bonus_used:
+    if not order.bonus_used or not order.user_id:
         return
 
     user = User.objects.select_for_update().get(pk=order.user_id)
@@ -65,6 +65,9 @@ def _refund_order_bonus(order):
 
 def _award_bonus_for_delivery(order):
     """Начисление бонусов за доставленный заказ."""
+    if not order.user_id:
+        return
+
     site = SiteSettings.get_settings()
     if not site.bonus_enabled:
         return
@@ -82,7 +85,7 @@ def _award_bonus_for_delivery(order):
 
 
 def _notify_status_change(order, new_status):
-    if not order.user.fcm_token:
+    if not order.user or not order.user.fcm_token:
         return
 
     send_push_notification(
@@ -349,17 +352,37 @@ class ClearCartView(APIView):
 
 # ===== ЗАКАЗЫ =====
 class CreateOrderView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     @transaction.atomic
     def post(self, request):
         serializer = CreateOrderSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         data = serializer.validated_data
-        
-        try:
-            cart = Cart.objects.select_for_update().get(user=request.user)
-        except Cart.DoesNotExist:
+
+        is_authenticated = request.user.is_authenticated
+        if is_authenticated:
+            try:
+                cart = Cart.objects.select_for_update().get(user=request.user)
+            except Cart.DoesNotExist:
+                return Response(
+                    {'error': 'Корзина пуста'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            user = User.objects.select_for_update().get(pk=request.user.pk)
+        else:
+            session_id = request.COOKIES.get('guest_session_id')
+            if not session_id:
+                return Response(
+                    {'error': 'Корзина пуста'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            cart = Cart.objects.select_for_update().filter(
+                session_id=session_id
+            ).first()
+            user = None
+
+        if not cart:
             return Response(
                 {'error': 'Корзина пуста'},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -372,7 +395,6 @@ class CreateOrderView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        user = User.objects.select_for_update().get(pk=request.user.pk)
         site = SiteSettings.get_settings()
 
         priced_items = [(item, _cart_item_price(item)) for item in cart_items]
@@ -387,14 +409,14 @@ class CreateOrderView(APIView):
         else:
             delivery_cost = Decimal(site.delivery_base_cost)
 
-        requested_bonus = data.get('bonus_used', 0)
+        requested_bonus = data.get('bonus_used', 0) if user else 0
         if requested_bonus > subtotal:
             return Response(
                 {'error': 'Бонусов больше, чем стоимость заказа'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        if site.bonus_enabled:
+        if user and site.bonus_enabled:
             max_bonus_by_percent = int(
                 subtotal * Decimal(site.bonus_max_percent) / Decimal('100')
             )
@@ -412,15 +434,30 @@ class CreateOrderView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        if bonus_used:
+        if bonus_used and user:
             User.objects.filter(pk=user.pk).update(
                 bonus_points=F('bonus_points') - bonus_used
             )
-        
+
+        customer_name = (data.get('full_name') or '').strip()
+        if not customer_name and user:
+            customer_name = user.full_name or user.username
+
+        customer_phone = (data.get('phone') or '').strip()
+        if not customer_phone and user:
+            customer_phone = user.phone or ''
+
+        customer_email = (data.get('email') or '').strip()
+        if not customer_email and user:
+            customer_email = user.email or ''
+
         order_number = f"NVK-{timezone.now().strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
-        
+
         order = Order.objects.create(
             user=user,
+            customer_name=customer_name,
+            customer_phone=customer_phone,
+            customer_email=customer_email or None,
             order_number=order_number,
             delivery_address=data.get('delivery_address', ''),
             delivery_date=data.get('delivery_date'),
