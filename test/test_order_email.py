@@ -1,4 +1,5 @@
 from decimal import Decimal
+import logging
 
 import pytest
 from django.urls import reverse
@@ -80,6 +81,7 @@ class TestOrderEmailNotifications:
         assert f'https://navoke.example/order/{order.id}/' in customer_email.body
         assert '127.0.0.1' not in admin_email.body
         assert '1000' in customer_email.body
+        assert order.customer_email == 'client@example.com'
 
     def test_smtp_failure_does_not_rollback_order(
         self,
@@ -114,6 +116,7 @@ class TestOrderEmailNotifications:
         django_capture_on_commit_callbacks,
         mailoutbox,
         settings,
+        caplog,
     ):
         self.user.email = ''
         self.user.save(update_fields=['email'])
@@ -122,13 +125,65 @@ class TestOrderEmailNotifications:
         settings.DEFAULT_FROM_EMAIL = 'noreply@test.local'
         mailoutbox.clear()
 
-        with django_capture_on_commit_callbacks(execute=True):
-            response = self.client.post(
-                reverse('orders:create-order'),
-                self._payload(),
-                format='json',
-            )
+        with caplog.at_level(logging.WARNING):
+            with django_capture_on_commit_callbacks(execute=True):
+                response = self.client.post(
+                    reverse('orders:create-order'),
+                    self._payload(),
+                    format='json',
+                )
 
         assert response.status_code == 201, response.data
         assert len(mailoutbox) == 1
         assert mailoutbox[0].to == ['admin@test.local']
+        assert f'No email for order {response.data["id"]}' in caplog.text
+
+    def test_guest_order_uses_request_email(
+        self,
+        django_capture_on_commit_callbacks,
+        mailoutbox,
+        settings,
+    ):
+        settings.EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+        settings.ADMIN_EMAIL = 'admin@test.local'
+        settings.DEFAULT_FROM_EMAIL = 'noreply@test.local'
+        settings.SITE_URL = 'https://navoke.example'
+        mailoutbox.clear()
+
+        guest_client = APIClient()
+        cart_response = guest_client.post(
+            reverse('orders:guest-cart'),
+            {'product_id': self.product.id, 'quantity': 1},
+            format='json',
+        )
+        assert cart_response.status_code == 200, cart_response.data
+
+        payload = self._payload()
+        payload.update({
+            'full_name': 'Гость',
+            'phone': '+79990000301',
+            'email': 'guest@example.com',
+        })
+
+        with django_capture_on_commit_callbacks(execute=True):
+            response = guest_client.post(
+                reverse('orders:create-order'),
+                payload,
+                format='json',
+            )
+
+        assert response.status_code == 201, response.data
+        order = Order.objects.get(id=response.data['id'])
+        assert order.user is None
+        assert order.customer_email == 'guest@example.com'
+        assert order.customer_name == 'Гость'
+        assert order.customer_phone == '+79990000301'
+        assert len(mailoutbox) == 2
+        assert any(
+            email.to == ['guest@example.com'] for email in mailoutbox
+        )
+        assert any(
+            'guest@example.com' in email.body
+            for email in mailoutbox
+            if email.to == ['admin@test.local']
+        )

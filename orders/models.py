@@ -107,10 +107,21 @@ class Order(models.Model):
         ('cash', 'Наличными курьеру'),
     )
 
-    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='orders')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name='orders',
+        null=True,
+        blank=True,
+    )
     courier = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True, related_name='deliveries')
     order_number = models.CharField(max_length=20, unique=True)
     order_date = models.DateTimeField(auto_now_add=True)
+
+    # Снимок контактных данных на момент оформления заказа.
+    customer_name = models.CharField(max_length=150, blank=True)
+    customer_phone = models.CharField(max_length=30, blank=True)
+    customer_email = models.EmailField(blank=True, null=True)
 
     delivery_address = models.TextField()
     delivery_date = models.DateField(null=True, blank=True)
@@ -154,7 +165,10 @@ class Order(models.Model):
         ]
 
     def __str__(self):
-        return f"Заказ {self.order_number} - {self.user.username}"
+        customer = self.customer_name or (
+            (self.user.full_name or self.user.username) if self.user else 'Гость'
+        )
+        return f"Заказ {self.order_number} - {customer}"
     delivery_lat = models.FloatField(null=True, blank=True, verbose_name='Широта адреса')
     delivery_lng = models.FloatField(null=True, blank=True, verbose_name='Долгота адреса')
 
