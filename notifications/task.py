@@ -43,6 +43,9 @@ def send_order_notification(order_id):
         logger.warning('Order %s not found for email notification', order_id)
         return f'Заказ #{order_id} не найден'
 
+    order_url = f'{settings.SITE_URL}/order/{order.id}/'
+    admin_url = f'{settings.SITE_URL}/admin-panel/'
+
     admin_subject = f'🆕 Новый заказ #{order.order_number}'
     admin_message = f'''
 Новый заказ #{order.order_number}
@@ -55,7 +58,8 @@ Email: {order.user.email or '—'}
 Адрес: {order.delivery_address or '—'}
 Статус: {order.get_status_display()}
 
-Ссылка на заказ: {settings.SITE_URL}/admin/orders/order/{order.id}/change/
+Открыть админку: {admin_url}
+Заказ: {order_url}
 '''
 
     customer_subject = f'✅ Заказ #{order.order_number} оформлен'
@@ -68,6 +72,8 @@ Email: {order.user.email or '—'}
 Способ получения: {order.get_delivery_type_display()}
 Адрес: {order.delivery_address or '—'}
 Статус: {order.get_status_display()}
+
+Посмотреть заказ: {order_url}
 
 Спасибо, что выбрали НаVoke!
 '''

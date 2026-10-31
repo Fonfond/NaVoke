@@ -51,6 +51,13 @@ def test_admin_js_uses_variant_detail_endpoint():
     assert 'uploadEditProductImage' in source
 
 
+def test_external_cdn_scripts_are_deferred():
+    for page in Path('frontend/pages').glob('*.html'):
+        for line in page.read_text(encoding='utf-8').splitlines():
+            if '<script' in line and 'cdn.jsdelivr.net' in line:
+                assert 'defer' in line, f'Blocking CDN script in {page}: {line}'
+
+
 @pytest.mark.parametrize(
     ('path', 'forbidden'),
     [

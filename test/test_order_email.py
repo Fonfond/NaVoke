@@ -48,6 +48,7 @@ class TestOrderEmailNotifications:
         settings.EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
         settings.ADMIN_EMAIL = 'admin@test.local'
         settings.DEFAULT_FROM_EMAIL = 'noreply@test.local'
+        settings.SITE_URL = 'https://navoke.example'
         mailoutbox.clear()
 
         with django_capture_on_commit_callbacks(execute=True):
@@ -74,7 +75,10 @@ class TestOrderEmailNotifications:
         assert order.order_number in customer_email.subject
         assert admin_email.from_email == 'noreply@test.local'
         assert customer_email.from_email == 'noreply@test.local'
-        assert 'Филадельфия' not in admin_email.body
+        assert 'https://navoke.example/admin-panel/' in admin_email.body
+        assert f'https://navoke.example/order/{order.id}/' in admin_email.body
+        assert f'https://navoke.example/order/{order.id}/' in customer_email.body
+        assert '127.0.0.1' not in admin_email.body
         assert '1000' in customer_email.body
 
     def test_smtp_failure_does_not_rollback_order(

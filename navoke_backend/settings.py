@@ -226,7 +226,7 @@ TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', '')
 
 # Сайт для ссылок
-SITE_URL = os.getenv('SITE_URL', 'http://127.0.0.1:8000')
+SITE_URL = os.getenv('SITE_URL', 'http://127.0.0.1:8000').rstrip('/')
 
 # ✅ Добавляем настройки для ЮKassa
 YOOKASSA_SHOP_ID = os.getenv('YOOKASSA_SHOP_ID')
