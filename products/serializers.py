@@ -132,6 +132,9 @@ class ProductWriteSerializer(serializers.ModelSerializer):
             'has_variants',
             getattr(instance, 'has_variants', False) if instance else False,
         )
+        # У старых товаров флаг мог остаться false, хотя вариации уже созданы.
+        if instance and instance.variants.exists():
+            has_variants = True
         price = attrs.get(
             'price',
             getattr(instance, 'price', None) if instance else None,

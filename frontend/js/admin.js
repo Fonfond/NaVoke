@@ -1,5 +1,86 @@
 // frontend/static/js/admin.js
 
+function formatApiError(data, fallback = 'Ошибка запроса') {
+    if (!data) return fallback;
+    if (typeof data === 'string') return data;
+    const entries = Object.entries(data);
+    if (entries.length === 0) return fallback;
+    const [field, value] = entries[0];
+    const message = Array.isArray(value) ? value.join(' ') : String(value);
+    return `${field}: ${message}`;
+}
+
+function bindImagePreview(inputId, previewId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+    if (!input || !preview) return;
+
+    input.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (!file) {
+            preview.style.display = 'none';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            preview.src = event.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function validateImageFile(file) {
+    if (file.size > 5 * 1024 * 1024) {
+        return 'Размер файла не должен превышать 5 МБ';
+    }
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowedTypes.includes(file.type)) {
+        return 'Поддерживаются только: JPEG, PNG, WebP, GIF';
+    }
+    return null;
+}
+
+async function uploadEditProductImage(productId, file) {
+    const statusEl = document.getElementById('editProductImageStatus');
+    const preview = document.getElementById('editProductImagePreview');
+    const error = validateImageFile(file);
+
+    if (error) {
+        if (statusEl) statusEl.textContent = '⚠️ ' + error;
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+        if (statusEl) statusEl.textContent = '⏳ Загрузка...';
+        const response = await fetch(`/api/v1/products/${Number(productId)}/upload-image/`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
+            body: formData
+        });
+
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            throw new Error(result.error || formatApiError(result, 'Ошибка загрузки фото'));
+        }
+
+        if (preview && result.image_url) {
+            preview.src = result.image_url + '?t=' + Date.now();
+            preview.style.display = 'block';
+        }
+        if (statusEl) statusEl.textContent = '✅ Фото загружено';
+        loadProducts();
+    } catch (err) {
+        console.error('❌ Ошибка загрузки фото товара:', err);
+        if (statusEl) statusEl.textContent = '❌ ' + err.message;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('access_token');
     if (!token) {
@@ -8,24 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     checkAdminAccess();
-
-    const addImageInput = document.getElementById('addProductImage');
-    if (addImageInput) {
-        addImageInput.addEventListener('change', function (e) {
-            const preview = document.getElementById('addProductPreview');
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    preview.src = event.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.style.display = 'none';
-            }
-        });
-    }
 });
 
 async function checkAdminAccess() {
@@ -802,12 +865,24 @@ async function showEditProductModal(productId) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editProductForm">
+                        <form id="editProductForm" data-has-variants="${hasVariants}">
                             <input type="hidden" id="editProductId" value="${Number(productData.id)}">
                             
                             <div class="mb-3">
                                 <label class="form-label">Название *</label>
                                 <input type="text" class="form-control" id="editProductName" value="${escapeHTML(productData.name)}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Фото товара</label>
+                                <input type="file" class="form-control" id="editProductImageFile" accept="image/*">
+                                <div class="mt-2 text-center">
+                                    <img id="editProductImagePreview"
+                                         src="${escapeHTML(productData.image_url || '/static/images/no-image.png')}"
+                                         alt="Предпросмотр"
+                                         style="max-width: 100%; max-height: 150px; border-radius: 8px;">
+                                </div>
+                                <div id="editProductImageStatus" class="small mt-1"></div>
                             </div>
                             
                             <div class="mb-3">
@@ -863,6 +938,16 @@ async function showEditProductModal(productId) {
 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
     new bootstrap.Modal(document.getElementById('editProductModal')).show();
+
+    bindImagePreview('editProductImageFile', 'editProductImagePreview');
+    const editImageInput = document.getElementById('editProductImageFile');
+    if (editImageInput) {
+        editImageInput.addEventListener('change', function () {
+            if (this.files[0]) {
+                uploadEditProductImage(productId, this.files[0]);
+            }
+        });
+    }
 }
 
 async function submitEditProduct() {
@@ -873,20 +958,8 @@ async function submitEditProduct() {
     const description = document.getElementById('editProductDescription').value;
     const is_hit = document.getElementById('editProductHit').checked;
     const is_new = document.getElementById('editProductNew').checked;
-
-    // ✅ УПРОЩЁННАЯ ПРОВЕРКА: видим ли блок с ценой и весом
-    const priceWeightBlock = document.getElementById('editProductPriceWeightBlock');
-    const isVisible = priceWeightBlock && priceWeightBlock.style.display !== 'none';
-
-    // ✅ ЧИТАЕМ ЦЕНУ И ВЕС (только если блок виден)
-    let price = null;
-    let weight = 0;
-    if (isVisible) {
-        const priceInput = document.getElementById('editProductPrice');
-        const weightInput = document.getElementById('editProductWeight');
-        price = priceInput ? parseFloat(priceInput.value) || null : null;
-        weight = weightInput ? parseInt(weightInput.value) || 0 : 0;
-    }
+    const form = document.getElementById('editProductForm');
+    const hasVariants = form && form.dataset.hasVariants === 'true';
 
     const errorEl = document.getElementById('editProductError');
     const successEl = document.getElementById('editProductSuccess');
@@ -900,29 +973,51 @@ async function submitEditProduct() {
         return;
     }
 
+    let price = null;
+    let weight = 0;
+    if (!hasVariants) {
+        const priceInput = document.getElementById('editProductPrice');
+        const weightInput = document.getElementById('editProductWeight');
+        const parsedPrice = priceInput ? parseFloat(priceInput.value) : NaN;
+        if (!Number.isFinite(parsedPrice) || parsedPrice <= 0) {
+            errorEl.textContent = '⚠️ Для товара без вариаций укажите цену больше 0';
+            errorEl.classList.remove('d-none');
+            return;
+        }
+        price = parsedPrice;
+        weight = weightInput ? parseInt(weightInput.value) || 0 : 0;
+    }
+
     try {
-        const response = await fetch(`/api/v1/products/${productId}/update/`, {
+        const payload = {
+            name,
+            category,
+            ingredients: ingredients || '',
+            description: description || '',
+            is_hit,
+            is_new,
+            has_variants: hasVariants,
+        };
+        if (!hasVariants) {
+            payload.price = price;
+            payload.weight = weight;
+        }
+
+        const response = await fetch(`/api/v1/products/${Number(productId)}/update/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('access_token')}`
             },
-            body: JSON.stringify({
-                name: name,
-                category: category,
-                ingredients: ingredients || '',
-                description: description || '',
-                is_hit: is_hit,
-                is_new: is_new,
-                price: price, // ✅ Если null — в базе станет NULL
-                weight: weight // ✅ Если 0 — в базе станет 0
-            })
+            body: JSON.stringify(payload)
         });
 
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-            throw new Error(result.error || result.detail || 'Ошибка редактирования товара');
+            throw new Error(
+                result.error || result.detail || formatApiError(result)
+            );
         }
 
         successEl.textContent = '✅ Товар успешно обновлён!';
@@ -1093,6 +1188,7 @@ async function showAddProductModal() {
 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
     new bootstrap.Modal(document.getElementById('addProductModal')).show();
+    bindImagePreview('addProductImage', 'addProductPreview');
 }
 
 async function submitAddProduct() {
@@ -1115,6 +1211,15 @@ async function submitAddProduct() {
         errorEl.textContent = '⚠️ Заполните название и категорию';
         errorEl.classList.remove('d-none');
         return;
+    }
+
+    if (!hasVariants) {
+        const parsedPrice = parseFloat(price);
+        if (!Number.isFinite(parsedPrice) || parsedPrice <= 0) {
+            errorEl.textContent = '⚠️ Для товара без вариаций укажите цену больше 0';
+            errorEl.classList.remove('d-none');
+            return;
+        }
     }
 
     try {
@@ -1145,11 +1250,13 @@ async function submitAddProduct() {
             body: formData
         });
 
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
         console.log('📦 Результат создания товара:', result);
 
         if (!response.ok) {
-            throw new Error(result.error || result.detail || 'Ошибка создания товара');
+            throw new Error(
+                result.error || result.detail || formatApiError(result, 'Ошибка создания товара')
+            );
         }
 
         successEl.textContent = '✅ Товар успешно создан!';
@@ -1454,20 +1561,8 @@ async function submitEditSingleVariant() {
     }
 
     try {
-        // Сначала удаляем старую вариацию
-        const deleteResponse = await fetch(`/api/v1/products/${productId}/variants/delete/${variantId}/`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            }
-        });
-        if (!deleteResponse.ok) {
-            throw new Error('Ошибка удаления старой вариации');
-        }
-
-        // Затем создаём новую с обновлёнными данными
-        const createResponse = await fetch(`/api/v1/products/${productId}/variants/create/`, {
-            method: 'POST',
+        const response = await fetch(`/api/v1/products/${Number(productId)}/variants/${Number(variantId)}/`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -1480,12 +1575,14 @@ async function submitEditSingleVariant() {
             })
         });
 
-        if (!createResponse.ok) {
-            const errorData = await createResponse.json();
-            throw new Error(errorData.error || errorData.detail || 'Ошибка обновления вариации');
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(
+                errorData.error || errorData.detail || formatApiError(errorData, 'Ошибка обновления вариации')
+            );
         }
 
-        const result = await createResponse.json();
+        const result = await response.json();
         console.log('✅ Вариация обновлена:', result);
 
         successEl.textContent = '✅ Вариация успешно обновлена!';
@@ -1515,7 +1612,7 @@ async function deleteVariant(variantId, productId) {
     }
 
     try {
-        const response = await fetch(`/api/v1/products/${productId}/variants/delete/${variantId}/`, {
+        const response = await fetch(`/api/v1/products/${Number(productId)}/variants/${Number(variantId)}/`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('access_token')}`
